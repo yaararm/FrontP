@@ -14,4 +14,5 @@ public class Season {
     private ScoreComputingPolicy scorePolicy;
     private AssignPolicy  assignPolicy;
 
+    private int w=0;
 }
