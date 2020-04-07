@@ -80,37 +80,4 @@ public class Owner extends SignedUser {
     public HashMap<Team, HashSet<TeamManager>> getAssignedTeamManagers() {
         return assignedTeamManagers;
     }
-
-    public boolean closeTeam(Team team) throws Exception {
-        if(team.getState() == TeamState.active){
-            team.setStatus(TeamState.notActive);
-            //Todo send alerts
-            //todo save data on team
-        }
-        else{
-            throw new Exception("This team is already closed");
-        }
-        return true;
-    }
-
-    public boolean openTeam(Team team) throws Exception {
-        TeamState state = team.getState();
-        if(state == TeamState.notActive){
-            team.setStatus(TeamState.active);
-            //Todo send alerts
-        }
-        else{
-            if(state == TeamState.active)
-                throw new Exception("This team is already active");
-            else if(state == TeamState.permanentlyClosed)
-                throw new Exception("This team is permanently closed, please contact the system manager");
-        }
-        return true;
-    }
-
-    public boolean addFinanceAction(Team team){
-        //todo what this should contain??
-        return false;
-
-    }
 }
