@@ -1,9 +1,14 @@
 package domain.controllers;
 
+import domain.Team;
+
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class SystemController {
     static HashMap<String, String> userNamePassword= new HashMap<>();
+
+    public static HashSet<Team> systemTeams = new HashSet<>();
 
     public static boolean UserNameValidation(String username) {
         if (userNamePassword.containsKey(username))
