@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Owner extends SignedUser {
+    public Owner(String username, String password) {
+        super(username, password);
+      
     private HashMap<Team, HashSet<Owner>> assignedOwners;
     private HashMap<Team, HashSet<TeamManager>> assignedTeamManagers;
 
@@ -107,5 +110,6 @@ public class Owner extends SignedUser {
     public boolean addFinanceAction(Team team){
         //todo what this should contain??
         return false;
+
     }
 }
