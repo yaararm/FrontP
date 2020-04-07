@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Owner extends SignedUser {
-    public Owner(String username, String password) {
-        super(username, password);
-      
     private HashMap<Team, HashSet<Owner>> assignedOwners;
     private HashMap<Team, HashSet<TeamManager>> assignedTeamManagers;
 
     public Owner() {
         this.assignedOwners = new HashMap<>();
+    }
+
+    public Owner(String username, String password) {
+        super(username, password);
     }
 
     public boolean addOwner(Team team, Owner owner) throws Exception {
