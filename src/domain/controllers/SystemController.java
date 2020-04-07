@@ -4,12 +4,15 @@ import domain.*;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SystemController {
     static HashMap<String, User> userNameUser= new HashMap<>();
     static HashMap<Fan, HashMap<String, Date>> fanHistory= new HashMap<>();
+    static HashMap<String, League> leagues = new HashMap<>();
+
 
 
 
@@ -38,6 +41,15 @@ public class SystemController {
             return collect;
         }
         return null;
+    }
+
+    public static boolean leaguesNameValidation(String leagueName) {
+        return leagues.containsKey(leagueName);
+    }
+
+    public static boolean addNewLeague(String leagueName, League newLeague) {
+        leagues.put(leagueName,newLeague);
+         return true;
     }
 
 
