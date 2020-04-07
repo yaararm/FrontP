@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class SystemController {
     static HashMap<String, User> userNameUser= new HashMap<>();
@@ -15,6 +17,8 @@ public class SystemController {
 
 
 
+
+    public static HashSet<Team> systemTeams = new HashSet<>();
 
     public static boolean UserNameValidation(String username) {
         if (userNameUser.containsKey(username))
