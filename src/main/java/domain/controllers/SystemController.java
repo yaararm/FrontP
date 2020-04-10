@@ -12,8 +12,10 @@ import java.util.HashSet;
 public class SystemController {
     static HashMap<String, User> userNameUser= new HashMap<>();
     static HashMap<Fan, HashMap<String, Date>> fanHistory= new HashMap<>();
-    static HashMap<String, League> leagues = new HashMap<>();
+    static HashMap<String, League> leagueNameLeagues = new HashMap<>();
     public static HashSet<Team> systemTeams = new HashSet<>();
+    public static HashMap<Integer, Referee> IDReferees = new HashMap<>();
+    static HashSet<User> archiveUsers= new HashSet<>();
     static final Logger logger = LogManager.getLogger(SystemController.class.getName());
 
     public static boolean UserNameValidation(String username) {
@@ -44,11 +46,11 @@ public class SystemController {
     }
 
     public static boolean leaguesNameValidation(String leagueName) {
-        return leagues.containsKey(leagueName);
+        return leagueNameLeagues.containsKey(leagueName);
     }
 
     public static boolean addNewLeague(String leagueName, League newLeague) {
-        leagues.put(leagueName,newLeague);
+        leagueNameLeagues.put(leagueName,newLeague);
          return true;
     }
 

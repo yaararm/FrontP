@@ -56,9 +56,9 @@ public class FanController {
 
     //TODO complete
     //Use Case 3.6
-    public boolean updateDetails(HashMap<String, String> valuesToUpdate) {
+    public boolean updateDetails(Fan fan, HashMap<String, String> valuesToUpdate) {
         for (Map.Entry<String, String> entry : valuesToUpdate.entrySet()) {
-            switch (entry.getKey()) {
+            switch (entry.getKey().toLowerCase()) {
                 case "email":
                     break;
                 case "firstName":
