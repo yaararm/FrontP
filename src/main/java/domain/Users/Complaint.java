@@ -1,5 +1,6 @@
 package domain.Users;
 
+import domain.Controllers.SystemController;
 import domain.Enums.ComplaintStatus;
 import domain.Users.Fan;
 import domain.Users.SystemManager;
@@ -8,11 +9,13 @@ import domain.Controllers.ComplaintSystemController;
 import java.util.HashSet;
 
 public class Complaint {
-    Fan fan;
-    String description;
-    long reportDate;
-    HashSet<Comment> comments;
-    ComplaintStatus status;
+    private static int idCounter = 0;
+    private Fan fan;
+    private String description;
+    private long reportDate;
+    private HashSet<Comment> comments;
+    private ComplaintStatus status;
+    private int complaintID;
 
 
     public Complaint(Fan fan, String description) {
@@ -22,37 +25,62 @@ public class Complaint {
         reportDate = System.currentTimeMillis();
         status = ComplaintStatus.New;
         ComplaintSystemController.addComplaint(this);
+        this.complaintID = idCounter++;
     }
 
-    public ComplaintStatus getStatus() {
-        return status;
-    }
+    // ========== Comments ================
 
-    public boolean addComment(SystemManager systemManager, String comment) throws Exception {
-        if(this.status == ComplaintStatus.Closed){
-            throw new Exception("This Complaint status is already Closed");
-        }
-        else{
-            Comment complaintComment = new Comment(systemManager,comment);
-            comments.add(complaintComment);
-            this.status = ComplaintStatus.Closed;
-        }
-        return true;
-    }
-
-    private class Comment{
-        SystemManager systemManager;
-        String comment;
-        long CommentDate;
+    private static class Comment {
+        private static int idCounter = 0;
+        private SystemManager systemManager;
+        private String comment;
+        private long CommentDate;
+        private int commentID;
 
         public Comment(SystemManager systemManager, String comment) {
             this.systemManager = systemManager;
             this.comment = comment;
             CommentDate = System.currentTimeMillis();
+            commentID = idCounter++;
+        }
+
+        public int getCommentID() {
+            return commentID;
         }
     }
 
+    public boolean addComment(SystemManager systemManager, String comment) throws Exception {
+        if (this.status == ComplaintStatus.Closed) {
+            throw new Exception("This Complaint status is already Closed");
+        }
+        Comment complaintComment = new Comment(systemManager, comment);
+        comments.add(complaintComment);
+        systemManager.addComplaint(this);
+        this.status = ComplaintStatus.Closed;
+        SystemController.logger.info("New comment to complaint have been created; Complaint ID: " + complaintID +
+                "; Comment ID: " + complaintComment.getCommentID() + "; System Manger ID:" + systemManager.complaintsWithMyComments);
 
+        return true;
+    }
 
+    //========== Getters and Setters ================
+    public ComplaintStatus getStatus() {
+        return status;
+    }
 
+    public void setStatus(ComplaintStatus status) {
+        this.status = status;
+    }
+
+    public Fan getFan() {
+        return fan;
+    }
+
+    public void setFan(Fan fan) {
+        this.fan = fan;
+    }
+
+    public int getComplaintID() {
+        return complaintID;
+    }
 }

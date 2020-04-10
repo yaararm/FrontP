@@ -9,7 +9,6 @@ import java.util.HashSet;
 
 public class PersonalPage {
 
-    //Todo - what to do with the owner it could be Footballer or Coach (both SignedUser) or Team
     SignedUser pageOwner;
     long openDate;
     HashSet<Fan> fans = new HashSet<>();
@@ -32,5 +31,13 @@ public class PersonalPage {
         if(fans.add(fan))
             return true;
         return false;
+    }
+
+    public SignedUser getPageOwner() {
+        return pageOwner;
+    }
+
+    public long getOpenDate() {
+        return openDate;
     }
 }

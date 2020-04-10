@@ -7,6 +7,6 @@ public class AssociationRepresentative extends SignedUser {
 
     @Override
     public boolean deleteUser() {
-        return false;
+        return true;
     }
 }

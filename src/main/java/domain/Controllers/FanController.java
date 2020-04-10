@@ -36,17 +36,20 @@ public class FanController {
 
     //Use Case 3.4
     public boolean createComplaint(Fan fan, String description) {
-        if (description.length() > 0) {
-            Complaint complaint = new Complaint(fan, description);
-            fan.addToMyComplaints(complaint);
-            return true;
+        if (description.length() <= 0) {
+            return false;
         }
-        return false;
+        Complaint complaint = new Complaint(fan, description);
+        fan.addToMyComplaints(complaint);
+        SystemController.logger.info("New complaint have been created; Complaint ID: " + complaint.getComplaintID() + "; Fan ID: " + fan.getFanID());
+
+        return true;
+
     }
 
     //Use Case 3.5
     public Map<String, Long> mySearchHistory(Fan fan, long fromDate, long toDate) throws Exception {
-        if (fromDate<fan.getSignedUpDate() || fromDate>toDate) {
+        if (fromDate < fan.getSignedUpDate() || fromDate > toDate) {
             throw new Exception("Wrong Dates");
         }
         Map<String, Long> searchHistory = SystemController.getSearchHistory(fan, fromDate, toDate);
@@ -71,7 +74,6 @@ public class FanController {
         }
         return true;
     }
-
 
 
 }

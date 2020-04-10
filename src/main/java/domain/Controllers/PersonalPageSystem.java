@@ -1,10 +1,7 @@
 package domain.Controllers;
 
 import domain.Impl.Team;
-import domain.Users.Coach;
-import domain.Users.Footballer;
-import domain.Users.PersonalPage;
-import domain.Users.SignedUser;
+import domain.Users.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +10,8 @@ public class PersonalPageSystem {
     static HashMap<Footballer, PersonalPage> footballersPersonalPage = new HashMap<>();
     HashMap<Team, PersonalPage> teamsPersonalPage = new HashMap<>();
     static HashMap<Coach, PersonalPage> coachesPersonalPage = new HashMap<>();
+    static HashMap<PersonalPage, String> archivePersonalPage = new HashMap<>();
+
 
 
     public static boolean addToFootballerList(Footballer footballer, PersonalPage myPersonalPage) {
@@ -25,7 +24,15 @@ public class PersonalPageSystem {
         return true;
     }
 
-    //TODO complete
+    public static boolean moveToArchive(PersonalPage personalPage) {
+        SignedUser pageOwner = personalPage.getPageOwner();
+
+    }
+
+
+
+
+        //TODO complete
     //Use Case 4.1 5.1
     public boolean updatePersonalPage(SignedUser signedUser, HashMap<String,String> valuesToUpdate){
         if(signedUser instanceof Footballer || signedUser instanceof Coach){
