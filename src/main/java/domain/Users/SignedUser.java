@@ -9,7 +9,7 @@ public abstract class SignedUser extends User{
     UserStatus status;
     String firstName;
     String lastName;
-
+  
     public SignedUser (String username, String password, String firstName, String lastName) {
         this.userName=username;
         this.password=password;
@@ -35,9 +35,11 @@ public abstract class SignedUser extends User{
     public String getPassword() {
         return password;
     }
+
     public void changeStatus(UserStatus status){
         this.status=status;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -45,5 +47,4 @@ public abstract class SignedUser extends User{
     //========== Abstract Functions ================
 
     public abstract boolean deleteUser();
-
 }

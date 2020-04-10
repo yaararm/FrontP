@@ -15,6 +15,11 @@ public class TeamManager extends ManagementUser {
         }
     }
 
+    @Override
+    public boolean deleteUser() {
+        return false;
+    }
+
     public boolean addPermissions(TeamManagerPermissions ... teamManagerPermissions){
         for (TeamManagerPermissions teamManagerPermission : teamManagerPermissions) {
             permissions.put(teamManagerPermission, true);

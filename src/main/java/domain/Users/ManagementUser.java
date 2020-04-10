@@ -5,11 +5,13 @@ import domain.Impl.Team;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public abstract class ManagementUser extends SignedUser {
+public abstract class ManagementUser extends TeamUser {
     protected HashMap<Team, HashSet<Owner>> assignedOwners;
     protected HashMap<Team, HashSet<TeamManager>> assignedTeamManagers;
     public ManagementUser(String username, String password) {
         super(username, password);
+        this.assignedOwners = new HashMap<>();
+        this.assignedTeamManagers = new HashMap<>();
     }
 
     public boolean addOwner(Team team, Owner owner) throws Exception {
