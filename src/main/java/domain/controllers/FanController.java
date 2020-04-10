@@ -1,8 +1,10 @@
 package domain.controllers;
 
-import domain.*;
+import domain.Complaint;
+import domain.Fan;
+import domain.Game;
+import domain.PersonalPage;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,11 +45,11 @@ public class FanController {
     }
 
     //Use Case 3.5
-    public Map<String, Date> mySearchHistory(Fan fan, Date fromDate, Date toDate) throws Exception {
-        if (fromDate.before(fan.getSignedUpDate()) || fromDate.after(toDate)) {
+    public Map<String, Long> mySearchHistory(Fan fan, long fromDate, long toDate) throws Exception {
+        if (fromDate<fan.getSignedUpDate() || fromDate>toDate) {
             throw new Exception("Wrong Dates");
         }
-        Map<String, Date> searchHistory = SystemController.getSearchHistory(fan, fromDate, toDate);
+        Map<String, Long> searchHistory = SystemController.getSearchHistory(fan, fromDate, toDate);
         if (searchHistory == null || searchHistory.size() == 0) {
             throw new Exception("No Search History");
         }

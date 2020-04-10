@@ -2,7 +2,6 @@ package domain.controllers;
 
 import domain.*;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -160,7 +159,7 @@ public class TeamOwnerController {
             throw new Exception("The user doesn't have permissions for this one");
     }
 
-    public boolean addFinanceAction(ManagementUser managementUser, Team team, String kind, double amount, String description, Date date,
+    public boolean addFinanceAction(ManagementUser managementUser, Team team, String kind, double amount, String description, long date,
                                     ManagementUser reporter) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.EditAsset))) {
             FinanceActivity financeActivity = new FinanceActivity(kind,amount,description,date,reporter);

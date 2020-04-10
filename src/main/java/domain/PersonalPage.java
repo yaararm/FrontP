@@ -1,20 +1,19 @@
 package domain;
 
-import java.util.Date;
 import java.util.HashSet;
 
 public class PersonalPage {
 
     //Todo - what to do with the owner it could be Footballer or Coach (both SignedUser) or Team
     SignedUser pageOwner;
-    Date openDate;
+    long openDate;
     HashSet<Fan> fans = new HashSet<>();
 
     public PersonalPage(SignedUser user) {
         if(user instanceof Footballer || user instanceof Coach)
             pageOwner=user;
 
-        openDate= new Date();
+        this.openDate= System.currentTimeMillis();
     }
 
     public boolean removeFans(Fan fan) {

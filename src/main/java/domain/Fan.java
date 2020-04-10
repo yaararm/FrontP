@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Date;
 import java.util.HashSet;
 
 public class Fan extends SignedUser {
@@ -8,7 +7,7 @@ public class Fan extends SignedUser {
     private String firstName;
     private String lastName;
 
-    private Date signedUpDate;
+    private long signedUpDate;
     private HashSet<PersonalPage> followedPersonalPages;
     private HashSet<Complaint> myComplaints;
     private HashSet<Game> observedGames;
@@ -16,7 +15,7 @@ public class Fan extends SignedUser {
 
     public Fan(String username, String password) {
         super(username, password);
-        signedUpDate = new Date();
+        signedUpDate = System.currentTimeMillis();
         followedPersonalPages = new HashSet<>();
         observedGames = new HashSet<>();
         myComplaints = new HashSet<>();
@@ -65,7 +64,7 @@ public class Fan extends SignedUser {
         return false;
     }
 
-    public Date getSignedUpDate() {
+    public long getSignedUpDate() {
         return signedUpDate;
     }
 

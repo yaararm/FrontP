@@ -2,9 +2,7 @@ package domain;
 
 import domain.controllers.ComplaintSystemController;
 
-import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 
 public class Complaint {
     Fan fan;
@@ -42,12 +40,12 @@ public class Complaint {
     private class Comment{
         SystemManager systemManager;
         String comment;
-        Date CommentDate;
+        long CommentDate;
 
         public Comment(SystemManager systemManager, String comment) {
             this.systemManager = systemManager;
             this.comment = comment;
-            CommentDate = new Date();
+            CommentDate = System.currentTimeMillis();
         }
     }
 

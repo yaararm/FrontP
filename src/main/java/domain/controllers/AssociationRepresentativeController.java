@@ -3,7 +3,6 @@ package domain.controllers;
 import domain.*;
 import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 

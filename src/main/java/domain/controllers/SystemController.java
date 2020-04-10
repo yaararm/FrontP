@@ -4,14 +4,14 @@ import domain.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.*;
-import java.util.stream.Collectors;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SystemController {
     static HashMap<String, User> userNameUser= new HashMap<>();
-    static HashMap<Fan, HashMap<String, Date>> fanHistory= new HashMap<>();
+    static HashMap<Fan, HashMap<String, Long>> fanHistory= new HashMap<>();
     static HashMap<String, League> leagueNameLeagues = new HashMap<>();
     public static HashSet<Team> systemTeams = new HashSet<>();
     public static HashMap<Integer, Referee> IDReferees = new HashMap<>();
@@ -36,10 +36,11 @@ public class SystemController {
         return null;
     }
 
-    public static Map<String, Date> getSearchHistory(Fan fan, final Date fromDate, final Date toDate) {
-        HashMap<String, Date> historyDateHashMap = fanHistory.get(fan);
+    public static Map<String, Long> getSearchHistory(Fan fan, final long fromDate, final long toDate) {
+        HashMap<String, Long> historyDateHashMap = fanHistory.get(fan);
         if(historyDateHashMap != null) {
-            Map<String, Date> collect = historyDateHashMap.entrySet().stream().filter(s -> s.getValue().before(toDate) && s.getValue().after(fromDate)).collect(Collectors.toMap(stringDateEntry -> stringDateEntry.getKey(), stringDateEntry -> stringDateEntry.getValue()));
+            Map<String, Long> collect =
+                    historyDateHashMap.entrySet().stream().filter(s -> s.getValue()<toDate && s.getValue()>fromDate).collect(Collectors.toMap(stringDateEntry -> stringDateEntry.getKey(), stringDateEntry -> stringDateEntry.getValue()));
             return collect;
         }
         return null;

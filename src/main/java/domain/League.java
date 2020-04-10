@@ -1,24 +1,21 @@
 package domain;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class League {
     String leagueName;
-    Date openDate;
+    long openDate;
     AssociationRepresentative responsibleAssociationRepresentative;
     HashMap<Integer, Season> leaguesSeasons;
-
 
 
     RefereeTraining minRefereeTrainingRequired;
 
     public League(String leagueName, AssociationRepresentative associationRepresentative, RefereeTraining refereeTraining) {
-        this.leagueName=leagueName;
-        this.responsibleAssociationRepresentative=associationRepresentative;
-        minRefereeTrainingRequired =refereeTraining;
-        openDate=new Date();
+        this.leagueName = leagueName;
+        this.responsibleAssociationRepresentative = associationRepresentative;
+        minRefereeTrainingRequired = refereeTraining;
+        openDate = System.currentTimeMillis();
         leaguesSeasons = new HashMap<>();
     }
 
@@ -27,10 +24,9 @@ public class League {
     }
 
     public boolean addSeason(Integer year, Season season) {
-        leaguesSeasons.put(year,season);
+        leaguesSeasons.put(year, season);
         return true;
     }
-
 
 
     public RefereeTraining getMinRefereeTrainingRequired() {
