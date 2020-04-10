@@ -19,4 +19,5 @@ public class AssociationRepresentativeController {
 
     //TODO
     //Use Case 9.2
+
 }
