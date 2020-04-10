@@ -1,6 +1,8 @@
 package domain.controllers;
 
 import domain.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,7 +16,7 @@ public class SystemController {
     public static HashSet<Team> systemTeams = new HashSet<>();
     public static HashMap<Integer, Referee> IDReferees = new HashMap<>();
     static HashSet<User> archiveUsers= new HashSet<>();
-
+    static final Logger logger = LogManager.getLogger(SystemController.class.getName());
 
     public static boolean UserNameValidation(String username) {
         if (userNameUser.containsKey(username))
