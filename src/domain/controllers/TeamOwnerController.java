@@ -14,7 +14,7 @@ public class TeamOwnerController {
         Team newTeam = new Team(teamName, TeamState.notActive);
         boolean newTeamAuthorization = ExternalServices.getNewTeamAuthorization(newTeam);
         if(!newTeamAuthorization)
-            throw new Exception("There is already team with the exact name");
+            throw new Exception("There is alreaעינdy team with the exact name");
         newTeam.setStatus(TeamState.active);
         newTeam.addTeamMember(teamOwner);
         return newTeam;
