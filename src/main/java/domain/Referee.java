@@ -10,7 +10,6 @@ public class Referee extends SignedUser {
     String lastName;
     String email;
     RefereeTraining refereeTraining;
-
     HashMap<RefereeRole, HashSet<Game>> games;
     HashSet<Season> seasons;
 
@@ -30,7 +29,7 @@ public class Referee extends SignedUser {
     @Override
     //TODO save the data
     public boolean deleteUser() {
-        long today = System.currentTimeMillis();
+        Date today = new Date();
         for (RefereeRole role: games.keySet()) {
             for (Game game: games.get(role)) {
                 if(!game.gameDate.before(today)){
@@ -67,9 +66,6 @@ public class Referee extends SignedUser {
     }
 
 
-    public HashMap<RefereeRole, HashSet<Game>> getGames() {
-        return games;
-    }
 
 
 }
