@@ -7,6 +7,9 @@ import java.security.NoSuchAlgorithmException;
 
 public abstract class SignedUser extends User{
     String userName;
+
+
+
     String password;
     UserStatus status;
 
@@ -31,4 +34,7 @@ public abstract class SignedUser extends User{
     }
 
     public abstract boolean deleteUser();
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

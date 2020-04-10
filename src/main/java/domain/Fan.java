@@ -22,6 +22,8 @@ public class Fan extends SignedUser {
         myComplaints = new HashSet<>();
     }
 
+
+
     public boolean checkIfFollowed(PersonalPage personalPage) {
         if(followedPersonalPages.contains(personalPage))
             return true;
@@ -65,6 +67,13 @@ public class Fan extends SignedUser {
 
     public Date getSignedUpDate() {
         return signedUpDate;
+    }
+
+    //TODO
+    @Override
+    public boolean deleteUser() {
+        return true;
+
     }
 
 }

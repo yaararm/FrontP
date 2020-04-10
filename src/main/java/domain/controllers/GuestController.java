@@ -2,8 +2,6 @@ package domain.controllers;
 
 import domain.*;
 
-import java.security.MessageDigest;
-
 public class GuestController {
 
    //Use Case 2.2
@@ -15,7 +13,7 @@ public class GuestController {
             throw new Exception("Not unique user name");
         }
         try {
-            String hashPassword = sha256(password);
+            String hashPassword = Utils.sha256(password);
             SignedUser newUser = new Fan(username,hashPassword);
             newUser.changeStatus(UserStatus.LogIn);
             SystemController.addNewUser(username,newUser);
@@ -25,22 +23,5 @@ public class GuestController {
         return true;
     }
 
-    public static String sha256(String base) {
-        try{
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(base.getBytes("UTF-8"));
-            StringBuffer hexString = new StringBuffer();
-
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if(hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-
-            return hexString.toString();
-        } catch(Exception ex){
-            throw new RuntimeException(ex);
-        }
-    }
 }
 

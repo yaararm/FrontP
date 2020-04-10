@@ -9,7 +9,7 @@ import java.util.List;
 public class Complaint {
     Fan fan;
     String description;
-    Date reportDate;
+    long reportDate;
     HashSet<Comment> comments;
     ComplaintStatus status;
 
@@ -18,7 +18,7 @@ public class Complaint {
         this.fan = fan;
         this.description = description;
         comments = new HashSet<>();
-        reportDate = new Date();
+        reportDate = System.currentTimeMillis();
         status = ComplaintStatus.New;
         ComplaintSystemController.addComplaint(this);
     }

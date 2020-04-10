@@ -45,7 +45,7 @@ public class PersonalPageSystem {
     public boolean addContentToPersonalPage(SignedUser signedUser, HashMap<String,String> valuesToUpdate){
         if(signedUser instanceof Footballer || signedUser instanceof Coach){
             for (Map.Entry<String, String> entry : valuesToUpdate.entrySet()) {
-                switch (entry.getKey()) {
+                switch (entry.getKey().toLowerCase()) {
                     case "birthday":
                         break;
                     case "history":
