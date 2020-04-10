@@ -4,12 +4,10 @@ package domain.Users;
 import domain.Enums.UserStatus;
 
 public abstract class SignedUser extends User{
-    String userName;
+    private String userName;
 
-
-
-    String password;
-    UserStatus status;
+    private String password;
+    private UserStatus status;
 
     public SignedUser (String username, String password) {
         this.userName=username;
@@ -31,8 +29,9 @@ public abstract class SignedUser extends User{
         return password;
     }
 
-    public abstract boolean deleteUser();
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public abstract boolean deleteUser() throws Exception;
 }

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 public class SystemMangerController {
 
+    //UC 8.1
     public boolean permanentlyCloseTeam(Team team) throws Exception {
         if (team.getState() == TeamState.active || team.getState() == TeamState.notActive) {
             team.setStatus(TeamState.permanentlyClosed);
@@ -27,28 +28,31 @@ public class SystemMangerController {
         return true;
     }
 
+    //UC 8.2
     public boolean removeUserFromSystem(SignedUser signedUser) throws Exception {
         //TODO add to all the users how we should remove them
         return true;
     }
 
+    //UC 8.3
     public List<Complaint> getAllComplaints() {
-        return ComplaintSystemController.newComplaint.stream().collect(Collectors.toList());
+        return new ArrayList<>(ComplaintSystemController.newComplaint);
     }
 
+    //UC 8.4
     public boolean addCommentToComplaint(SystemManager systemManager, Complaint complaint, String comment) throws Exception {
         return complaint.addComment(systemManager, comment);
         //TODO send notification to the fan
     }
 
+    //UC 8.5
     public List<List<String>> getSystemEventsLog(long fromDate, long toDate) throws Exception {
         if (fromDate < toDate) {
             List<List<String>> lists = readFromLog();
-            List<List<String>> matching = lists.stream().filter(strings -> {
+            return lists.stream().filter(strings -> {
                 long dataEpoch = Long.parseLong(strings.get(0));
                 return dataEpoch>fromDate && dataEpoch<toDate;
             }).collect(Collectors.toList());
-            return matching;
         } else {
             throw new Exception("Wrong Dates");
         }

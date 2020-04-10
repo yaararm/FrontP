@@ -44,12 +44,13 @@ public class Team {
         return true;
     }
 
-    public boolean addTeamMember(SignedUser... signedUsers) throws Exception {
+    public boolean addTeamMember(ManagementUser managementUser, SignedUser... signedUsers) throws Exception {
         List<SignedUser> addedUsers = new ArrayList<>();
         for (SignedUser signedUser : signedUsers) {
             if (signedUser instanceof TeamManager || signedUser instanceof Owner || signedUser instanceof Footballer || signedUser instanceof Coach) {
                 teamMembers.addMember(signedUser);
                 addedUsers.add(signedUser);
+                ((TeamUser) signedUser).addTeam(this, managementUser);
             } else {
                 for (SignedUser addedUser : addedUsers) {
                     teamMembers.removeMember(addedUser);
@@ -66,6 +67,7 @@ public class Team {
             if (signedUser instanceof TeamManager || signedUser instanceof Owner || signedUser instanceof Footballer || signedUser instanceof Coach) {
                 teamMembers.removeMember(signedUser);
                 removedUsers.add(signedUser);
+                ((TeamUser) signedUser).removeTeam(this);
             } else {
                 for (SignedUser removed : removedUsers) {
                     teamMembers.addMember(removed);
@@ -104,28 +106,28 @@ public class Team {
         return true;
     }
 
-    public HashSet<Footballer> getTeamFootballers(){
+    public HashSet<Footballer> getTeamFootballers() {
         return this.teamMembers.getFootballers();
     }
 
-    public HashSet<Coach> getTeamCoaches(){
+    public HashSet<Coach> getTeamCoaches() {
         return this.teamMembers.getCoaches();
     }
 
-    public HashSet<Owner> getTeamOwners(){
+    public HashSet<Owner> getTeamOwners() {
         return this.teamMembers.getOwners();
     }
 
-    public HashSet<TeamManager> getTeamManagers(){
+    public HashSet<TeamManager> getTeamManagers() {
         return this.teamMembers.getTeamManagers();
     }
 
-    public boolean addFinanceActivity(FinanceActivity financeActivity){
+    public boolean addFinanceActivity(FinanceActivity financeActivity) {
         this.financeActivities.add(financeActivity);
         return true;
     }
 
-    public boolean removeFinanceActivity(FinanceActivity financeActivity){
+    public boolean removeFinanceActivity(FinanceActivity financeActivity) {
         this.financeActivities.remove(financeActivity);
         return true;
     }
