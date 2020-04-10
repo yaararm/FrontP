@@ -12,6 +12,7 @@ public class Team {
     private TeamState state;
     private Members teamMembers;
     private HashSet<Asset> assets;
+    private HashSet<FinanceActivity> financeActivities;
 
     public Team(String teamName, TeamState state) {
         this.teamName = teamName;
@@ -19,6 +20,7 @@ public class Team {
         this.state = state;
         this.teamMembers = new Members();
         this.assets = new HashSet<>();
+        this.financeActivities = new HashSet<>();
     }
 
     public String getTeamName() {
@@ -114,4 +116,13 @@ public class Team {
         return this.teamMembers.getTeamManagers();
     }
 
+    public boolean addFinanceActivity(FinanceActivity financeActivity){
+        this.financeActivities.add(financeActivity);
+        return true;
+    }
+
+    public boolean removeFinanceActivity(FinanceActivity financeActivity){
+        this.financeActivities.remove(financeActivity);
+        return true;
+    }
 }
