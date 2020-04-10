@@ -7,7 +7,12 @@ public class Coach extends TeamUser {
 
     public Coach(String username, String password) {
         super(username, password);
-        myPersonalPage= new PersonalPage(this);
+        myPersonalPage = new PersonalPage(this);
         PersonalPageSystem.addToCoachList(this, myPersonalPage);
+    }
+
+    @Override
+    public boolean deleteUser() {
+        return false;
     }
 }

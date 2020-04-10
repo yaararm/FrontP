@@ -1,13 +1,17 @@
 package domain.Users;
 
+import domain.Controllers.ComplaintSystemController;
 import domain.Impl.Game;
 
 import java.util.HashSet;
 
 public class Fan extends SignedUser {
+    private static int idCounter = 0;
     private String email;
     private String firstName;
     private String lastName;
+    private int fanID;
+
 
     private long signedUpDate;
     private HashSet<PersonalPage> followedPersonalPages;
@@ -21,10 +25,10 @@ public class Fan extends SignedUser {
         followedPersonalPages = new HashSet<>();
         observedGames = new HashSet<>();
         myComplaints = new HashSet<>();
+        fanID = idCounter++;
     }
 
-
-
+    //========== Follow ================
     public boolean checkIfFollowed(PersonalPage personalPage) {
         if(followedPersonalPages.contains(personalPage))
             return true;
@@ -44,7 +48,9 @@ public class Fan extends SignedUser {
 
     }
 
+    //========== Get Notify ================
     public void update() {
+        //TODO
 
     }
 
@@ -66,15 +72,37 @@ public class Fan extends SignedUser {
         return false;
     }
 
+    //========== Getters and Setters ================
     public long getSignedUpDate() {
         return signedUpDate;
     }
 
-    //TODO
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getFanID() {
+        return fanID;
+    }
+
+    //========== Delete ================
     @Override
     public boolean deleteUser() {
-        return true;
+        for (PersonalPage followedPersonalPage : followedPersonalPages) {
+            followedPersonalPage.removeFans(this);
+        }
+        for (Game observedGame : observedGames) {
+            observedGame.removeObserver(this);
+        }
 
+        for (Complaint myComplaint : myComplaints) {
+            ComplaintSystemController.moveToArchive(myComplaint);
+        }
+        return true;
     }
 
 }

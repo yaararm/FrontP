@@ -1,5 +1,5 @@
 package domain.Enums;
 
 public enum ComplaintStatus {
-    Closed, New;
+    Closed, New, Archive;
 }
