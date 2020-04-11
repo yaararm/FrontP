@@ -78,7 +78,8 @@ public class FanController {
                     fan.setLastName(entry.getValue());
                     break;
                 case "password":
-                    fan.setPassword(entry.getValue());
+                    String hashPassword = Utils.sha256(entry.getValue());
+                    fan.setPassword(hashPassword);
                     break;
             }
 

@@ -16,7 +16,7 @@ public class Coach extends TeamUser implements Asset {
     public Coach(String username, String password, String firstName, String lastName, String email, CoachPosition coachPosition) {
         super(username, password, firstName, lastName, email);
         this.coachPosition = coachPosition;
-        myPersonalPage = new PersonalPage(this);
+        myPersonalPage = new TeamMemberPersonalPage(this);
         PersonalPageSystem.addToCoachList(this, myPersonalPage);
     }
 

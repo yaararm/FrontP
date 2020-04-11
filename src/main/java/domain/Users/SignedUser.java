@@ -72,4 +72,6 @@ public abstract class SignedUser extends User {
     //========== Abstract Functions ================
 
     public abstract boolean deleteUser() throws Exception;
+
+    public abstract String toString();
 }

@@ -86,7 +86,23 @@ public class SystemController {
 
 
     //TODO complete search and show
-    /// 2.5
+    //Use Case 2.5 PP LEAGUE SEASON team coach footballer
+    public static void search(String searchInput){
+        HashMap<String, HashSet<Object>> returned = new HashMap<>();
+        returned.put("Footballer",new HashSet<>());
+        returned.put("Coach",new HashSet<>());
+        returned.put("Team",new HashSet<>());
+        returned.put("League",new HashSet<>());
+        returned.put("Season",new HashSet<>());
+
+
+
+
+
+
+    }
+
+
 
 
 

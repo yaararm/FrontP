@@ -56,7 +56,7 @@ public class AssociationRepresentativeController {
     //Use Case 9.3.1
     public boolean appointReferee (AssociationRepresentative associationRepresentative, int id, String fName, String lName, String email, RefereeTraining refereeTraining ) throws Exception {
         int length = String.valueOf(id).length();
-        String userName = fName+"_"+lName;
+        String userName = email;
         String password = String.valueOf(id);
         boolean valid = EmailValidator.getInstance().isValid(email);
 
