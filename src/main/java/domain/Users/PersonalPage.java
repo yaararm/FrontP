@@ -36,6 +36,11 @@ public abstract class PersonalPage {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return pageOwner.toString();
+    }
+
     // ======== Getters ============
     public SignedUser getPageOwner() {
         return pageOwner;
@@ -48,4 +53,5 @@ public abstract class PersonalPage {
     public int getPpID() {
         return ppID;
     }
+
 }

@@ -54,4 +54,11 @@ public class Footballer extends TeamUser implements Asset {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        String string = super.toString();
+        string += footballerPosition.toString();
+        return string;
+    }
 }

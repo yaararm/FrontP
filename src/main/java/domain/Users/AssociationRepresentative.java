@@ -14,6 +14,7 @@ public class AssociationRepresentative extends SignedUser {
         return true;
     }
 
+
     public int getAssociationRepresentativeID() {
         return associationRepresentativeID;
     }

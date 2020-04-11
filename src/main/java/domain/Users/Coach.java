@@ -54,4 +54,11 @@ public class Coach extends TeamUser implements Asset {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        String string = super.toString();
+        string += coachPosition.toString();
+        return string;
+    }
 }

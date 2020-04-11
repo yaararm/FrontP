@@ -4,8 +4,6 @@ import domain.Controllers.SystemController;
 import domain.Impl.Team;
 
 public class TeamMemberPersonalPage extends PersonalPage {
-
-
     String birthday;
     String history;
     String hobbies;
@@ -36,6 +34,13 @@ public class TeamMemberPersonalPage extends PersonalPage {
         SystemController.logger.info("Creation | New Personal Page for Team Member have been created have been defined; Owner name: " + user.getFirstName() + " " + user.getLastName() +
                 "; Personal Page ID: " + this.getPpID());
 
+    }
+
+    @Override
+    public String toString() {
+        String string = super.toString();
+        string +=  birthday + " " + history + " " + hobbies + " " + type + " "+ role + " "+  team + " " + content;
+        return string;
     }
 
     // =========== Getters and Setters =============

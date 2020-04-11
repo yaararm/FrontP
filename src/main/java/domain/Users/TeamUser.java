@@ -25,4 +25,14 @@ public abstract class TeamUser extends SignedUser {
     public HashMap<Team, ManagementUser> getTeams() {
         return teams;
     }
+
+    @Override
+    public String toString() {
+        String string = super.toString();
+        for (Team team : teams.keySet()) {
+            string += team.getTeamName();
+        }
+        return string;
+
+    }
 }
