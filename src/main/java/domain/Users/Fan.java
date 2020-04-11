@@ -19,8 +19,8 @@ public class Fan extends SignedUser {
     private HashSet<Game> observedGames;
 
 
-    public Fan(String username, String password) {
-        super(username, password);
+    public Fan(String username, String password, String firstName, String lastName) {
+        super(username, password, firstName, lastName);
         signedUpDate = System.currentTimeMillis();
         followedPersonalPages = new HashSet<>();
         observedGames = new HashSet<>();

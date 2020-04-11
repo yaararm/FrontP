@@ -9,7 +9,7 @@ import java.util.HashSet;
 public class ComplaintSystemController {
     static HashSet <Complaint> newComplaint = new HashSet<>();
     static HashSet <Complaint> closedComplaint = new HashSet<>();
-    static HashMap<Complaint, String> archiveComplaint = new HashSet<>();
+    static HashMap<Complaint, String> archiveComplaint = new HashMap<>();
 
 
     public static boolean addComplaint(Complaint complaint) {

@@ -12,6 +12,8 @@ import java.util.HashSet;
 
 public class Season {
     //Fields
+    private static int idCounter = 0;
+    private int seasonID;
     private int year;
     long startDate;
     //Connections
@@ -25,6 +27,7 @@ public class Season {
         scorePolicy=new ScoreComputingPolicy1();
         assignPolicy= new AssignPolicy1();
         referees = new HashMap<>();
+        seasonID = idCounter++;
     }
 
     public boolean addReferee(RefereeTraining refereeTraining, Referee referee){
@@ -66,4 +69,7 @@ public class Season {
         return startDate;
     }
 
+    public int getSeasonID() {
+        return seasonID;
+    }
 }

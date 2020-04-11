@@ -6,11 +6,12 @@ import domain.Users.AssociationRepresentative;
 import java.util.HashMap;
 
 public class League {
+    private static int idCounter = 0;
+    private int leagueID;
     String leagueName;
     long openDate;
     AssociationRepresentative responsibleAssociationRepresentative;
     HashMap<Integer, Season> leaguesSeasons;
-
 
     RefereeTraining minRefereeTrainingRequired;
 
@@ -20,6 +21,7 @@ public class League {
         minRefereeTrainingRequired = refereeTraining;
         openDate = System.currentTimeMillis();
         leaguesSeasons = new HashMap<>();
+        leagueID = idCounter++;
     }
 
     public boolean checkForSeason(Integer year) {
@@ -31,6 +33,13 @@ public class League {
         return true;
     }
 
+    public int getLeagueID() {
+        return leagueID;
+    }
+
+    public String getLeagueName() {
+        return leagueName;
+    }
 
     public RefereeTraining getMinRefereeTrainingRequired() {
         return minRefereeTrainingRequired;
