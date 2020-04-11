@@ -19,11 +19,13 @@ public class TeamOwnerController {
     //Wasn't in UC
     public Footballer signUpNewFootballer(ManagementUser teamOwner, String firstName, String lastName, String email,
                                           FootballerPosition footballerPosition, Team team) throws Exception {
-        boolean valid = EmailValidator.getInstance().isValid(email);
+        if(teamOwner instanceof Owner) {
+
+            boolean valid = EmailValidator.getInstance().isValid(email);
         if(!valid)
             throw new Exception("Not valid Email");
 
-        String username = lastName+"_"+firstName;
+        String username = email;
         String password = lastName+"_"+firstName+"_123";
 
         if(SystemController.userNameUser.containsKey(username))
@@ -37,30 +39,37 @@ public class TeamOwnerController {
         SystemController.userNameUser.put(username,footballer);
 
         addMemberToTeam(teamOwner, team, footballer);
-        return footballer;
+        return footballer;}
+        else
+                throw new Exception("The user doesn't have permissions for this one");
+
     }
 
     public Coach signUpNewCoach(ManagementUser teamOwner, String firstName, String lastName, String email,
                                           CoachPosition coachPosition, Team team) throws Exception {
-        boolean valid = EmailValidator.getInstance().isValid(email);
-        if(!valid)
-            throw new Exception("Not valid Email");
+        if(teamOwner instanceof Owner) {
+            boolean valid = EmailValidator.getInstance().isValid(email);
+            if (!valid)
+                throw new Exception("Not valid Email");
 
-        String username = lastName+"_"+firstName;
-        String password = lastName+"_"+firstName+"_123";
+            String username = email;
+            String password = lastName + "_" + firstName + "_123";
 
-        if(SystemController.userNameUser.containsKey(username))
-            throw new Exception("This user already exist in the system");
+            if (SystemController.userNameUser.containsKey(username))
+                throw new Exception("This user already exist in the system");
 
-        //TODO Send Email
+            //TODO Send Email
 
-        String hashPassword = Utils.sha256(password);
+            String hashPassword = Utils.sha256(password);
 
-        Coach coach = new Coach(username, hashPassword, firstName, lastName, email, coachPosition);
-        SystemController.userNameUser.put(username,coach);
+            Coach coach = new Coach(username, hashPassword, firstName, lastName, email, coachPosition);
+            SystemController.userNameUser.put(username, coach);
 
-        addMemberToTeam(teamOwner, team, coach);
-        return coach;
+            addMemberToTeam(teamOwner, team, coach);
+            return coach;
+        }
+        else
+            throw new Exception("The user doesn't have permissions for this one");
     }
 
 
@@ -134,9 +143,15 @@ public class TeamOwnerController {
             HashSet<Owner> teamOwners = team.getTeamOwners();
             if (teamOwners.stream().anyMatch(owner -> owner == newOwner))
                 throw new Exception("The user is already defined as team owner");
-            team.addTeamMember(addingOwner,newOwner);
-            //TODO this user need to be changed to Owner
-            addingOwner.addOwner(team, (Owner) newOwner);
+            if(newOwner instanceof Owner) {
+                team.addTeamMember(addingOwner, newOwner);
+                addingOwner.addOwner(team, (Owner) newOwner);
+            }
+            else{
+                Owner owner = new Owner(newOwner);
+                team.addTeamMember(addingOwner, owner);
+                addingOwner.addOwner(team, (Owner) owner);
+            }
             return true;
         }
         else
@@ -162,29 +177,53 @@ public class TeamOwnerController {
                         removeTeamManager(ownerToRemove, teamHashSetEntry.getKey(), teamManager);
                     }
                 }
-
+                if(ownerToRemove.getTeams().size() == 0){
+                    //No more Owner
+                    SignedUser additionalRole = ownerToRemove.getAdditionalRole();
+                    ownerToRemove.deleteUser();
+                    if(additionalRole != null){
+                    SystemController.userNameUser.put(additionalRole.getUserName(),additionalRole);}
+                    else{
+                        SystemController.archiveUsers.put(ownerToRemove.getUserName(),ownerToRemove);
+                        SystemController.userNameUser.remove(ownerToRemove);
+                    }
+                }
+                //TODO send alerts to the removed
             } else {
                 throw new Exception("The select user is not team Owner");
             }
-            //TODO this user need to be changed if he is not owner anymore
-            //TODO send alerts to the removed
-            return true;
         }
         else
             throw new Exception("The user doesn't have permissions for this one");
+        return true;
     }
 
     //UC 6.4
-    public boolean addUserAsTeamManager(ManagementUser addingOwner, Team team, SignedUser newManager) throws Exception {
+    public TeamManager signUpNewTeamManager(ManagementUser addingOwner, String firstName, String lastName, String email,
+                                        Team team) throws Exception {
         if(addingOwner instanceof Owner || (addingOwner instanceof TeamManager && ((TeamManager)addingOwner).hasPermission(TeamManagerPermissions.AddManager))) {
-            HashSet<Owner> teamOwners = team.getTeamOwners();
-            HashSet<TeamManager> teamManagers = team.getTeamManagers();
-            if (teamManagers.stream().anyMatch(teamManager -> teamManager == newManager) || teamOwners.stream().anyMatch(owner -> owner == newManager))
-                throw new Exception("The user is already defined as team owner or manager");
-            team.addTeamMember(addingOwner,newManager);
+            boolean valid = EmailValidator.getInstance().isValid(email);
+            if (!valid)
+                throw new Exception("Not valid Email");
+
+            String username = email;
+            String password = lastName + "_" + firstName + "_123";
+
+            if (SystemController.userNameUser.containsKey(username))
+                throw new Exception("This user already exist in the system");
+
+            //TODO Send Email
+
+            String hashPassword = Utils.sha256(password);
+
+            TeamManager teamManager = new TeamManager(username, hashPassword, firstName, lastName, email);
+            SystemController.userNameUser.put(username, teamManager);
+
+            addMemberToTeam(addingOwner, team, teamManager);
+            addingOwner.addTeamManager(team, teamManager);
+
+            return teamManager;
             //TODO this user need to be changed to Owner
-            addingOwner.addTeamManager(team, (TeamManager) newManager);
-            return true;
         }
         else
             throw new Exception("The user doesn't have permissions for this one");
@@ -197,6 +236,7 @@ public class TeamOwnerController {
             if (teamManagers.stream().anyMatch(teamManager -> teamManager == managerToRemove)) {
                 team.removeTeamMember(managerToRemove);
                 removingOwner.removeTeamManager(team, managerToRemove);
+                managerToRemove.deleteUser();
                 //TODO this user need to be changed if he is not owner anymore
                 //TODO send alerts to the removed
             } else {

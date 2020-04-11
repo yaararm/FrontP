@@ -19,7 +19,7 @@ public class SystemController {
     static HashMap<Fan, HashMap<String, Long>> fanHistory= new HashMap<>();
     static HashMap<String, League> leagueNameLeagues = new HashMap<>();
     public static HashSet<Team> systemTeams = new HashSet<>();
-    static HashSet<User> archiveUsers= new HashSet<>();
+    static HashMap<String, SignedUser> archiveUsers= new HashMap<>();
     public static final Logger logger = LogManager.getLogger(SystemController.class.getName());
 
     public static boolean UserNameValidation(String username) {
