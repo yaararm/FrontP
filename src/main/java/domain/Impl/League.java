@@ -47,9 +47,9 @@ public class League {
 
     @Override
     public String toString() {
-        String string = leagueName;
+        String string = leagueName+ " ";
         for (Integer integer : leaguesSeasons.keySet()) {
-            string += integer;
+            string += integer+" ";
         }
         return string;
     }
