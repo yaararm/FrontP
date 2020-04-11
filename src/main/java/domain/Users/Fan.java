@@ -7,9 +7,6 @@ import java.util.HashSet;
 
 public class Fan extends SignedUser {
     private static int idCounter = 0;
-    private String email;
-    private String firstName;
-    private String lastName;
     private int fanID;
 
 
@@ -19,8 +16,8 @@ public class Fan extends SignedUser {
     private HashSet<Game> observedGames;
 
 
-    public Fan(String username, String password, String firstName, String lastName) {
-        super(username, password, firstName, lastName);
+    public Fan(String username, String password, String firstName, String lastName, String email) {
+        super(username, password, firstName, lastName, email);
         signedUpDate = System.currentTimeMillis();
         followedPersonalPages = new HashSet<>();
         observedGames = new HashSet<>();
@@ -75,14 +72,6 @@ public class Fan extends SignedUser {
     //========== Getters and Setters ================
     public long getSignedUpDate() {
         return signedUpDate;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public int getFanID() {

@@ -10,6 +10,8 @@ import java.util.Map;
 
 
 public class FanController {
+
+    // ============== Follow ============
     //Use Case 3.2
     public boolean follow(Fan fan, PersonalPage personalPage) {
         if (fan.checkIfFollowed(personalPage)) {
@@ -22,6 +24,7 @@ public class FanController {
         return true;
     }
 
+    // ============ Subscribe ===========
     //Use Case 3.3 - observer
     public boolean subscribe(Fan fan, Game game) {
         if (game.checkObserver(fan)) {
@@ -34,6 +37,7 @@ public class FanController {
         return true;
     }
 
+    // ============ Complaint ===========
     //Use Case 3.4
     public boolean createComplaint(Fan fan, String description) {
         if (description.length() <= 0) {
@@ -42,11 +46,11 @@ public class FanController {
         Complaint complaint = new Complaint(fan, description);
         fan.addToMyComplaints(complaint);
         SystemController.logger.info("New complaint have been created; Complaint ID: " + complaint.getComplaintID() + "; Fan ID: " + fan.getFanID());
-
         return true;
 
     }
 
+    // ============ Search History ==============
     //Use Case 3.5
     public Map<String, Long> mySearchHistory(Fan fan, long fromDate, long toDate) throws Exception {
         if (fromDate < fan.getSignedUpDate() || fromDate > toDate) {
@@ -59,16 +63,23 @@ public class FanController {
         return searchHistory;
     }
 
-    //TODO complete
+    // ========= Update ==============
     //Use Case 3.6
     public boolean updateDetails(Fan fan, HashMap<String, String> valuesToUpdate) {
         for (Map.Entry<String, String> entry : valuesToUpdate.entrySet()) {
             switch (entry.getKey().toLowerCase()) {
                 case "email":
+                    fan.setEmail(entry.getValue());
                     break;
-                case "firstName":
+                case "firstname":
+                    fan.setFirstName(entry.getValue());
                     break;
-
+                case "lastname":
+                    fan.setLastName(entry.getValue());
+                    break;
+                case "password":
+                    fan.setPassword(entry.getValue());
+                    break;
             }
 
         }

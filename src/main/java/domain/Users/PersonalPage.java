@@ -7,19 +7,17 @@ import domain.Users.SignedUser;
 
 import java.util.HashSet;
 
-public class PersonalPage {
+public abstract class PersonalPage {
 
     SignedUser pageOwner;
     long openDate;
     HashSet<Fan> fans = new HashSet<>();
+    String pageName;
 
     public PersonalPage(SignedUser user) {
-        if(user instanceof Footballer || user instanceof Coach)
-            pageOwner=user;
-
+        pageOwner = user;
         this.openDate= System.currentTimeMillis();
     }
-
 
     // ============== Fans For Page ==========
     public boolean removeFans(Fan fan) {

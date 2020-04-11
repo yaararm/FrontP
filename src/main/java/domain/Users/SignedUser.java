@@ -46,6 +46,22 @@ public abstract class SignedUser extends User{
         this.password = password;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     //========== Abstract Functions ================
 
     public abstract boolean deleteUser();

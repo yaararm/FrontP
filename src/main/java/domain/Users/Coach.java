@@ -14,4 +14,8 @@ public class Coach extends TeamUser implements Asset {
         myPersonalPage = new PersonalPage(this);
         PersonalPageSystem.addToCoachList(this, myPersonalPage);
     }
+
+    public CoachPosition getCoachPosition() {
+        return coachPosition;
+    }
 }
