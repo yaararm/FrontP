@@ -127,6 +127,10 @@ public class Team {
         return true;
     }
 
+    public HashSet<Field> getFields() {
+        return fields;
+    }
+
     public boolean removeFinanceActivity(FinanceActivity financeActivity) {
         this.financeActivities.remove(financeActivity);
         return true;

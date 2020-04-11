@@ -51,4 +51,20 @@ public class Field implements Asset {
         }
         return true;
     }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public FieldType getFieldType() {
+        return fieldType;
+    }
 }
