@@ -22,7 +22,7 @@ public class Referee extends SignedUser {
 
 
     public Referee(String userName, String hashPassword, int id, String fName, String lName, String email, RefereeTraining refereeTraining) {
-        super(userName, hashPassword, fName, lName);
+        super(userName, hashPassword, fName, lName, email);
         this.id=id;
         this.email=email;
         this.refereeTraining=refereeTraining;
@@ -45,7 +45,7 @@ public class Referee extends SignedUser {
                 }
             }
         }
-        SystemController.IDReferees.remove(this.id);
+        SystemController.removeUserFromActiveList(userName);
         seasons.forEach(season -> season.removeReferee(refereeTraining, this));
         this.changeStatus(UserStatus.NotActive);
         return true;
@@ -71,7 +71,7 @@ public class Referee extends SignedUser {
         this.email = email;
     }
 
-    public boolean getRefereeID() {
+    public int getRefereeID() {
         return refereeID;
     }
 

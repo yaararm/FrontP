@@ -8,6 +8,8 @@ import domain.Users.SignedUser;
 import java.util.HashSet;
 
 public abstract class PersonalPage {
+    private static int idCounter = 0;
+    private int ppID;
 
     SignedUser pageOwner;
     long openDate;
@@ -17,6 +19,7 @@ public abstract class PersonalPage {
     public PersonalPage(SignedUser user) {
         pageOwner = user;
         this.openDate= System.currentTimeMillis();
+        ppID= idCounter++;
     }
 
     // ============== Fans For Page ==========
@@ -40,5 +43,9 @@ public abstract class PersonalPage {
 
     public long getOpenDate() {
         return openDate;
+    }
+
+    public int getPpID() {
+        return ppID;
     }
 }

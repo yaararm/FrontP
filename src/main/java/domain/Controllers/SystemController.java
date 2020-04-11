@@ -81,8 +81,12 @@ public class SystemController {
         return relevantReferees;
     }
 
+    public static void removeUserFromActiveList(String userName) {
+        userNameUser.remove(userName);
+    }
 
-        //TODO complete search and show
+
+    //TODO complete search and show
     /// 2.5
 
 

@@ -1,5 +1,6 @@
 package domain.Users;
 
+import domain.Controllers.SystemController;
 import domain.Impl.Field;
 import domain.Impl.Team;
 
@@ -15,25 +16,63 @@ public class TeamPersonalPage extends PersonalPage{
         this.pageName= team.getTeamName();
 
         for (Coach teamCoach : team.getTeamCoaches()) {
-            coachName = teamCoach.getCoachPosition() + ": "+ teamCoach.getFirstName() +" " + teamCoach.getLastName()+"\n";
+            coachName += teamCoach.getCoachPosition() + ": "+ teamCoach.getFirstName() +" " + teamCoach.getLastName()+"\n";
         }
 
         for (Footballer teamFootballer : team.getTeamFootballers()) {
-            teamFootballerMembers = teamFootballer.getFootballerPosition() +": " + teamFootballer.getFirstName()  +" " + teamFootballer.getLastName()+"\n";
+            teamFootballerMembers += teamFootballer.getFootballerPosition() +": " + teamFootballer.getFirstName()  +" " + teamFootballer.getLastName()+"\n";
         }
 
         for (Field field : team.getFields()) {
-            teamFootballerMembers = field. +": " + teamFootballer.getFirstName()  +" " + teamFootballer.getLastName()+"\n";
-
-
+            teamFields = "Filed Name: "+ field.getName() +", Field Location: "+ field.getLocation() +", Field Type: "+field.getFieldType()+
+                    ", Number Of seats: "+field.getSeats() + "\n";
         }
 
-
-
-
-
-
+        //Logger
+        SystemController.logger.info("Creation | New Personal Page for Team have been created have been defined; Owner NAME: " + user.getFirstName()+" "+user.getLastName() +
+                "; Personal Page ID: " + this.getPpID() + "; Team ID:" + team.getTeamID());
     }
 
 
+    // ========= Getter and Setters =============
+
+    public String getCoachName() {
+        return coachName;
+    }
+
+    public String getTeamFootballerMembers() {
+        return teamFootballerMembers;
+    }
+
+    public String getTeamFields() {
+        return teamFields;
+    }
+
+    public String getRecords() {
+        return records;
+    }
+
+    public String getGames() {
+        return Games;
+    }
+
+    public void setCoachName(String coachName) {
+        this.coachName = coachName;
+    }
+
+    public void setTeamFootballerMembers(String teamFootballerMembers) {
+        this.teamFootballerMembers = teamFootballerMembers;
+    }
+
+    public void setTeamFields(String teamFields) {
+        this.teamFields = teamFields;
+    }
+
+    public void setRecords(String records) {
+        this.records = records;
+    }
+
+    public void setGames(String games) {
+        Games = games;
+    }
 }
