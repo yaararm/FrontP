@@ -1,6 +1,7 @@
 package domain.Users;
 
 import domain.Controllers.PersonalPageSystem;
+import domain.Controllers.SystemController;
 import domain.Controllers.Utils;
 import domain.Enums.CoachPosition;
 import domain.Impl.Team;
@@ -52,6 +53,8 @@ public class Coach extends TeamUser implements Asset {
         for (Team team : this.teams.keySet()) {
             team.removeTeamMember(this);
         }
+        SystemController.archiveUsers.put(this.getUserName(),this);
+        SystemController.userNameUser.remove(this);
         return true;
     }
 }

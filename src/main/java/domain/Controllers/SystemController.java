@@ -14,11 +14,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SystemController {
-    static HashMap<String, SignedUser> userNameUser= new HashMap<>();
-    static HashMap<Fan, HashMap<String, Long>> fanHistory= new HashMap<>();
-    static HashMap<String, League> leagueNameLeagues = new HashMap<>();
+    public static HashMap<String, SignedUser> userNameUser= new HashMap<>();
+    public static HashMap<Fan, HashMap<String, Long>> fanHistory= new HashMap<>();
+    public static HashMap<String, League> leagueNameLeagues = new HashMap<>();
     public static HashSet<Team> systemTeams = new HashSet<>();
-    static HashMap<String, SignedUser> archiveUsers= new HashMap<>();
+    public static HashMap<String, SignedUser> archiveUsers= new HashMap<>();
     public static final Logger logger = LogManager.getLogger(SystemController.class.getName());
 
     public static boolean UserNameValidation(String username) {

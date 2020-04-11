@@ -1,5 +1,7 @@
 package domain.Users;
 
+import domain.Controllers.SystemController;
+import domain.Controllers.TeamOwnerController;
 import domain.Impl.Team;
 
 import java.util.HashMap;
@@ -20,14 +22,17 @@ public class Owner extends ManagementUser {
         }
         for (Map.Entry<Team, HashSet<Owner>> teamHashSetEntry : assignedOwners.entrySet()) {
             for (Owner owner : teamHashSetEntry.getValue()) {
-                removeTeamOwner(ownerToRemove, teamHashSetEntry.getKey(), owner);
+                TeamOwnerController.removeTeamOwner(this, teamHashSetEntry.getKey(), owner);
             }
         }
         for (Map.Entry<Team, HashSet<TeamManager>> teamHashSetEntry : assignedTeamManagers.entrySet()) {
             for (TeamManager teamManager : teamHashSetEntry.getValue()) {
-                removeTeamManager(ownerToRemove, teamHashSetEntry.getKey(), teamManager);
+                TeamOwnerController.removeTeamManager(this, teamHashSetEntry.getKey(), teamManager);
             }
         }
+        SystemController.archiveUsers.put(this.getUserName(),this);
+        SystemController.userNameUser.remove(this);
+        return true;
     }
 
     public Owner(SignedUser signedUser) throws Exception {

@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class TeamOwnerController {
     //Wasn't in UC
-    public Footballer signUpNewFootballer(ManagementUser teamOwner, String firstName, String lastName, String email,
+    public static Footballer signUpNewFootballer(ManagementUser teamOwner, String firstName, String lastName, String email,
                                           FootballerPosition footballerPosition, Team team) throws Exception {
         if(teamOwner instanceof Owner) {
 
@@ -45,7 +45,7 @@ public class TeamOwnerController {
 
     }
 
-    public Coach signUpNewCoach(ManagementUser teamOwner, String firstName, String lastName, String email,
+    public static Coach signUpNewCoach(ManagementUser teamOwner, String firstName, String lastName, String email,
                                           CoachPosition coachPosition, Team team) throws Exception {
         if(teamOwner instanceof Owner) {
             boolean valid = EmailValidator.getInstance().isValid(email);
@@ -74,7 +74,7 @@ public class TeamOwnerController {
 
 
     //UC 6.1
-    public Team addNewTeamToSystem(ManagementUser teamOwner, String teamName) throws Exception {
+    public static Team addNewTeamToSystem(ManagementUser teamOwner, String teamName) throws Exception {
         if(teamOwner instanceof Owner) {
             if (SystemController.systemTeams.stream().anyMatch(team -> team.getTeamName().equals(teamName)))
                 throw new Exception("There is already team with the exact name");
@@ -91,7 +91,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.1.1
-    public boolean addFieldToTeam(ManagementUser managementUser, Team team, Field field) throws Exception {
+    public static boolean addFieldToTeam(ManagementUser managementUser, Team team, Field field) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.AddAsset))) {
             team.addField(field);
             return true;
@@ -100,7 +100,7 @@ public class TeamOwnerController {
             throw new Exception("The user doesn't have permissions for this one");
     }
 
-    public boolean addMemberToTeam(ManagementUser managementUser, Team team, TeamUser teamUser) throws Exception {
+    public static boolean addMemberToTeam(ManagementUser managementUser, Team team, TeamUser teamUser) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.AddAsset))) {
             team.addTeamMember(managementUser,teamUser);
             return true;
@@ -110,7 +110,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.1.2
-    public boolean removeFieldFromTeam(ManagementUser managementUser, Team team, Field field) throws Exception {
+    public static boolean removeFieldFromTeam(ManagementUser managementUser, Team team, Field field) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.RemoveAsset))) {
             team.removeField(field);
             return true;
@@ -119,7 +119,7 @@ public class TeamOwnerController {
             throw new Exception("The user doesn't have permissions for this one");
     }
 
-    public boolean removeMemberFromTeam(ManagementUser managementUser, Team team, TeamUser teamUser) throws Exception {
+    public static boolean removeMemberFromTeam(ManagementUser managementUser, Team team, TeamUser teamUser) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.AddAsset))) {
             team.removeTeamMember(managementUser,teamUser);
             return true;
@@ -129,7 +129,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.1.3
-    public boolean editAssetOfTeam(ManagementUser managementUser, Asset asset, HashMap<String, String> changes) throws Exception {
+    public static boolean editAssetOfTeam(ManagementUser managementUser, Asset asset, HashMap<String, String> changes) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.EditAsset))) {
             return asset.editAsset(changes);
         }
@@ -138,7 +138,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.2
-    public boolean addUserAsTeamOwner(ManagementUser addingOwner, Team team, SignedUser newOwner) throws Exception {
+    public static boolean addUserAsTeamOwner(ManagementUser addingOwner, Team team, SignedUser newOwner) throws Exception {
         if(addingOwner instanceof Owner || (addingOwner instanceof TeamManager && ((TeamManager)addingOwner).hasPermission(TeamManagerPermissions.AddOwner))) {
             HashSet<Owner> teamOwners = team.getTeamOwners();
             if (teamOwners.stream().anyMatch(owner -> owner == newOwner))
@@ -159,7 +159,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.3
-    public boolean removeTeamOwner(ManagementUser removingOwner, Team team, Owner ownerToRemove) throws Exception {
+    public static boolean removeTeamOwner(ManagementUser removingOwner, Team team, Owner ownerToRemove) throws Exception {
         if(removingOwner instanceof Owner || (removingOwner instanceof TeamManager && ((TeamManager)removingOwner).hasPermission(TeamManagerPermissions.RemoveOwner))) {
             HashSet<Owner> teamOwners = team.getTeamOwners();
             if (teamOwners.stream().anyMatch(owner -> owner == ownerToRemove)) {
@@ -199,7 +199,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.4
-    public TeamManager signUpNewTeamManager(ManagementUser addingOwner, String firstName, String lastName, String email,
+    public static TeamManager signUpNewTeamManager(ManagementUser addingOwner, String firstName, String lastName, String email,
                                         Team team) throws Exception {
         if(addingOwner instanceof Owner || (addingOwner instanceof TeamManager && ((TeamManager)addingOwner).hasPermission(TeamManagerPermissions.AddManager))) {
             boolean valid = EmailValidator.getInstance().isValid(email);
@@ -230,7 +230,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.5
-    private boolean removeTeamManager(ManagementUser removingOwner, Team team, TeamManager managerToRemove) throws Exception {
+    public static boolean removeTeamManager(ManagementUser removingOwner, Team team, TeamManager managerToRemove) throws Exception {
         if(removingOwner instanceof Owner || (removingOwner instanceof TeamManager && ((TeamManager)removingOwner).hasPermission(TeamManagerPermissions.RemoveManager))) {
             HashSet<TeamManager> teamManagers = team.getTeamManagers();
             if (teamManagers.stream().anyMatch(teamManager -> teamManager == managerToRemove)) {
@@ -260,7 +260,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.6.1
-    public boolean closeTeam(ManagementUser managementUser, Team team) throws Exception {
+    public static boolean closeTeam(ManagementUser managementUser, Team team) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.CloseTeam))) {
             if (team.getState() == TeamState.active) {
                 team.setStatus(TeamState.notActive);
@@ -276,7 +276,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.6.2
-    public boolean openTeam(ManagementUser managementUser, Team team) throws Exception {
+    public static boolean openTeam(ManagementUser managementUser, Team team) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.OpenTeam))) {
             TeamState state = team.getState();
             if (state == TeamState.notActive) {
@@ -295,7 +295,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.7
-    public boolean addFinanceAction(ManagementUser managementUser, Team team, String kind, double amount, String description, long date,
+    public static boolean addFinanceAction(ManagementUser managementUser, Team team, String kind, double amount, String description, long date,
                                     ManagementUser reporter) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.EditAsset))) {
             FinanceActivity financeActivity = new FinanceActivity(kind,amount,description,date,reporter);
