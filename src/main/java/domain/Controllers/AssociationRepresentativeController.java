@@ -91,7 +91,7 @@ public class AssociationRepresentativeController {
             throw new Exception("This Referee use name doesn't exist in the system");
         }
         referee.deleteUser();
-        archiveUsers.add(referee);
+        archiveUsers.put(referee.getUserName(),referee);
         //Logger
         SystemController.logger.info("Deletion | Referee have been remove from the system; Referee ID: " + referee.getRefereeID() +
                 "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());

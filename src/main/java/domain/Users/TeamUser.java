@@ -21,4 +21,8 @@ public abstract class TeamUser extends SignedUser {
         teams.remove(team);
         return true;
     }
+
+    public HashMap<Team, ManagementUser> getTeams() {
+        return teams;
+    }
 }
