@@ -1,4 +1,6 @@
 package domain.Impl;
 
-public class Field {
+import domain.Interfaces.Asset;
+
+public class Field implements Asset {
 }
