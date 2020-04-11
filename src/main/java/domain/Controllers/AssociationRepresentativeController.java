@@ -27,7 +27,7 @@ public class AssociationRepresentativeController {
         addNewLeague(leagueName, newLeague);
 
         //Logger
-        SystemController.logger.info("New league have been defined; Association Representative ID: " + associationRepresentative.getAssociationRepresentativeID() +
+        SystemController.logger.info("Creation | New league have been defined; Association Representative ID: " + associationRepresentative.getAssociationRepresentativeID() +
                 "; League ID: " + newLeague.getLeagueID() + "; League Name:" + newLeague.getLeagueName());
 
         return true;
@@ -47,7 +47,7 @@ public class AssociationRepresentativeController {
     league.addSeason(year,season);
 
     //Logger
-     SystemController.logger.info("New Season have been add to league; season ID: " + season.getSeasonID() +
+     SystemController.logger.info("Creation | New Season have been add to league; season ID: " + season.getSeasonID() +
                 "; League ID: " + league.getLeagueID() + "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());
 
     return true;
@@ -77,7 +77,7 @@ public class AssociationRepresentativeController {
         userNameUser.put(userName,newReferee);
 
         //Logger
-        SystemController.logger.info("New Referee have been appoint; referee ID: " + newReferee.getRefereeID() +
+        SystemController.logger.info("Creation | New Referee have been appoint; referee ID: " + newReferee.getRefereeID() +
                 "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());
 
         return true;
@@ -93,7 +93,7 @@ public class AssociationRepresentativeController {
         referee.deleteUser();
         archiveUsers.add(referee);
         //Logger
-        SystemController.logger.info("Referee have been remove from the system; Referee ID: " + referee.getRefereeID() +
+        SystemController.logger.info("Deletion | Referee have been remove from the system; Referee ID: " + referee.getRefereeID() +
                 "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());
         return true;
     }
@@ -111,7 +111,7 @@ public class AssociationRepresentativeController {
             season.addReferee(referee.getRefereeTraining(), referee);
             referee.addSeason(season);
             //Logger
-            SystemController.logger.info("New Referee have been appoint to season; SeasonID: "+ season.getSeasonID()+"; Referee ID: " + referee.getRefereeID() +
+            SystemController.logger.info("Linking | New Referee have been appoint to season; SeasonID: "+ season.getSeasonID()+"; Referee ID: " + referee.getRefereeID() +
                     "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());
         }
         return true;
@@ -126,7 +126,7 @@ public class AssociationRepresentativeController {
         season.setScorePolicy(scoreComputingPolicy);
 
         //Logger
-        SystemController.logger.info("New Score Computing have been set to season; SeasonID: "+ season.getSeasonID()+"; Score Computing Name: " + scoreComputingPolicy.getName() +
+        SystemController.logger.info("Creation | New Score Computing have been set to season; SeasonID: "+ season.getSeasonID()+"; Score Computing Name: " + scoreComputingPolicy.getName() +
                 "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());
 
         return true;
@@ -141,7 +141,7 @@ public class AssociationRepresentativeController {
         season.setAssignPolicy(assignPolicy);
 
         //Logger
-        SystemController.logger.info("New Assign Policy have been set to season; SeasonID: "+ season.getSeasonID()+"; Assign Policy Name: " + assignPolicy.getName() +
+        SystemController.logger.info("Creation | New Assign Policy have been set to season; SeasonID: "+ season.getSeasonID()+"; Assign Policy Name: " + assignPolicy.getName() +
                 "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());
         return true;
 

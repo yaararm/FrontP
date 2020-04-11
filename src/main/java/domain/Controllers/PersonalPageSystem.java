@@ -26,6 +26,9 @@ public class PersonalPageSystem {
 
     public static boolean moveToArchive(PersonalPage personalPage) {
         SignedUser pageOwner = personalPage.getPageOwner();
+        String nameOwner = pageOwner.getFirstName()+" "+pageOwner.getLastName();
+        if(pageOwner )
+
 
 
     }
