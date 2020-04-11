@@ -15,7 +15,7 @@ public class Team {
     private int teamID;
     private TeamState state;
     private Members teamMembers;
-    private HashSet<Asset> assets;
+    private HashSet<Field> fields;
     private HashSet<FinanceActivity> financeActivities;
 
     public Team(String teamName, TeamState state) {
@@ -23,7 +23,7 @@ public class Team {
         this.teamID = idCounter++;
         this.state = state;
         this.teamMembers = new Members();
-        this.assets = new HashSet<>();
+        this.fields = new HashSet<>();
         this.financeActivities = new HashSet<>();
     }
 
@@ -78,29 +78,29 @@ public class Team {
         return true;
     }
 
-    public boolean addAsset(Asset... assets) throws Exception {
-        List<Asset> addedAssets = new ArrayList<>();
-        for (Asset asset : assets) {
-            if (this.assets.contains(asset)) {
-                this.assets.removeAll(addedAssets);
-                throw new Exception("The following asset is already related to the team" + asset);
+    public boolean addField(Field... fields) throws Exception {
+        List<Field> addedFields = new ArrayList<>();
+        for (Field field : fields) {
+            if (this.fields.contains(field)) {
+                this.fields.removeAll(addedFields);
+                throw new Exception("The following field is already related to the team" + field);
             } else {
-                addedAssets.add(asset);
-                this.assets.add(asset);
+                addedFields.add(field);
+                this.fields.add(field);
             }
         }
         return true;
     }
 
-    public boolean removeAsset(Asset... assets) throws Exception {
-        List<Asset> removedAssets = new ArrayList<>();
-        for (Asset asset : assets) {
-            if (this.assets.contains(asset)) {
-                removedAssets.add(asset);
-                this.assets.remove(asset);
+    public boolean removeField(Field... fields) throws Exception {
+        List<Field> removedAssets = new ArrayList<>();
+        for (Field field : fields) {
+            if (this.fields.contains(field)) {
+                removedAssets.add(field);
+                this.fields.remove(field);
             } else {
-                this.assets.addAll(removedAssets);
-                throw new Exception("The following asset is not related to the team" + asset);
+                this.fields.addAll(removedAssets);
+                throw new Exception("The following field is not related to the team" + field);
             }
         }
         return true;
