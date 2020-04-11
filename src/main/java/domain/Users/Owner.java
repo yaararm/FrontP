@@ -38,14 +38,6 @@ public class Owner extends ManagementUser {
         this.additionalRole = signedUser;
     }
 
-    public HashMap<Team, HashSet<Owner>> getAssignedOwners() {
-        return assignedOwners;
-    }
-
-    public HashMap<Team, HashSet<TeamManager>> getAssignedTeamManagers() {
-        return assignedTeamManagers;
-    }
-
     public SignedUser getAdditionalRole() {
         return additionalRole;
     }

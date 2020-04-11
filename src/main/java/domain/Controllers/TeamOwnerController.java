@@ -78,7 +78,7 @@ public class TeamOwnerController {
         if(teamOwner instanceof Owner) {
             if (SystemController.systemTeams.stream().anyMatch(team -> team.getTeamName().equals(teamName)))
                 throw new Exception("There is already team with the exact name");
-            Team newTeam = new Team(teamName, TeamState.notActive);
+            Team newTeam = new Team(teamName, TeamState.notActive, teamOwner);
             boolean newTeamAuthorization = ExternalServices.getNewTeamAuthorization(newTeam);
             if (!newTeamAuthorization)
                 throw new Exception("There is already team with the exact name");
@@ -236,8 +236,19 @@ public class TeamOwnerController {
             if (teamManagers.stream().anyMatch(teamManager -> teamManager == managerToRemove)) {
                 team.removeTeamMember(managerToRemove);
                 removingOwner.removeTeamManager(team, managerToRemove);
+                HashMap<Team, HashSet<Owner>> assignedOwners = managerToRemove.getAssignedOwners();
+                HashMap<Team, HashSet<TeamManager>> assignedTeamManagers = managerToRemove.getAssignedTeamManagers();
+                for (Map.Entry<Team, HashSet<Owner>> teamHashSetEntry : assignedOwners.entrySet()) {
+                    for (Owner owner : teamHashSetEntry.getValue()) {
+                        removeTeamOwner(managerToRemove, teamHashSetEntry.getKey(), owner);
+                    }
+                }
+                for (Map.Entry<Team, HashSet<TeamManager>> teamHashSetEntry : assignedTeamManagers.entrySet()) {
+                    for (TeamManager teamManager : teamHashSetEntry.getValue()) {
+                        removeTeamManager(managerToRemove, teamHashSetEntry.getKey(), teamManager);
+                    }
+                }
                 managerToRemove.deleteUser();
-                //TODO this user need to be changed if he is not owner anymore
                 //TODO send alerts to the removed
             } else {
                 throw new Exception("The select user is not team manager");

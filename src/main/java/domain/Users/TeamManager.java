@@ -1,9 +1,12 @@
 package domain.Users;
 
+import domain.Controllers.Utils;
 import domain.Enums.TeamManagerPermissions;
 import domain.Interfaces.Asset;
 
 import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TeamManager extends ManagementUser implements Asset {
     private EnumMap<TeamManagerPermissions, Boolean> permissions;
@@ -18,7 +21,7 @@ public class TeamManager extends ManagementUser implements Asset {
 
     @Override
     public boolean deleteUser() {
-        return false;
+
     }
 
     public boolean addPermissions(TeamManagerPermissions ... teamManagerPermissions){
@@ -38,5 +41,27 @@ public class TeamManager extends ManagementUser implements Asset {
 
     public boolean hasPermission(TeamManagerPermissions permission){
         return permissions.get(permission);
+    }
+
+    @Override
+    public boolean editAsset(HashMap<String, String> changes) throws Exception {
+        for (Map.Entry<String, String> entry : changes.entrySet()) {
+            switch (entry.getKey().toLowerCase()) {
+                case "email":
+                    this.email = entry.getValue();
+                    break;
+                case "firstname":
+                    this.firstName = entry.getValue();
+                    break;
+                case "lastname":
+                    this.lastName = entry.getValue();
+                    break;
+                case "password":
+                    this.password = Utils.sha256(entry.getValue());
+                    break;
+            }
+
+        }
+        return true;
     }
 }

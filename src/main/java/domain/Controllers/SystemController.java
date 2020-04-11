@@ -2,7 +2,9 @@ package domain.Controllers;
 
 import domain.Impl.League;
 import domain.Impl.Team;
-import domain.Users.*;
+import domain.Users.Fan;
+import domain.Users.Referee;
+import domain.Users.SignedUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
