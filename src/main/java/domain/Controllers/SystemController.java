@@ -1,6 +1,7 @@
 package domain.Controllers;
 
 import domain.Impl.League;
+import domain.Impl.Season;
 import domain.Impl.Team;
 import domain.Users.Fan;
 import domain.Users.Referee;
@@ -85,21 +86,34 @@ public class SystemController {
     }
 
 
-    //TODO complete search and show
-    //Use Case 2.5 PP LEAGUE SEASON team coach footballer
-    public static void search(String searchInput){
+    //Use Case 2.5
+    public static HashMap<String, HashSet<Object>> search(String searchInput){
         HashMap<String, HashSet<Object>> returned = new HashMap<>();
+        String[] searchArray = searchInput.split(" ");
+
+        returned.put("League",new HashSet<>());
+        returned.put("Season",new HashSet<>());
+        for (League league : leagueNameLeagues.values()) {
+            for (String searchWord : searchArray) {
+                if(league.toString().contains(searchWord)){
+                    returned.get("League").add(league);
+                }
+                for (Season season : league.getLeaguesSeasons().values()) {
+                    if(season.toString().contains(searchWord)){
+                        returned.get("Season").add(season);
+                    }
+                }
+            }
+        }
         returned.put("Footballer",new HashSet<>());
         returned.put("Coach",new HashSet<>());
         returned.put("Team",new HashSet<>());
-        returned.put("League",new HashSet<>());
-        returned.put("Season",new HashSet<>());
 
+        returned.get("Footballer").addAll(PersonalPageSystem.searchInputFootballer(searchArray));
+        returned.get("Coach").addAll(PersonalPageSystem.searchInputCoach(searchArray));
+        returned.get("Team").addAll(PersonalPageSystem.searchInputTeam(searchArray));
 
-
-
-
-
+        return returned;
     }
 
 
