@@ -1,5 +1,6 @@
 package domain.Impl;
 
+import domain.Controllers.PersonalPageSystem;
 import domain.Enums.TeamState;
 import domain.Interfaces.Asset;
 import domain.Users.*;
@@ -17,14 +18,17 @@ public class Team {
     private Members teamMembers;
     private HashSet<Field> fields;
     private HashSet<FinanceActivity> financeActivities;
+    PersonalPage teamPersonalPage;
 
-    public Team(String teamName, TeamState state) {
+    public Team(String teamName, TeamState state, ManagementUser managementUser) {
         this.teamName = teamName;
         this.teamID = idCounter++;
         this.state = state;
         this.teamMembers = new Members();
         this.fields = new HashSet<>();
         this.financeActivities = new HashSet<>();
+        teamPersonalPage = new TeamPersonalPage(managementUser,this);
+        PersonalPageSystem.addToTeamList(this, teamPersonalPage);
     }
 
     public String getTeamName() {
