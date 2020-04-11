@@ -44,4 +44,13 @@ public class League {
     public RefereeTraining getMinRefereeTrainingRequired() {
         return minRefereeTrainingRequired;
     }
+
+    @Override
+    public String toString() {
+        String string = leagueName;
+        for (Integer integer : leaguesSeasons.keySet()) {
+            string += integer;
+        }
+        return string;
+    }
 }

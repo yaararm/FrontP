@@ -73,5 +73,8 @@ public abstract class SignedUser extends User {
 
     public abstract boolean deleteUser() throws Exception;
 
-    public abstract String toString();
+    public String toString(){
+        String string = lastName +" " + firstName;
+        return string;
+    }
 }

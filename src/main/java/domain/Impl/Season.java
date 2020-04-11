@@ -49,6 +49,12 @@ public class Season {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return ""+year;
+    }
+
+    // ========== Getters and Setters
     public ScoreComputingPolicy getScorePolicy() {
         return scorePolicy;
     }

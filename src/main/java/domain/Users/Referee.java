@@ -83,6 +83,13 @@ public class Referee extends SignedUser {
         return games;
     }
 
-
-
+    @Override
+    public String toString() {
+        String string = super.toString();
+        string += refereeTraining.toString();
+        for (Season season : seasons) {
+            string += season.toString();
+        }
+        return string;
+    }
 }

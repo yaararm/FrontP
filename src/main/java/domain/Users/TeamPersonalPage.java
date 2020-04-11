@@ -33,6 +33,12 @@ public class TeamPersonalPage extends PersonalPage{
                 "; Personal Page ID: " + this.getPpID() + "; Team ID:" + team.getTeamID());
     }
 
+    @Override
+    public String toString() {
+        String string = super.toString();
+        string += coachName +" " + teamFootballerMembers +" " + teamFields + " "+ records + " " + Games;
+        return string;
+    }
 
     // ========= Getter and Setters =============
 
