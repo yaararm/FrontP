@@ -45,6 +45,11 @@ public class League {
         return minRefereeTrainingRequired;
     }
 
+
+    public HashMap<Integer, Season> getLeaguesSeasons() {
+        return leaguesSeasons;
+    }
+
     @Override
     public String toString() {
         String string = leagueName+ " ";

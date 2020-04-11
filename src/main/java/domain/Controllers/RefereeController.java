@@ -106,11 +106,8 @@ public class RefereeController {
 
     //Use Case 10.4.1 B
     public HashSet<Event> getGamesEventsForEdit(Referee referee, Game game){
-        HashSet<Event> eventsDuringTheGames = new HashSet<>();
         HashSet<Event> events = game.getEventLog().getEvents();
         return events;
-
-
     }
 
     //Use Case 10.4.1 C

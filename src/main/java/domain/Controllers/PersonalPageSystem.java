@@ -4,6 +4,7 @@ import domain.Impl.Team;
 import domain.Users.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,6 +57,46 @@ public class PersonalPageSystem {
                 "; Owner Name: " + nameOwner);
         return true;
     }
+
+    public static HashSet<PersonalPage> searchInputFootballer(String[] searchArray) {
+        HashSet<PersonalPage> returned = new HashSet<>();
+        for (PersonalPage personalPage : footballersPersonalPage.values()) {
+            for (String s : searchArray) {
+                if(personalPage.toString().contains(s)){
+                    returned.add(personalPage);
+                    break;
+                }
+            }
+        }
+        return returned;
+    }
+
+    public static HashSet<PersonalPage> searchInputCoach(String[] searchArray) {
+        HashSet<PersonalPage> returned = new HashSet<>();
+        for (PersonalPage personalPage : coachesPersonalPage.values()) {
+            for (String s : searchArray) {
+                if(personalPage.toString().contains(s)){
+                    returned.add(personalPage);
+                    break;
+                }
+            }
+        }
+        return returned;
+    }
+
+    public static HashSet<PersonalPage> searchInputTeam(String[] searchArray) {
+        HashSet<PersonalPage> returned = new HashSet<>();
+        for (PersonalPage personalPage : teamsPersonalPage.values()) {
+            for (String s : searchArray) {
+                if(personalPage.toString().contains(s)){
+                    returned.add(personalPage);
+                    break;
+                }
+            }
+        }
+        return returned;
+    }
+
 
     //Use Case 4.1 5.1
     public boolean updatePersonalPage(PersonalPage personalPage, HashMap<String,String> valuesToUpdate) {
