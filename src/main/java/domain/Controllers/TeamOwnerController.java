@@ -1,20 +1,64 @@
 package domain.Controllers;
 
+import domain.Enums.CoachPosition;
+import domain.Enums.FootballerPosition;
 import domain.Enums.TeamManagerPermissions;
 import domain.Enums.TeamState;
+import domain.Impl.Field;
 import domain.Impl.FinanceActivity;
 import domain.Impl.Team;
 import domain.Interfaces.Asset;
-import domain.Users.ManagementUser;
-import domain.Users.Owner;
-import domain.Users.SignedUser;
-import domain.Users.TeamManager;
+import domain.Users.*;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
 public class TeamOwnerController {
+    //Wasn't in UC
+    public Footballer signUpNewFootballer(ManagementUser teamOwner, String firstName, String lastName, String email,
+                                          FootballerPosition footballerPosition) throws Exception {
+        boolean valid = EmailValidator.getInstance().isValid(email);
+        if(!valid)
+            throw new Exception("Not valid Email");
+
+        String username = lastName+"_"+firstName;
+        String password = lastName+"_"+firstName+"_123";
+
+        if(SystemController.userNameUser.containsKey(username))
+            throw new Exception("This user name already exist in the system");
+
+        //TODO Send Email
+
+        String hashPassword = Utils.sha256(password);
+
+        Footballer footballer = new Footballer(username, hashPassword, firstName, lastName, email, footballerPosition);
+        SystemController.userNameUser.put(username,footballer);
+        return footballer;
+    }
+
+    public Coach signUpNewCoach(ManagementUser teamOwner, String firstName, String lastName, String email,
+                                          CoachPosition coachPosition) throws Exception {
+        boolean valid = EmailValidator.getInstance().isValid(email);
+        if(!valid)
+            throw new Exception("Not valid Email");
+
+        String username = lastName+"_"+firstName;
+        String password = lastName+"_"+firstName+"_123";
+
+        if(SystemController.userNameUser.containsKey(username))
+            throw new Exception("This user already exist in the system");
+
+        //TODO Send Email
+
+        String hashPassword = Utils.sha256(password);
+
+        Coach coach = new Coach(username, hashPassword, firstName, lastName, email, coachPosition);
+        SystemController.userNameUser.put(username,coach);
+        return coach;
+    }
+
 
     //UC 6.1
     public Team addNewTeamToSystem(ManagementUser teamOwner, String teamName) throws Exception {
@@ -34,9 +78,18 @@ public class TeamOwnerController {
     }
 
     //UC 6.1.1
-    public boolean addAssetToTeam(ManagementUser managementUser, Team team, Asset asset) throws Exception {
+    public boolean addFieldToTeam(ManagementUser managementUser, Team team, Field field) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.AddAsset))) {
-            team.addAsset(asset);
+            team.addField(field);
+            return true;
+        }
+        else
+            throw new Exception("The user doesn't have permissions for this one");
+    }
+
+    public boolean addMemberToTeam(ManagementUser managementUser, Team team, TeamUser teamUser) throws Exception {
+        if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.AddAsset))) {
+            team.addTeamMember(managementUser,teamUser);
             return true;
         }
         else
@@ -44,9 +97,18 @@ public class TeamOwnerController {
     }
 
     //UC 6.1.2
-    public boolean removeAssetFromTeam(ManagementUser managementUser, Team team, Asset asset) throws Exception {
+    public boolean removeFieldFromTeam(ManagementUser managementUser, Team team, Field field) throws Exception {
         if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.RemoveAsset))) {
-            team.removeAsset(asset);
+            team.removeField(field);
+            return true;
+        }
+        else
+            throw new Exception("The user doesn't have permissions for this one");
+    }
+
+    public boolean removeMemberFromTeam(ManagementUser managementUser, Team team, TeamUser teamUser) throws Exception {
+        if(managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager)managementUser).hasPermission(TeamManagerPermissions.AddAsset))) {
+            team.removeTeamMember(managementUser,teamUser);
             return true;
         }
         else

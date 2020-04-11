@@ -4,17 +4,19 @@ package domain.Users;
 import domain.Enums.UserStatus;
 
 public abstract class SignedUser extends User{
-    String userName;
-    String password;
-    UserStatus status;
-    String firstName;
-    String lastName;
-  
-    public SignedUser (String username, String password, String firstName, String lastName) {
+    protected String userName;
+    protected String password;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
+    protected UserStatus status;
+
+    public SignedUser (String username, String password, String firstName, String lastName, String email) {
         this.userName=username;
         this.password=password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
     }
 
     //========== Getters and Setters ================

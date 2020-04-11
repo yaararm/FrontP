@@ -1,10 +1,11 @@
 package domain.Users;
 
 import domain.Enums.TeamManagerPermissions;
+import domain.Interfaces.Asset;
 
 import java.util.EnumMap;
 
-public class TeamManager extends ManagementUser {
+public class TeamManager extends ManagementUser implements Asset {
     private EnumMap<TeamManagerPermissions, Boolean> permissions;
 
     public TeamManager(String username, String password) {
