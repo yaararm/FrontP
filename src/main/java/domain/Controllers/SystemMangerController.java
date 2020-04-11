@@ -2,9 +2,8 @@ package domain.Controllers;
 
 import domain.Enums.TeamState;
 import domain.Impl.Team;
-import domain.Users.Complaint;
-import domain.Users.SignedUser;
-import domain.Users.SystemManager;
+import domain.Users.*;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -15,6 +14,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SystemMangerController {
+
+    //Wasn't in UC
+    public Owner signUpNewOwner(ManagementUser teamOwner, String firstName, String lastName, String email) throws Exception {
+        boolean valid = EmailValidator.getInstance().isValid(email);
+        if(!valid)
+            throw new Exception("Not valid Email");
+
+        String username = lastName+"_"+firstName;
+        String password = lastName+"_"+firstName+"_123";
+
+        if(SystemController.userNameUser.containsKey(username))
+            throw new Exception("This user name already exist in the system");
+
+        //TODO Send Email
+
+        String hashPassword = Utils.sha256(password);
+
+        Owner owner = new Owner(username, hashPassword, firstName, lastName, email);
+        SystemController.userNameUser.put(username,owner);
+        return owner;
+    }
 
     //UC 8.1
     public boolean permanentlyCloseTeam(Team team) throws Exception {

@@ -9,8 +9,8 @@ import java.util.Map;
 public class Owner extends ManagementUser {
     private SignedUser additionalRole;
 
-    public Owner(String username, String password) {
-        super(username, password);
+    public Owner(String username, String password, String firstName, String lastName, String email) {
+        super(username, password, firstName, lastName, email);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Owner extends ManagementUser {
 
     public Owner(SignedUser signedUser) throws Exception {
         //TODO check constructors
-        this(signedUser.getUserName(),signedUser.getPassword());
+        this(signedUser.getUserName(),signedUser.getPassword(),signedUser.getFirstName(),signedUser.getLastName());
         if (!(additionalRole instanceof Footballer || additionalRole instanceof Coach || additionalRole instanceof TeamManager))
             throw new Exception("Only the following combinations are allowed: teamOwner and (Footballer or Coach or TeamManager)");
         this.additionalRole = signedUser;

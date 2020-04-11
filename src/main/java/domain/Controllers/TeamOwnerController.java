@@ -18,7 +18,7 @@ import java.util.Map;
 public class TeamOwnerController {
     //Wasn't in UC
     public Footballer signUpNewFootballer(ManagementUser teamOwner, String firstName, String lastName, String email,
-                                          FootballerPosition footballerPosition) throws Exception {
+                                          FootballerPosition footballerPosition, Team team) throws Exception {
         boolean valid = EmailValidator.getInstance().isValid(email);
         if(!valid)
             throw new Exception("Not valid Email");
@@ -35,11 +35,13 @@ public class TeamOwnerController {
 
         Footballer footballer = new Footballer(username, hashPassword, firstName, lastName, email, footballerPosition);
         SystemController.userNameUser.put(username,footballer);
+
+        addMemberToTeam(teamOwner, team, footballer);
         return footballer;
     }
 
     public Coach signUpNewCoach(ManagementUser teamOwner, String firstName, String lastName, String email,
-                                          CoachPosition coachPosition) throws Exception {
+                                          CoachPosition coachPosition, Team team) throws Exception {
         boolean valid = EmailValidator.getInstance().isValid(email);
         if(!valid)
             throw new Exception("Not valid Email");
@@ -56,6 +58,8 @@ public class TeamOwnerController {
 
         Coach coach = new Coach(username, hashPassword, firstName, lastName, email, coachPosition);
         SystemController.userNameUser.put(username,coach);
+
+        addMemberToTeam(teamOwner, team, coach);
         return coach;
     }
 

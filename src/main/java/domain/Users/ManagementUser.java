@@ -8,8 +8,8 @@ import java.util.HashSet;
 public abstract class ManagementUser extends TeamUser {
     protected HashMap<Team, HashSet<Owner>> assignedOwners;
     protected HashMap<Team, HashSet<TeamManager>> assignedTeamManagers;
-    public ManagementUser(String username, String password) {
-        super(username, password);
+    public ManagementUser(String username, String password, String firstName, String lastName, String email) {
+        super(username, password, firstName, lastName, email);
         this.assignedOwners = new HashMap<>();
         this.assignedTeamManagers = new HashMap<>();
     }
