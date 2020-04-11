@@ -12,6 +12,7 @@ public class TeamMemberPersonalPage extends PersonalPage {
     String type;
     String role;
     String team;
+    String content;
 
     public TeamMemberPersonalPage(TeamUser user) {
         super(user);
@@ -80,5 +81,13 @@ public class TeamMemberPersonalPage extends PersonalPage {
 
     public String getTeam() {
         return team;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

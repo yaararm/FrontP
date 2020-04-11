@@ -22,7 +22,7 @@ public class Referee extends SignedUser {
 
 
     public Referee(String userName, String hashPassword, int id, String fName, String lName, String email, RefereeTraining refereeTraining) {
-        super(userName, hashPassword, fName, lName, email);
+        super(email, hashPassword, fName, lName, email);
         this.id=id;
         this.email=email;
         this.refereeTraining=refereeTraining;

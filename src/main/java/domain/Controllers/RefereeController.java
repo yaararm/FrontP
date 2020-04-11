@@ -131,7 +131,6 @@ public class RefereeController {
     }
 
 
-
     //todo thonk how to send that
     //Use Case 10.4.2
     public EventLog createGameReport(Referee referee, Game game) {
