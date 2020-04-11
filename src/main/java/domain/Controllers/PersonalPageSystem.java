@@ -27,6 +27,7 @@ public class PersonalPageSystem {
     public static boolean moveToArchive(PersonalPage personalPage) {
         SignedUser pageOwner = personalPage.getPageOwner();
 
+
     }
 
 

@@ -20,6 +20,8 @@ public class PersonalPage {
         this.openDate= System.currentTimeMillis();
     }
 
+
+    // ============== Fans For Page ==========
     public boolean removeFans(Fan fan) {
         if(fans.remove(fan)){
             return true;
@@ -33,6 +35,7 @@ public class PersonalPage {
         return false;
     }
 
+    // ======== Getters ============
     public SignedUser getPageOwner() {
         return pageOwner;
     }

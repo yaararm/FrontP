@@ -15,11 +15,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SystemController {
-    static HashMap<String, User> userNameUser= new HashMap<>();
+    static HashMap<String, SignedUser> userNameUser= new HashMap<>();
     static HashMap<Fan, HashMap<String, Long>> fanHistory= new HashMap<>();
     static HashMap<String, League> leagueNameLeagues = new HashMap<>();
     public static HashSet<Team> systemTeams = new HashSet<>();
-    public static HashMap<Integer, Referee> IDReferees = new HashMap<>();
     static HashSet<User> archiveUsers= new HashSet<>();
     public static final Logger logger = LogManager.getLogger(SystemController.class.getName());
 
@@ -60,8 +59,30 @@ public class SystemController {
          return true;
     }
 
+    public static boolean findUserByID(int id) {
+        for (SignedUser value : userNameUser.values()) {
+            if(value instanceof Referee){
+                if (((Referee) value).getId()==id)
+                    return true;
+            }
+        }
+        return false;
+    }
 
-    //TODO complete search and show
+    public static HashSet<Referee> findRefereeThatFitToTraining(int numTraining) {
+        HashSet<Referee> relevantReferees = new HashSet<>();
+        for (SignedUser value : userNameUser.values()) {
+            if(value instanceof Referee){
+                if (((Referee) value).getRefereeTraining().getNumVal()<=numTraining) {
+                    relevantReferees.add((Referee) value);
+                }
+            }
+        }
+        return relevantReferees;
+    }
+
+
+        //TODO complete search and show
     /// 2.5
 
 

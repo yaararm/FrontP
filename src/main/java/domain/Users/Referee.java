@@ -10,9 +10,10 @@ import domain.Controllers.SystemController;
 import java.util.*;
 
 public class Referee extends SignedUser {
+    private static int idCounter = 0;
+    private int refereeID;
+
     private int id;
-    private String firstName;
-    private String lastName;
     private String email;
     private RefereeTraining refereeTraining;
 
@@ -21,14 +22,13 @@ public class Referee extends SignedUser {
 
 
     public Referee(String userName, String hashPassword, int id, String fName, String lName, String email, RefereeTraining refereeTraining) {
-        super(userName, hashPassword);
+        super(userName, hashPassword, fName, lName);
         this.id=id;
-        this.firstName=fName;
-        this.lastName=lName;
         this.email=email;
         this.refereeTraining=refereeTraining;
         games = new HashMap<>();
         seasons =new HashSet<>();
+        refereeID = idCounter++;
 
     }
 
@@ -71,13 +71,18 @@ public class Referee extends SignedUser {
         this.email = email;
     }
 
+    public boolean getRefereeID() {
+        return refereeID;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public HashMap<RefereeRole, HashSet<Game>> getGames() {
         return games;
     }
 
 
-    public int getId() {
-        return id;
-    }
+
 }
