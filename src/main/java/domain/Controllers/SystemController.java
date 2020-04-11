@@ -5,7 +5,6 @@ import domain.Impl.Team;
 import domain.Users.Fan;
 import domain.Users.Referee;
 import domain.Users.SignedUser;
-import domain.Users.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -72,4 +72,12 @@ public abstract class ManagementUser extends TeamUser {
         }
         return true;
     }
+
+    public HashMap<Team, HashSet<Owner>> getAssignedOwners() {
+        return assignedOwners;
+    }
+
+    public HashMap<Team, HashSet<TeamManager>> getAssignedTeamManagers() {
+        return assignedTeamManagers;
+    }
 }
