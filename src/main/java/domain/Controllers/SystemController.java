@@ -50,8 +50,8 @@ public class SystemController {
         return null;
     }
 
-    public static boolean leaguesNameValidation(String leagueName) {
-        return leagueNameLeagues.containsKey(leagueName);
+    public static boolean isLeaguesNameValid(String leagueName) {
+        return !leagueNameLeagues.containsKey(leagueName);
     }
 
     public static boolean addNewLeague(String leagueName, League newLeague) {
