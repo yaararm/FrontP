@@ -69,7 +69,7 @@ public class UC2 {
     @Test
     public void test_UC2_3_signIn_NotAcceptance_noUser() { // return  null instead of exception
         try {
-            sc.signIn("mes@bc.co.il", "1234565679");
+            sc.signIn("mevaes@bc.co.il", "1234565679");
         } catch (Exception e) {
             String message = "Wrong credentials";
             assertEquals(message, e.getMessage());

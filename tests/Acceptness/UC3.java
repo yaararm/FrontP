@@ -8,9 +8,13 @@ import domain.Users.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static domain.Enums.FootballerPosition.Striker;
 import static domain.Enums.TeamState.active;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class UC3 {
@@ -90,17 +94,74 @@ public class UC3 {
     // ============ Complaint 3.4 ===========
 
     @Test
-    public void test_UC3_4_Acceptance(){
+    public void test_UC3_4_Acceptance() {
         Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
-        boolean ans = fc.createComplaint(f,"arsenal is the best!");
+        boolean ans = fc.createComplaint(f, "arsenal is the best!");
         assertTrue(ans);
     }
+
     @Test
-    public void test_UC3_4_NotAcceptance(){
+    public void test_UC3_4_NotAcceptance() {
         Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
-        boolean ans = fc.createComplaint(f,"");
+        boolean ans = fc.createComplaint(f, "");
         assertFalse(ans);
     }
+
+
+    // ============ Search History 3.5 ==============
+
+    @Test
+    public void test_UC3_5_Acceptance() throws Exception { //Todo
+        Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
+        long start =  System.currentTimeMillis();
+        SystemController.search("barcelona");
+        Map<String, Long> mymap = fc.mySearchHistory(f, start,System.currentTimeMillis());
+        boolean ns;
+    }
+
+    @Test
+    public void test_UC3_5_NotAcceptance_WrongDates() throws Exception {
+        try {
+            Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
+            Map<String, Long> mymap = fc.mySearchHistory(f, System.currentTimeMillis(), (long) System.currentTimeMillis() - 1000);
+        } catch (Exception e) {
+            String message = "Wrong Dates";
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_UC3_5_NotAcceptance_NoSearch() {
+        try {
+            Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
+            long start =  System.currentTimeMillis();
+            Thread.sleep(5);
+            long end =  System.currentTimeMillis();
+            Map<String, Long> mymap = fc.mySearchHistory(f, start, end);
+        } catch (Exception e) {
+            String message = "No Search History";
+            assertEquals(message, e.getMessage());
+        }
+    }
+
+    // ========= Update 3.6 ==============
+    @Test
+    public void test_UC3_6_Acceptance() throws Exception{
+        Fan f4 = new Fan("shachar.rum@gmail.com", "987456321", "Shachar", "Rumney", "shachar.rum@gmail.com");
+        HashMap<String, String> valuesToUpdate = new HashMap<>();
+        valuesToUpdate.put("firstname","asaf");
+        valuesToUpdate.put("lastname","perri");
+        valuesToUpdate.put("email","perri@gmail.com");
+        valuesToUpdate.put("password","1234561234");
+        fc.updateDetails(f4,valuesToUpdate );
+        boolean ans = ( f4.getEmail().compareTo("perri@gmail.com")==0) && (f4.getFirstName().compareTo("asaf")==0)
+                && (f4.getLastName().compareTo("perri")==0);   // && (f4.getPassword().compareTo("1234561234")==0); cant check password
+
+        assertTrue(ans);
+
+    }
+
+
 
 
 

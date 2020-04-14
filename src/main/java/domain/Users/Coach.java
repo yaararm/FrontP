@@ -25,6 +25,10 @@ public class Coach extends TeamUser implements Asset {
         return coachPosition;
     }
 
+    public PersonalPage getMyPersonalPage() {
+        return myPersonalPage;
+    }
+
     @Override
     public boolean editAsset(HashMap<String, String> changes) throws Exception {
         for (Map.Entry<String, String> entry : changes.entrySet()) {
