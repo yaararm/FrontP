@@ -39,7 +39,7 @@ public class Owner extends ManagementUser {
     public Owner(SignedUser signedUser) throws Exception {
         //TODO check constructors
         this(signedUser.getUserName(),signedUser.getPassword(),signedUser.getFirstName(),signedUser.getLastName(),signedUser.getEmail());
-        if (!(additionalRole instanceof Footballer || additionalRole instanceof Coach || additionalRole instanceof TeamManager))
+        if (!(signedUser instanceof Footballer || signedUser instanceof Coach || signedUser instanceof TeamManager))
             throw new Exception("Only the following combinations are allowed: teamOwner and (Footballer or Coach or TeamManager)");
         this.additionalRole = signedUser;
     }
