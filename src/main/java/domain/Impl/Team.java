@@ -1,6 +1,7 @@
 package domain.Impl;
 
 import domain.Controllers.PersonalPageSystem;
+import domain.Controllers.SystemController;
 import domain.Enums.TeamState;
 import domain.Interfaces.Asset;
 import domain.Users.*;
@@ -29,6 +30,7 @@ public class Team {
         this.financeActivities = new HashSet<>();
         teamPersonalPage = new TeamPersonalPage(managementUser,this);
         PersonalPageSystem.addToTeamList(this, teamPersonalPage);
+        SystemController.systemTeams.add(this);
     }
 
     public String getTeamName() {

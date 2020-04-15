@@ -11,9 +11,8 @@ import domain.Interfaces.Asset;
 import domain.Users.*;
 import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TeamOwnerController {
     //Wasn't in UC
@@ -70,6 +69,16 @@ public class TeamOwnerController {
         }
         else
             throw new Exception("The user doesn't have permissions for this one");
+    }
+
+    public static boolean changePermissionsForTeamManager(ManagementUser managementUser,TeamManager teamManager ,
+                                                          EnumMap<TeamManagerPermissions, Boolean> changes) throws Exception {
+        if (managementUser instanceof Owner || (managementUser instanceof TeamManager && ((TeamManager) managementUser).hasPermission(TeamManagerPermissions.EditPermissions))) {
+            if(teamManager == managementUser)
+                throw new Exception("User can't edit his own Permissions");
+            teamManager.changePermissions(changes);
+        }
+        return true;
     }
 
 
