@@ -34,7 +34,7 @@ public class SystemController {
 
     public static SignedUser checkCredentials(String username, String password) {
         SignedUser user = (SignedUser) userNameUser.get(username);
-        if(user.getPassword().equals(password))
+        if(user != null && user.getPassword().equals(password))
             return user;
         return null;
     }

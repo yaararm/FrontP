@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 public class Owner extends ManagementUser {
+    //TODO change to TEAM USER
     private SignedUser additionalRole;
 
     public Owner(String username, String password, String firstName, String lastName, String email) {
