@@ -110,7 +110,7 @@ public class AssociationRepresentativeController {
     }
 
     //Use Case 9.4 B
-    public boolean setRefereeToLeague(AssociationRepresentative associationRepresentative, Season season, Referee... referees) {
+    public boolean setRefereeToSeason(AssociationRepresentative associationRepresentative, Season season, Referee... referees) {
         for (Referee referee : referees) {
             season.addReferee(referee.getRefereeTraining(), referee);
             referee.addSeason(season);

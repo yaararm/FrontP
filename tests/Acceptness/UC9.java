@@ -4,6 +4,10 @@ import domain.Controllers.AssociationRepresentativeController;
 import domain.Controllers.SystemController;
 import domain.Enums.RefereeTraining;
 import domain.Impl.League;
+import domain.Impl.Season;
+import domain.SeasonPolicies.AssignPolicy2;
+import domain.SeasonPolicies.ScoreComputingPolicy1;
+import domain.SeasonPolicies.ScoreComputingPolicy2;
 import domain.Users.AssociationRepresentative;
 import domain.Users.Referee;
 import org.junit.*;
@@ -13,22 +17,21 @@ import org.junit.jupiter.api.TestMethodOrder;;
 
 import static org.junit.Assert.*;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UC9 {
     //Class Fields
     static AssociationRepresentativeController ac;
     static AssociationRepresentative assRep;
 
-    @BeforeClass
-    public static void setUp() {
+    @Before
+    public void setUp() {
         ac = new AssociationRepresentativeController();
         assRep = new AssociationRepresentative("rep1", "1234", "avi", "cohen", "avi@football.com");
     }
 
+
     //region Test Use Case 9.1
     //define new league
     @Test
-    @Order(1)
     public void Test_defineNewLeague() {
         try {
             ac.defineNewLeague(assRep, "league1", RefereeTraining.Expert);
@@ -41,7 +44,6 @@ public class UC9 {
 
     //define new league that is already exist
     @Test(expected = Exception.class)
-    @Order(2)
     public void Test_defineNewLeagueAlreadyExist() throws Exception {
         ac.defineNewLeague(assRep, "league2", RefereeTraining.Expert);
         assertTrue(SystemController.leagueNameLeagues.containsKey("league2"));
@@ -53,7 +55,6 @@ public class UC9 {
     //region Test Use Case 9.2
     //add Season To League
     @Test
-    @Order(3)
     public void Test_addSeasonToLeague() {
         League l = SystemController.leagueNameLeagues.get("league1");
         try {
@@ -67,7 +68,6 @@ public class UC9 {
 
     //add Season To League
     @Test(expected = Exception.class)
-    @Order(4)
     public void Test_addSeasonToLeagueAlreadyExist() throws Exception {
         League l = SystemController.leagueNameLeagues.get("league1");
         ac.addSeasonToLeague(assRep, l, 2002, 1235656890);
@@ -81,7 +81,6 @@ public class UC9 {
 
     //region Test Use Case 9.3.1
     @Test
-    @Order(5)
     public void Test_appointReferee() {
         try {
             ac.appointReferee(assRep, 123456789, "hashofet", "benzona", "benz@ref.com", RefereeTraining.Begginer);
@@ -93,7 +92,6 @@ public class UC9 {
     }
 
     @Test(expected = Exception.class)
-    @Order(6)
     public void Test_appointRefereeEmailAlreadyExist() throws Exception {
         ac.appointReferee(assRep, 111111111, "shofet", "one", "shofet@ref.com", RefereeTraining.Begginer);
         //new ref with same email
@@ -102,7 +100,6 @@ public class UC9 {
     }
 
     @Test(expected = Exception.class)
-    @Order(6)
     public void Test_appointRefereeIDAlreadyExist() throws Exception {
         ac.appointReferee(assRep, 555555555, "shofet", "one", "2shofet@ref.com", RefereeTraining.Begginer);
         //new ref with same email
@@ -111,7 +108,6 @@ public class UC9 {
     }
 
     @Test(expected = Exception.class)
-    @Order(6)
     public void Test_appointRefereeInvalidEmail() throws Exception {
         ac.appointReferee(assRep, 333333333, "shofet", "two", "shofetref.com", RefereeTraining.Begginer);
 
@@ -120,7 +116,6 @@ public class UC9 {
 
     //region Test Use Case 9.3.2
     @Test
-    @Order(5)
     public void Test_removeReferee() {
         try {
             ac.appointReferee(assRep, 444444444, "shofet", "four", "four@ref.com", RefereeTraining.Begginer);
@@ -135,7 +130,6 @@ public class UC9 {
 
     //region Test Use Case 9.4 A
     @Test
-    @Order(5)
     public void Test_getAllRefereeThatCanBeForLeague() {
         try {
             ac.appointReferee(assRep, 999999999, "shofet", "nine", "nine@ref.com", RefereeTraining.Expert);
@@ -156,6 +150,112 @@ public class UC9 {
     }
     //endregion
 
+    //region Test Use Case 9.4 B
+    @Test
+    public void Test_setRefereeToSeason() {
+        try {
+            //define league
+            ac.defineNewLeague(assRep, "league3", RefereeTraining.Begginer);
+            League l = SystemController.leagueNameLeagues.get("league3");
+
+            //define season
+            ac.addSeasonToLeague(assRep, l, 2001, 1234567890);
+            Season s = l.getLeaguesSeasons().get(2001);
+
+            //add referee to system
+            ac.appointReferee(assRep, 524323454, "shofet", "aaa", "aaa@ref.com", RefereeTraining.Begginer);
+            Referee r = (Referee) SystemController.userNameUser.get("aaa@ref.com");
+
+            //add referee to season
+            ac.setRefereeToSeason(assRep,s,r);
+
+
+            assertTrue(s.getReferees().get(RefereeTraining.Begginer).contains(r));;
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+    //endregion
+
+    //region Test Use Case 9.5
+    @Test
+    public void Test_setScoreComputingPolicy() {
+        try {
+            //define league
+            ac.defineNewLeague(assRep, "league4", RefereeTraining.Begginer);
+            League l = SystemController.leagueNameLeagues.get("league4");
+
+            //define season
+            ac.addSeasonToLeague(assRep, l, 2020, System.currentTimeMillis()*2);
+            Season s = l.getLeaguesSeasons().get(2020);
+
+            //set policy
+            ac.setScoreComputingPolicy(assRep,s,new ScoreComputingPolicy2());
+
+            assertTrue(s.getScorePolicy() instanceof ScoreComputingPolicy2);;
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test(expected = Exception.class)
+    public void Test_setScoreComputingPolicyAlreadyStarted() throws Exception {
+        //define league
+        ac.defineNewLeague(assRep, "league5", RefereeTraining.Begginer);
+        League l = SystemController.leagueNameLeagues.get("league5");
+
+        //define season
+        ac.addSeasonToLeague(assRep, l, 2020, System.currentTimeMillis());
+        Season s = l.getLeaguesSeasons().get(2020);
+
+        //set policy
+        ac.setScoreComputingPolicy(assRep,s,new ScoreComputingPolicy2());
+
+        assertTrue(s.getScorePolicy() instanceof ScoreComputingPolicy2);;
+    }
+    //endregion
+
+    //region Test Use Case 9.6
+    @Test
+    public void Test_setAssignPolicy() {
+        try {
+            //define league
+            ac.defineNewLeague(assRep, "league6", RefereeTraining.Begginer);
+            League l = SystemController.leagueNameLeagues.get("league6");
+
+            //define season
+            ac.addSeasonToLeague(assRep, l, 2020, System.currentTimeMillis()*2);
+            Season s = l.getLeaguesSeasons().get(2020);
+
+            //set policy
+            ac.setAssignPolicy(assRep,s,new AssignPolicy2());
+
+            assertTrue(s.getAssignPolicy() instanceof AssignPolicy2);;
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test(expected = Exception.class)
+    public void Test_setAssignPolicyAlreadyStarted() throws Exception {
+        //define league
+        ac.defineNewLeague(assRep, "league7", RefereeTraining.Begginer);
+        League l = SystemController.leagueNameLeagues.get("league7");
+
+        //define season
+        ac.addSeasonToLeague(assRep, l, 2020, System.currentTimeMillis());
+        Season s = l.getLeaguesSeasons().get(2020);
+
+        //set policy
+        ac.setAssignPolicy(assRep,s,new AssignPolicy2());
+
+        assertTrue(s.getAssignPolicy() instanceof AssignPolicy2);;
+    }
+    //endregion
 }
 
-//setRefereeToLeague 9.4 B
+//setScoreComputingPolicy 9.5
+//setAssignPolicy 9.6

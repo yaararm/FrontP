@@ -78,4 +78,8 @@ public class Season {
     public int getSeasonID() {
         return seasonID;
     }
+
+    public HashMap<RefereeTraining, HashSet<Referee>> getReferees() {
+        return referees;
+    }
 }
