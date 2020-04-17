@@ -10,6 +10,8 @@ import domain.Users.TeamMemberPersonalPage;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import static domain.Enums.CoachPosition.Main;
 import static domain.Enums.CoachPosition.Strategy;
@@ -75,8 +77,9 @@ public class UC5 {
         valuesToUpdate.put("history","i love barca");
 
         pps.addContentToPersonalPage(kika.getMyPersonalPage(),valuesToUpdate);
-        boolean ans = (((TeamMemberPersonalPage)kika.getMyPersonalPage()).getContent().compareTo("history: i love barca")==0);
+        boolean ans = (((TeamMemberPersonalPage)kika.getMyPersonalPage()).getContent().compareTo("history, i love barca")==0);
         assertTrue(ans);
+
     }
 
 

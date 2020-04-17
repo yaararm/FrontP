@@ -29,17 +29,18 @@ public class UC3 {
     public void test_UC3_1_Acceptance_LogOut() throws Exception {
         gc.singUp("ronaldo@gmail.com", "456789123", "ronaldo", "mashehu");
         sc.signIn("ronaldo@gmail.com", "456789123");
-        SignedUser user = SystemController.checkCredentials("ronaldo@gmail.com", "456789123"); // return  null
+        SignedUser user = SystemController.checkCredentials("ronaldo@gmail.com", Utils.sha256("456789123")); // return  null
         boolean ans = sc.logOut(user);
         assertTrue(ans);
     }
 
     @Test
     public void test_UC3_1_NotAcceptance_LogOut() throws Exception {
-
-        SignedUser user = SystemController.checkCredentials("ronaldo@gmail.com", "456789123"); // return  null
+        gc.singUp("ronaldo1@gmail.com", "54387914", "ronaldo", "noone");
+        SignedUser user = SystemController.checkCredentials("ronaldo1@gmail.com", Utils.sha256("54387914")); // return  null
+        sc.logOut(user);
         boolean ans = sc.logOut(user);
-        assertTrue(ans);
+        assertFalse(ans);
     }
 
 
