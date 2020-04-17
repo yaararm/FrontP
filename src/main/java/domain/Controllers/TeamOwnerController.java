@@ -237,7 +237,6 @@ public class TeamOwnerController {
         else
             throw new Exception("The user doesn't have permissions for this one");
     }
-
     //UC 6.5
     public static boolean removeTeamManager(ManagementUser removingOwner, Team team, TeamManager managerToRemove) throws Exception {
         if(removingOwner instanceof Owner || (removingOwner instanceof TeamManager && ((TeamManager)removingOwner).hasPermission(TeamManagerPermissions.RemoveManager))) {

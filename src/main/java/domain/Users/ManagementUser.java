@@ -43,7 +43,6 @@ public abstract class ManagementUser extends TeamUser {
         return true;
     }
 
-
     public boolean addTeamManager(Team team, TeamManager teamManager) throws Exception {
         HashSet<TeamManager> teamManagers = this.assignedTeamManagers.get(team);
         if(teamManagers != null){
@@ -59,7 +58,6 @@ public abstract class ManagementUser extends TeamUser {
         }
         return true;
     }
-
 
     public boolean removeTeamManager(Team team, TeamManager teamManager) throws Exception {
         HashSet<TeamManager> teamManagers = this.assignedTeamManagers.get(team);
