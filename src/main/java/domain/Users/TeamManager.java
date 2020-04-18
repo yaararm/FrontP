@@ -58,6 +58,13 @@ public class TeamManager extends ManagementUser implements Asset {
         return true;
     }
 
+    public boolean changePermissions(EnumMap<TeamManagerPermissions, Boolean> permissions){
+        for (Map.Entry<TeamManagerPermissions, Boolean> teamManagerPermissionsBooleanEntry : permissions.entrySet()) {
+            this.permissions.put(teamManagerPermissionsBooleanEntry.getKey(),teamManagerPermissionsBooleanEntry.getValue());
+        }
+        return true;
+    }
+
     public boolean hasPermission(TeamManagerPermissions permission){
         return permissions.get(permission);
     }
