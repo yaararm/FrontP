@@ -19,6 +19,8 @@ public class Team {
     private Members teamMembers;
     private HashSet<Field> fields;
     private HashSet<FinanceActivity> financeActivities;
+
+
     PersonalPage teamPersonalPage;
 
     public Team(String teamName, TeamState state, ManagementUser managementUser) {
@@ -140,5 +142,9 @@ public class Team {
     public boolean removeFinanceActivity(FinanceActivity financeActivity) {
         this.financeActivities.remove(financeActivity);
         return true;
+    }
+
+    public PersonalPage getTeamPersonalPage() {
+        return teamPersonalPage;
     }
 }
