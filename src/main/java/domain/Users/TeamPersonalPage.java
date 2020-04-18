@@ -5,11 +5,11 @@ import domain.Impl.Field;
 import domain.Impl.Team;
 
 public class TeamPersonalPage extends PersonalPage{
-    String coachName;
-    String teamFootballerMembers;
-    String teamFields;
-    String records;
-    String Games;
+    String coachName="";
+    String teamFootballerMembers="";
+    String teamFields="";
+    String records="";
+    String Games="";
 
     public TeamPersonalPage(SignedUser user, Team team) {
         super(user);

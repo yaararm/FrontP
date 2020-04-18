@@ -64,4 +64,8 @@ public class Footballer extends TeamUser implements Asset {
         string += footballerPosition.toString();
         return string;
     }
+
+    public PersonalPage getMyPersonalPage() {
+        return myPersonalPage;
+    }
 }
