@@ -11,6 +11,7 @@ public class AssociationRepresentative extends SignedUser {
 
     @Override
     public boolean deleteUser() {
+        //ToDo implement
         return true;
     }
 

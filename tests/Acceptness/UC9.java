@@ -6,15 +6,10 @@ import domain.Enums.RefereeTraining;
 import domain.Impl.League;
 import domain.Impl.Season;
 import domain.SeasonPolicies.AssignPolicy2;
-import domain.SeasonPolicies.ScoreComputingPolicy1;
 import domain.SeasonPolicies.ScoreComputingPolicy2;
 import domain.Users.AssociationRepresentative;
 import domain.Users.Referee;
 import org.junit.*;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;;
-
 import static org.junit.Assert.*;
 
 public class UC9 {
