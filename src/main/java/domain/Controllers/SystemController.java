@@ -32,7 +32,6 @@ public class SystemController {
         userNameUser.put(username,newUser);
         return true;
     }
-
     public static SignedUser checkCredentials(String username, String password) {
         SignedUser user = (SignedUser) userNameUser.get(username);
         if(user!=null){

@@ -17,11 +17,13 @@ public class FanController {
         if (fan.checkIfFollowed(personalPage)) {
             fan.removeFollowed(personalPage);
             personalPage.removeFans(fan);
+            return false;
         } else {
             fan.addToFollowed(personalPage);
             personalPage.addFan(fan);
+            return true;
         }
-        return true;
+
     }
 
     // ============ Subscribe ===========
@@ -30,11 +32,13 @@ public class FanController {
         if (game.checkObserver(fan)) {
             game.removeObserver(fan);
             fan.removeFromObservedGames(game);
+            return false;
         } else {
             game.attachObserver(fan);
             fan.addToObservedGames(game);
+            return true;
         }
-        return true;
+
     }
 
     // ============ Complaint ===========
