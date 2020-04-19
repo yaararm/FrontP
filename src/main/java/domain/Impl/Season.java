@@ -1,9 +1,9 @@
 package domain.Impl;
 
 import domain.Enums.RefereeTraining;
-import domain.SeasonPolicies.AssignPolicy;
-import domain.SeasonPolicies.AssignPolicy1;
-import domain.SeasonPolicies.ScoreComputingPolicy;
+import domain.Interfaces.AssignPolicy;
+import domain.SeasonPolicies.AssignPolicy2;
+import domain.Interfaces.ScoreComputingPolicy;
 import domain.SeasonPolicies.ScoreComputingPolicy1;
 import domain.Users.Referee;
 
@@ -20,12 +20,16 @@ public class Season {
     private ScoreComputingPolicy scorePolicy;
     private AssignPolicy assignPolicy;
     HashMap<RefereeTraining, HashSet<Referee>> referees;
+    League league;
+    HashSet<Team> seasonsTeams;
+    HashMap<Integer,HashSet<Game>> RoundGames;
+
 
     public Season(Integer year, long startDate) {
         this.year=year;
         this.startDate = startDate;
         scorePolicy=new ScoreComputingPolicy1();
-        assignPolicy= new AssignPolicy1();
+        assignPolicy= new AssignPolicy2();
         referees = new HashMap<>();
         seasonID = idCounter++;
     }
@@ -49,12 +53,34 @@ public class Season {
         return false;
     }
 
+    public void setSeasonTeams(HashSet<Team> seasonsTeams) throws Exception {
+        if(System.currentTimeMillis() > this.startDate){
+            throw new Exception("cant change season teams after season start date");
+        }
+
+        this.seasonsTeams = seasonsTeams;
+    }
+
     @Override
     public String toString() {
         return ""+year;
     }
 
-    // ========== Getters and Setters
+    // ========== Getters and Setters ============
+
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
+    public HashSet<Team> getSeasonsTeams() {
+        return seasonsTeams;
+    }
+
     public ScoreComputingPolicy getScorePolicy() {
         return scorePolicy;
     }
@@ -81,5 +107,9 @@ public class Season {
 
     public HashMap<RefereeTraining, HashSet<Referee>> getReferees() {
         return referees;
+    }
+
+    public HashMap<Integer,HashSet<Game>> getGames() {
+        return RoundGames;
     }
 }
