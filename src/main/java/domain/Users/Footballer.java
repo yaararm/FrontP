@@ -69,7 +69,4 @@ public class Footballer extends TeamUser implements Asset {
         return string;
     }
 
-    public PersonalPage getMyPersonalPage() {
-        return myPersonalPage;
-    }
 }

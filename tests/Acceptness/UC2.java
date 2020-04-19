@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
 public class UC2 {
 
