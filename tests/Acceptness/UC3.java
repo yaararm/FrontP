@@ -54,7 +54,7 @@ public class UC3 {
         Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
         Owner tw = new Owner("yaya@gmail.com", "123456789", "yaara", "rumney", "yaya@gmail.com");
         Team team = new Team("Arsenal", active, tw);
-        Footballer tiri = TeamOwnerController.signUpNewFootballer(tw, "tiri", "henry", "tiri@gmail.com", Striker, team);
+        Footballer tiri = TeamOwnerController.signUpNewFootballer(tw, "tiri", "henry", "tiri12@gmail.com", Striker, team);
 
         boolean ans = fc.follow(f, tiri.getMyPersonalPage());
         assertTrue(ans);

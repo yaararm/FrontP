@@ -21,9 +21,9 @@ public class UC4 {
 
     @Test
     public void test_UC4_1_Acceptance()  throws Exception {
-        Owner tw = new Owner("yalla@gmail.com", "192837465", "yaara", "rumney", "yalla@gmail.com");
+        Owner tw = new Owner("yalla66@gmail.com", "192837465", "yaara", "rumney", "yalla66@gmail.com");
         Team manU = new Team("Manchester_United", active, tw);
-        Footballer david = TeamOwnerController.signUpNewFootballer(tw, "david", "beckham", "david@gmail.com", Striker, manU);
+        Footballer david = TeamOwnerController.signUpNewFootballer(tw, "david", "beckham", "david9090@gmail.com", Striker, manU);
         HashMap<String, String> valuesToUpdate = new HashMap<>();
         valuesToUpdate.put("role", "Attacking_Midfielder");
         valuesToUpdate.put("birthday", "22/7/1993");
@@ -40,7 +40,7 @@ public class UC4 {
 
     @Test
     public void test_UC4_1_NotAcceptance()  throws Exception {
-        Owner tw = new Owner("yalla@gmail.com", "192837465", "yaara", "rumney", "yalla@gmail.com");
+        Owner tw = new Owner("yattta@gmail.com", "192837465", "yaara", "rumney", "yattta@gmail.com");
         Team manU = new Team("Manchester_United", active, tw);
         Footballer david = TeamOwnerController.signUpNewFootballer(tw, "david", "beckham", "david@gmail.com", Striker, manU);
         HashMap<String, String> valuesToUpdate = new HashMap<>();
@@ -59,7 +59,7 @@ public class UC4 {
     public void test_UC4_2_Acceptance()  throws Exception {
         Owner tw = new Owner("delbuske@gmail.com", "192837465", "del", "buske", "delbuske@gmail.com");
         Team rm = new Team("real_madrid", active, tw);
-        Footballer ramos = TeamOwnerController.signUpNewFootballer(tw, "sergio", "ramos", "sergio@gmail.com", Center_Back, rm);
+        Footballer ramos = TeamOwnerController.signUpNewFootballer(tw, "sergio", "ramos", "sergio789@gmail.com", Center_Back, rm);
         HashMap<String,String> valuesToUpdate = new HashMap<>();
         valuesToUpdate.put("history","i love spain");
         valuesToUpdate.put("home","is whenever im with you");
@@ -70,14 +70,14 @@ public class UC4 {
 
     @Test
     public void test_UC4_2_NotAcceptance()  throws Exception {
-        Owner tw = new Owner("delbuske@gmail.com", "192837465", "del", "buske", "delbuske@gmail.com");
+        Owner tw = new Owner("delbuske9090@gmail.com", "192837465", "del", "buske", "delbuske9090@gmail.com");
         Team rm = new Team("real_madrid", active, tw);
-        Footballer ramos = TeamOwnerController.signUpNewFootballer(tw, "sergio", "ramos", "sergio@gmail.com", Center_Back, rm);
+        Footballer ramos = TeamOwnerController.signUpNewFootballer(tw, "sergio", "ramos", "sergio78@gmail.com", Center_Back, rm);
         HashMap<String,String> valuesToUpdate = new HashMap<>();
         valuesToUpdate.put("history","i love spain");
         pps.addContentToPersonalPage(ramos.getMyPersonalPage(),valuesToUpdate);
         boolean ans = (((TeamMemberPersonalPage)ramos.getMyPersonalPage()).getContent().compareTo("history,i love spain")==0);
-        assertTrue(ans);
+        assertFalse(ans);
     }
 
 }
