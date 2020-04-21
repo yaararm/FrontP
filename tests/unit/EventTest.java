@@ -16,7 +16,7 @@ public class EventTest {
     @BeforeClass
     public static void before_class(){
         Referee referee = new Referee("refe","123",1,"r","f","rf@gmail.com", RefereeTraining.Expert);
-        event = new Event(EventType.Gol,47,"was gol",referee);
+        event = new Event(EventType.Goal,47,"was gol",referee);
 
     }
     //test function - editEventMinute
