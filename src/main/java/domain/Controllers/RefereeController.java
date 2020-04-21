@@ -35,7 +35,7 @@ public class RefereeController {
                     else{
                         throw new Exception("Not Valid Email");
                     }
-                case "first name ":
+                case "first name":
                     referee.setFirstName(value);
                     break;
                 case "last name":

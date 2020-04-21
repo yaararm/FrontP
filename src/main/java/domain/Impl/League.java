@@ -23,7 +23,7 @@ public class League {
         leagueID = idCounter++;
     }
 
-    public boolean checkForSeason(Integer year) {
+    public boolean isSeasonExist(Integer year) {
         return leaguesSeasons.containsKey(year);
     }
 
