@@ -6,6 +6,7 @@ import domain.Impl.Team;
 import domain.Users.Fan;
 import domain.Users.Referee;
 import domain.Users.SignedUser;
+import domain.Users.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 
 public class SystemController {
     public static HashMap<String, SignedUser> userNameUser= new HashMap<>();
-    public static HashMap<Fan, HashMap<String, Long>> fanHistory= new HashMap<>();
     public static HashMap<String, League> leagueNameLeagues = new HashMap<>();
     public static HashSet<Team> systemTeams = new HashSet<>();
     public static HashMap<String, SignedUser> archiveUsers= new HashMap<>();
@@ -42,11 +42,12 @@ public class SystemController {
         return null;
     }
 
+    //Use Case 3.5
     public static Map<String, Long> getSearchHistory(Fan fan, final long fromDate, final long toDate) {
-        HashMap<String, Long> historyDateHashMap = fanHistory.get(fan);
+        HashMap<Long, String> historyDateHashMap = fan.getMySearches();
         if(historyDateHashMap != null) {
             Map<String, Long> collect =
-                    historyDateHashMap.entrySet().stream().filter(s -> s.getValue()<toDate && s.getValue()>fromDate).collect(Collectors.toMap(stringDateEntry -> stringDateEntry.getKey(), stringDateEntry -> stringDateEntry.getValue()));
+                    historyDateHashMap.entrySet().stream().filter(s -> s.getKey()<toDate && s.getKey()>fromDate).collect(Collectors.toMap(stringDateEntry -> stringDateEntry.getValue(), stringDateEntry -> stringDateEntry.getKey()));
             return collect;
         }
         return null;
@@ -89,7 +90,10 @@ public class SystemController {
 
 
     //Use Case 2.5
-    public static HashMap<String, HashSet<Object>> search(String searchInput){
+        public static HashMap<String, HashSet<Object>> search(User user, String searchInput){
+        if(user instanceof Fan){
+            ((Fan) user).addToMySearches(System.currentTimeMillis(),searchInput);
+        }
         HashMap<String, HashSet<Object>> returned = new HashMap<>();
         String[] searchArray = searchInput.split(" ");
 
@@ -114,7 +118,6 @@ public class SystemController {
         returned.get("Footballer").addAll(PersonalPageSystem.searchInputFootballer(searchArray));
         returned.get("Coach").addAll(PersonalPageSystem.searchInputCoach(searchArray));
         returned.get("Team").addAll(PersonalPageSystem.searchInputTeam(searchArray));
-
         return returned;
     }
 
