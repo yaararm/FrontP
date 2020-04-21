@@ -4,6 +4,7 @@ import domain.Impl.Team;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class ExternalServices {
 
@@ -25,7 +26,18 @@ public class ExternalServices {
         return true;
     }
 
+    public static boolean establishConnectionToTaxSystem() throws InterruptedException {
+        SystemController.logger.info("ExternalServices | Establishing connection to the tax system of the country");
+        TimeUnit.SECONDS.sleep(2);
+        SystemController.logger.info("ExternalServices | Connection to the tax system of the country has been established");
+        return true;
+    }
 
-
+    public static boolean establishConnectionToAssociationAccountingSystem() throws InterruptedException {
+        SystemController.logger.info("ExternalServices | Establishing connection to the association accounting system");
+        TimeUnit.SECONDS.sleep(2);
+        SystemController.logger.info("ExternalServices | Connection to the association accounting system has been established");
+        return true;
+    }
 
 }

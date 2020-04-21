@@ -92,7 +92,7 @@ public class SystemMangerController {
             String strLine;
             /* read log line by line */
             while ((strLine = br.readLine()) != null) {
-                String[] values = strLine.split(";");
+                String[] values = strLine.split("\\|");
                 logs.add(Arrays.asList(values));
             }
             fstream.close();
@@ -100,5 +100,12 @@ public class SystemMangerController {
             System.err.println("Error: " + e.getMessage());
         }
         return logs;
+    }
+
+    public static void main(String[] args) throws Exception {
+        SystemMangerController systemMangerController = new SystemMangerController();
+        List<List<String>> systemEventsLog = systemMangerController.getSystemEventsLog(System.currentTimeMillis() - 1000000000,
+                System.currentTimeMillis());
+        System.out.println("ff");
     }
 }
