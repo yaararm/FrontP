@@ -1,9 +1,7 @@
 package domain.Controllers;
 
-import domain.Users.SignedUser;
 import domain.Enums.UserStatus;
-
-import java.security.MessageDigest;
+import domain.Users.SignedUser;
 
 public class SignedInController {
 

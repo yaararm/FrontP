@@ -5,7 +5,6 @@ import domain.Impl.Game;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 public class Fan extends SignedUser {
     private static int idCounter = 0;

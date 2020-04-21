@@ -2,7 +2,6 @@ package domain.Controllers;
 
 import domain.Enums.UserStatus;
 import domain.Users.Fan;
-import domain.Users.SignedUser;
 import org.apache.commons.validator.routines.EmailValidator;
 
 public class GuestController {

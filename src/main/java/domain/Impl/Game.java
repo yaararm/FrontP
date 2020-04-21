@@ -6,7 +6,6 @@ import domain.Users.Fan;
 import domain.Users.Referee;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 

@@ -1,13 +1,5 @@
 package domain.Users;
 
-import domain.Controllers.SystemController;
-import domain.Controllers.TeamOwnerController;
-import domain.Impl.Team;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-
 public class Owner extends ManagementUser {
     public Owner(String username, String password, String firstName, String lastName, String email) {
         super(username, password, firstName, lastName, email);

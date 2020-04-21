@@ -2,8 +2,8 @@ package domain.Impl;
 
 import domain.Enums.RefereeTraining;
 import domain.Interfaces.AssignPolicy;
-import domain.SeasonPolicies.AssignPolicy2;
 import domain.Interfaces.ScoreComputingPolicy;
+import domain.SeasonPolicies.AssignPolicy2;
 import domain.SeasonPolicies.ScoreComputingPolicy1;
 import domain.Users.Referee;
 

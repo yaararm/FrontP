@@ -1,10 +1,5 @@
 package domain.Users;
 
-import domain.Users.Coach;
-import domain.Users.Fan;
-import domain.Users.Footballer;
-import domain.Users.SignedUser;
-
 import java.util.HashSet;
 
 public abstract class PersonalPage {
