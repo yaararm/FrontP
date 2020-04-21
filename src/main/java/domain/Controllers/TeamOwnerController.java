@@ -274,7 +274,6 @@ public class TeamOwnerController {
             if (team.getState() == TeamState.active) {
                 team.setStatus(TeamState.notActive);
                 //Todo send alerts
-                //todo save data on team
             } else {
                 throw new Exception("This team is already closed");
             }
