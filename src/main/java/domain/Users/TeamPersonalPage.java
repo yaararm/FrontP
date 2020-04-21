@@ -13,8 +13,6 @@ public class TeamPersonalPage extends PersonalPage{
 
     public TeamPersonalPage(SignedUser user, Team team) {
         super(user);
-        this.pageName= team.getTeamName();
-
         for (Coach teamCoach : team.getTeamCoaches()) {
             coachName += teamCoach.getCoachPosition() + ": "+ teamCoach.getFirstName() +" " + teamCoach.getLastName()+"\n";
         }

@@ -11,15 +11,16 @@ public abstract class PersonalPage {
     private static int idCounter = 0;
     private int ppID;
 
-    SignedUser pageOwner;
-    long openDate;
-    HashSet<Fan> fans = new HashSet<>();
-    String pageName;
+    private SignedUser pageOwner;
+    private long openDate;
+    private HashSet<Fan> fans = new HashSet<>();
+    private String pageName;
 
     public PersonalPage(SignedUser user) {
         pageOwner = user;
         this.openDate= System.currentTimeMillis();
         ppID= idCounter++;
+        pageName=user.getFirstName() + " " + user.getLastName();
     }
 
     // ============== Fans For Page ==========
@@ -54,4 +55,15 @@ public abstract class PersonalPage {
         return ppID;
     }
 
+    public static int getIdCounter() {
+        return idCounter;
+    }
+
+    public HashSet<Fan> getFans() {
+        return fans;
+    }
+
+    public String getPageName() {
+        return pageName;
+    }
 }
