@@ -19,10 +19,10 @@ public class Season {
     //Connections
     private ScoreComputingPolicy scorePolicy;
     private AssignPolicy assignPolicy;
-    HashMap<RefereeTraining, HashSet<Referee>> referees;
-    League league;
-    HashSet<Team> seasonsTeams;
-    HashMap<Integer,HashSet<Game>> RoundGames;
+    private HashMap<RefereeTraining, HashSet<Referee>> referees;
+    private League league;
+    private HashSet<Team> seasonsTeams;
+    private HashMap<Integer,HashSet<Game>> RoundGames;
 
 
     public Season(Integer year, long startDate) {

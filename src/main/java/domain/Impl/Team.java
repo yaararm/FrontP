@@ -19,7 +19,7 @@ public class Team {
     private Members teamMembers;
     private HashSet<Field> fields;
     private HashSet<FinanceActivity> financeActivities;
-    PersonalPage teamPersonalPage;
+    private PersonalPage teamPersonalPage;
 
     public Team(String teamName, TeamState state, ManagementUser managementUser) {
         this.teamName = teamName;
