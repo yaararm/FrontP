@@ -19,6 +19,7 @@ public class SystemController {
     public static HashMap<String, SignedUser> userNameUser= new HashMap<>();
     public static HashMap<String, League> leagueNameLeagues = new HashMap<>();
     public static HashSet<Team> systemTeams = new HashSet<>();
+    public static HashSet<Team> archivedTeams = new HashSet<>();
     public static HashMap<String, SignedUser> archiveUsers= new HashMap<>();
     public static final Logger logger = LogManager.getLogger(SystemController.class.getName());
 

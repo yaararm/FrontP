@@ -23,4 +23,12 @@ public class Event {
     public void editDescription(String description) {
         this.description = description;
     }
+
+    public int getEventMinute() {
+        return eventMinute;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
