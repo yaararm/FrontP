@@ -1,13 +1,14 @@
 package domain.Users;
 
+import domain.Controllers.SystemController;
 import domain.Enums.RefereeRole;
 import domain.Enums.RefereeTraining;
 import domain.Enums.UserStatus;
 import domain.Impl.Game;
 import domain.Impl.Season;
-import domain.Controllers.SystemController;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Referee extends SignedUser {
     private static int idCounter = 0;

@@ -3,7 +3,6 @@ package domain.Impl;
 import domain.Controllers.PersonalPageSystem;
 import domain.Controllers.SystemController;
 import domain.Enums.TeamState;
-import domain.Interfaces.Asset;
 import domain.Users.*;
 
 import java.util.ArrayList;
