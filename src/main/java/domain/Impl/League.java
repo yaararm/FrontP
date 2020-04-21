@@ -12,7 +12,6 @@ public class League {
     long openDate;
     AssociationRepresentative responsibleAssociationRepresentative;
     HashMap<Integer, Season> leaguesSeasons;
-
     RefereeTraining minRefereeTrainingRequired;
 
     public League(String leagueName, AssociationRepresentative associationRepresentative, RefereeTraining refereeTraining) {
@@ -44,7 +43,6 @@ public class League {
     public RefereeTraining getMinRefereeTrainingRequired() {
         return minRefereeTrainingRequired;
     }
-
 
     public HashMap<Integer, Season> getLeaguesSeasons() {
         return leaguesSeasons;
