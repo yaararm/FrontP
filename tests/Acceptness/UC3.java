@@ -161,9 +161,4 @@ public class UC3 {
         assertTrue(ans);
 
     }
-
-
-
-
-
 }
