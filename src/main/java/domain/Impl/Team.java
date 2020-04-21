@@ -33,22 +33,6 @@ public class Team {
         SystemController.systemTeams.add(this);
     }
 
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public int getTeamID() {
-        return teamID;
-    }
-
-    public TeamState getState() {
-        return state;
-    }
-
-    public boolean setStatus(TeamState newState) {
-        this.state = newState;
-        return true;
-    }
 
     public boolean addTeamMember(ManagementUser managementUser, SignedUser... signedUsers) throws Exception {
         List<SignedUser> addedUsers = new ArrayList<>();
@@ -112,6 +96,8 @@ public class Team {
         return true;
     }
 
+
+
     public HashSet<Footballer> getTeamFootballers() {
         return this.teamMembers.getFootballers();
     }
@@ -141,4 +127,22 @@ public class Team {
         this.financeActivities.remove(financeActivity);
         return true;
     }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public int getTeamID() {
+        return teamID;
+    }
+
+    public TeamState getState() {
+        return state;
+    }
+
+    public boolean setStatus(TeamState newState) {
+        this.state = newState;
+        return true;
+    }
+
 }
