@@ -49,7 +49,8 @@ public class FanController {
         }
         Complaint complaint = new Complaint(fan, description);
         fan.addToMyComplaints(complaint);
-        SystemController.logger.info("New complaint have been created; Complaint ID: " + complaint.getComplaintID() + "; Fan ID: " + fan.getFanID());
+        //Logger
+        SystemController.logger.info("Creation | New complaint have been created; Complaint ID: " + complaint.getComplaintID() + "; Fan ID: " + fan.getFanID());
         return true;
 
     }

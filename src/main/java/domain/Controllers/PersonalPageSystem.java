@@ -15,6 +15,7 @@ public class PersonalPageSystem {
     static HashMap<Coach, PersonalPage> coachesPersonalPage = new HashMap<>();
     static HashMap<PersonalPage, String> archivePersonalPage = new HashMap<>();
 
+    // ========== Add Personal Page to System ==========
     public static boolean addToFootballerList(Footballer footballer, PersonalPage myPersonalPage) {
         footballersPersonalPage.put(footballer,myPersonalPage);
         return true;
@@ -30,6 +31,7 @@ public class PersonalPageSystem {
         return true;
     }
 
+    // ==========  Archive Personal Page ==========
     public static boolean moveToArchive(PersonalPage personalPage) {
         SignedUser pageOwner = personalPage.getPageOwner();
         String nameOwner = pageOwner.getFirstName()+" "+pageOwner.getLastName();
@@ -58,6 +60,7 @@ public class PersonalPageSystem {
         return true;
     }
 
+    // ========== Search in the System ==========
     public static HashSet<PersonalPage> searchInputFootballer(String[] searchArray) {
         HashSet<PersonalPage> returned = new HashSet<>();
         for (PersonalPage personalPage : footballersPersonalPage.values()) {
@@ -98,6 +101,7 @@ public class PersonalPageSystem {
     }
 
 
+    // ========== Update Personal Page ==========
     //Use Case 4.1 5.1
     public boolean updatePersonalPage(PersonalPage personalPage, HashMap<String,String> valuesToUpdate) {
         if (personalPage instanceof TeamMemberPersonalPage) {
