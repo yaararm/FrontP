@@ -1,10 +1,17 @@
 package unit;
 
+import domain.Controllers.SystemController;
 import domain.Enums.CoachPosition;
 import domain.Enums.ComplaintStatus;
+import domain.Enums.TeamState;
 import domain.Impl.Game;
+import domain.Impl.Season;
+import domain.Impl.Team;
 import domain.Users.*;
 import org.junit.*;
+
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class FanTest {
@@ -43,8 +50,13 @@ public class FanTest {
 
     @Test
     public void addToObservedGamesTest() {
-        Game g = new Game();
+        Owner o = new Owner("moshe@gmail.com", "123456", "moshe", "cohen", "moshe@gmail.com");
+
+        Game g = new Game(new Season(2001,123456),new Team("t1", TeamState.active,o),new Team("t2",TeamState.active,o));
         assertTrue(f.addToObservedGames(g));
+        assertTrue(g.attachObserver(f));
+
+        assertTrue(g.getFansObserver().contains(f));
     }
 
     @Test
@@ -58,6 +70,15 @@ public class FanTest {
     public void deleteUserTest() {
         try {
             assertTrue(f.deleteUser());
+            for (PersonalPage followedPersonalPage : f.getFollowedPersonalPages()) {
+                assertFalse(followedPersonalPage.getFans().contains(f));
+            }
+            for (Game g : f.getObservedGames()) {
+                assertFalse(g.getFansObserver().contains(f));
+            }
+            assertFalse(SystemController.userNameUser.containsKey(f.getUserName()));
+            assertTrue(SystemController.archiveUsers.containsKey(f.getUserName()));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

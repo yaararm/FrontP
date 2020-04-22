@@ -82,7 +82,7 @@ public class RefereeController {
 
 
     //Use Case 10.3 B
-    public boolean addEventToGame(Referee referee, Game game, EventType eventType, int eventMinute, String description){
+    public boolean addEventToCurrentGame(Referee referee, Game game, EventType eventType, int eventMinute, String description){
         Event event = new Event(eventType, eventMinute, description, referee);
         game.getEventLog().addEvent(event);
         return true;
