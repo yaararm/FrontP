@@ -38,7 +38,7 @@ public class SignedInController {
 
 
     //Use Case 4.1 5.1 10.1
-    public boolean updateDetails(SignedUser signedUser, HashMap<String, String> valuesToUpdate) throws Exception {
+    public static boolean updateDetails(SignedUser signedUser, HashMap<String, String> valuesToUpdate) throws Exception {
         for (Map.Entry<String, String> entry : valuesToUpdate.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();

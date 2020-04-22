@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class UC10 {
     //Class Fields
     static RefereeController rc;
-    static Referee r;
+    private static Referee r;
     private static Game g1;
     private static Game g2;
     private static Game g3;
@@ -90,7 +90,7 @@ public class UC10 {
     public void Test_updateDetailsShortPassword() throws Exception {
         HashMap<String, String> newVal = new HashMap<>();
         newVal.put("Password", "1234");
-        rc.updateDetails(r, newVal);
+        SignedInController.updateDetails(r, newVal);
     }
     //endregion
 
