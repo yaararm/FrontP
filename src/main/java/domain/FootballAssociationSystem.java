@@ -19,8 +19,10 @@ public class FootballAssociationSystem {
             throw new Exception("Not valid email");
         }
 
-        SystemManager systemManager = new SystemManager(systemManagerEmail,"initialPassword"+systemManagerEmail,"system","manager",
+        SystemManager systemManager = new SystemManager(systemManagerEmail,Utils.sha256("initialPassword"+systemManagerEmail),"system","manager",
                 systemManagerEmail);
+        SystemController.userNameUser.put(systemManagerEmail, systemManager);
+
         ExternalServices.sendInviteToTheSystem(systemManagerEmail,systemManagerEmail,"initialPassword"+systemManagerEmail,"System owner");
         ExternalServices.establishConnectionToTaxSystem();
         ExternalServices.establishConnectionToAssociationAccountingSystem();
