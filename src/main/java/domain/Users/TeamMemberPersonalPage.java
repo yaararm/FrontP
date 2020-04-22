@@ -4,13 +4,13 @@ import domain.Controllers.SystemController;
 import domain.Impl.Team;
 
 public class TeamMemberPersonalPage extends PersonalPage {
-    String birthday;
-    String history;
-    String hobbies;
-    String type;
-    String role;
-    String team;
-    String content;
+    String birthday="";
+    String history="";
+    String hobbies="";
+    String type="";
+    String role="";
+    String team="";
+    String content="";
 
     public TeamMemberPersonalPage(TeamUser user) {
         super(user);
@@ -93,6 +93,6 @@ public class TeamMemberPersonalPage extends PersonalPage {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content += content;
     }
 }

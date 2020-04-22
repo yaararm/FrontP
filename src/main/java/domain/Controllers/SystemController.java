@@ -32,11 +32,13 @@ public class SystemController {
         userNameUser.put(username,newUser);
         return true;
     }
-
     public static SignedUser checkCredentials(String username, String password) {
         SignedUser user = (SignedUser) userNameUser.get(username);
-        if(user != null && user.getPassword().equals(password))
-            return user;
+        if(user!=null){
+            String password1 = user.getPassword();
+            if(password1.equals(password))
+                return user;
+        }
         return null;
     }
 
@@ -50,8 +52,8 @@ public class SystemController {
         return null;
     }
 
-    public static boolean leaguesNameValidation(String leagueName) {
-        return leagueNameLeagues.containsKey(leagueName);
+    public static boolean isLeaguesNameValid(String leagueName) {
+        return !leagueNameLeagues.containsKey(leagueName);
     }
 
     public static boolean addNewLeague(String leagueName, League newLeague) {

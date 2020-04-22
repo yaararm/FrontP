@@ -1,11 +1,6 @@
 package domain.Enums;
 
 public enum EventType {
-    Gol,
-    Offside,
-    Offense,
-    Red_Ticket,
-    Yellow_Ticket,
-    Injury,
-    Player_Replacement;
+    Goal,Offside,Offense,RedTicket,YellowTicket,Injury,Substitute
+    //שער, נבדל, עבירה, כרטיס אדום, כרטיס צהוב, פציעה, חילוף שחקן
 }
