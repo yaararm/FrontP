@@ -1,9 +1,6 @@
 package Acceptness;
 
-import domain.Controllers.AssociationRepresentativeController;
-import domain.Controllers.RefereeController;
-import domain.Controllers.SystemController;
-import domain.Controllers.Utils;
+import domain.Controllers.*;
 import domain.Enums.EventType;
 import domain.Enums.RefereeRole;
 import domain.Enums.RefereeTraining;
@@ -79,7 +76,8 @@ public class UC10 {
             HashMap<String, String> newVal = new HashMap<>();
             newVal.put("Password", "123456");
             newVal.put("first name", "moshik");
-            rc.updateDetails(r, newVal);
+            //ToDo change to signincontriller
+            SignedInController.updateDetails(r, newVal);
             assertEquals(Utils.sha256("123456"), r.getPassword());
             assertEquals("moshik", r.getFirstName());
         } catch (Exception e) {
@@ -92,13 +90,6 @@ public class UC10 {
     public void Test_updateDetailsShortPassword() throws Exception {
         HashMap<String, String> newVal = new HashMap<>();
         newVal.put("Password", "1234");
-        rc.updateDetails(r, newVal);
-    }
-
-    @Test(expected = Exception.class)
-    public void Test_updateDetailsInvalidMail() throws Exception {
-        HashMap<String, String> newVal = new HashMap<>();
-        newVal.put("email", "123456");
         rc.updateDetails(r, newVal);
     }
     //endregion
