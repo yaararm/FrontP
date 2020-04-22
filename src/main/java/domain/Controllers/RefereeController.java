@@ -14,39 +14,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class RefereeController {
-    //Use Case 10.1
-    public boolean updateDetails(Referee referee, HashMap<String, String> valuesToUpdate) throws Exception {
-        for (Map.Entry<String, String> entry : valuesToUpdate.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            switch (key.toLowerCase()) {
-                case "password":
-                    if(value.length() >= 6) {
-                        String hashPassword = Utils.sha256(value);
-                        referee.setPassword(hashPassword);
-                        break;
-                    }
-                    else{
-                        throw new Exception("Password not long enough");
-                    }
-                case "email":
-                    if(EmailValidator.getInstance().isValid(value)){
-                        referee.setEmail(value);
-                        break;
-                    }
-                    else{
-                        throw new Exception("Not Valid Email");
-                    }
-                case "first name":
-                    referee.setFirstName(value);
-                    break;
-                case "last name":
-                    referee.setLastName(value);
-                    break;
-            }
-        }
-        return true;
-    }
 
     //Use Case 10.2
     public HashMap<Game, RefereeRole> showRefereeAssignedGames(Referee referee) throws Exception {

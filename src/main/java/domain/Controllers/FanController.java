@@ -73,9 +73,6 @@ public class FanController {
     public boolean updateDetails(Fan fan, HashMap<String, String> valuesToUpdate) {
         for (Map.Entry<String, String> entry : valuesToUpdate.entrySet()) {
             switch (entry.getKey().toLowerCase()) {
-                case "email":
-                    fan.setEmail(entry.getValue());
-                    break;
                 case "firstname":
                     fan.setFirstName(entry.getValue());
                     break;
@@ -87,7 +84,6 @@ public class FanController {
                     fan.setPassword(hashPassword);
                     break;
             }
-
         }
         return true;
     }
