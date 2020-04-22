@@ -1,11 +1,11 @@
 package domain.Users;
 
 import domain.Controllers.ComplaintSystemController;
+import domain.Controllers.SystemController;
 import domain.Impl.Game;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 public class Fan extends SignedUser {
     private static int idCounter = 0;
@@ -92,6 +92,18 @@ public class Fan extends SignedUser {
         return fanID;
     }
 
+    public HashSet<PersonalPage> getFollowedPersonalPages() {
+        return followedPersonalPages;
+    }
+
+    public HashSet<Complaint> getMyComplaints() {
+        return myComplaints;
+    }
+
+    public HashSet<Game> getObservedGames() {
+        return observedGames;
+    }
+
     //========== Delete ================
     @Override
     public boolean deleteUser() {
@@ -105,6 +117,8 @@ public class Fan extends SignedUser {
         for (Complaint myComplaint : myComplaints) {
             ComplaintSystemController.moveToArchive(myComplaint);
         }
+        SystemController.archiveUsers.put(this.getUserName(),this);
+        SystemController.userNameUser.remove(this);
         return true;
     }
 

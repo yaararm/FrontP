@@ -1,10 +1,5 @@
 package domain.Users;
 
-import domain.Users.Coach;
-import domain.Users.Fan;
-import domain.Users.Footballer;
-import domain.Users.SignedUser;
-
 import java.util.HashSet;
 
 public abstract class PersonalPage {
@@ -14,13 +9,13 @@ public abstract class PersonalPage {
     private SignedUser pageOwner;
     private long openDate;
     private HashSet<Fan> fans = new HashSet<>();
-    private String pageName;
+    protected String pageName;
 
     public PersonalPage(SignedUser user) {
         pageOwner = user;
         this.openDate= System.currentTimeMillis();
         ppID= idCounter++;
-        pageName=user.getFirstName() + " " + user.getLastName();
+
     }
 
     // ============== Fans For Page ==========
@@ -39,7 +34,7 @@ public abstract class PersonalPage {
 
     @Override
     public String toString() {
-        return pageOwner.toString();
+        return pageOwner.toString() +" "+pageName +" ";
     }
 
     // ======== Getters ============
@@ -66,4 +61,5 @@ public abstract class PersonalPage {
     public String getPageName() {
         return pageName;
     }
+
 }

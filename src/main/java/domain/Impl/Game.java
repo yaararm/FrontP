@@ -6,7 +6,6 @@ import domain.Users.Fan;
 import domain.Users.Referee;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 
@@ -26,9 +25,9 @@ public class Game {
     private int homeScore=0;
     private int awayScore=0;
 
-    //ToDO delete
-    public Game() {
-    }
+//    //ToDO delete
+//    public Game() {
+//    }
 
     public Game(Season season, Team homeTeam, Team awayTeam) {
         this.season = season;
@@ -162,4 +161,7 @@ public class Game {
         return eventLog;
     }
 
+    public List<Fan> getFansObserver() {
+        return fansObserver;
+    }
 }

@@ -1,15 +1,11 @@
 package domain.Users;
 
-import domain.Controllers.SystemController;
-import domain.Controllers.TeamOwnerController;
 import domain.Controllers.Utils;
 import domain.Enums.TeamManagerPermissions;
-import domain.Impl.Team;
 import domain.Interfaces.Asset;
 
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class TeamManager extends ManagementUser implements Asset {

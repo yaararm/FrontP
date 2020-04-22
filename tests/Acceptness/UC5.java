@@ -66,7 +66,7 @@ public class UC5 {
         valuesToUpdate.put("history","i love tlv");
         valuesToUpdate.put("home","is serbia");
         pps.addContentToPersonalPage(ivitz.getMyPersonalPage(),valuesToUpdate);
-        boolean ans = (((TeamMemberPersonalPage)ivitz.getMyPersonalPage()).getContent().compareTo("history: i love tlv")==0);
+        boolean ans = (((TeamMemberPersonalPage)ivitz.getMyPersonalPage()).getContent().compareTo("home: is serbia\n")==0);
         assertTrue(ans);
     }
 
@@ -78,7 +78,7 @@ public class UC5 {
 
         pps.addContentToPersonalPage(kika.getMyPersonalPage(),valuesToUpdate);
         boolean ans = (((TeamMemberPersonalPage)kika.getMyPersonalPage()).getContent().compareTo("history, i love barca")==0);
-        assertTrue(ans);
+        assertFalse(ans);
 
     }
 

@@ -29,7 +29,7 @@ public class TeamMemberPersonalPage extends PersonalPage {
             type = "Coach";
             role = ((Coach) user).getCoachPosition().toString();
         }
-
+        pageName = user.firstName +" "+user.lastName;
         //Logger
         SystemController.logger.info("Creation | New Personal Page for Team Member have been created have been defined; Owner name: " + user.getFirstName() + " " + user.getLastName() +
                 "; Personal Page ID: " + this.getPpID());

@@ -1,10 +1,7 @@
 package domain.Users;
 
-import domain.Controllers.SystemController;
-import domain.Enums.ComplaintStatus;
-import domain.Users.Fan;
-import domain.Users.SystemManager;
 import domain.Controllers.ComplaintSystemController;
+import domain.Controllers.SystemController;
 import domain.Enums.ComplaintStatus;
 
 import java.util.HashSet;

@@ -8,7 +8,9 @@ import domain.Impl.Game;
 import domain.Users.Referee;
 import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class RefereeController {
@@ -80,7 +82,7 @@ public class RefereeController {
 
 
     //Use Case 10.3 B
-    public boolean addEventToGame(Referee referee, Game game, EventType eventType, int eventMinute, String description){
+    public boolean addEventToCurrentGame(Referee referee, Game game, EventType eventType, int eventMinute, String description){
         Event event = new Event(eventType, eventMinute, description, referee);
         game.getEventLog().addEvent(event);
         return true;

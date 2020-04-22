@@ -1,8 +1,8 @@
 package domain.Controllers;
 
+import domain.Impl.Game;
 import domain.Users.Complaint;
 import domain.Users.Fan;
-import domain.Impl.Game;
 import domain.Users.PersonalPage;
 
 import java.util.HashMap;

@@ -2,8 +2,8 @@ package domain.Impl;
 
 import domain.Enums.RefereeTraining;
 import domain.Interfaces.AssignPolicy;
-import domain.SeasonPolicies.AssignPolicy2;
 import domain.Interfaces.ScoreComputingPolicy;
+import domain.SeasonPolicies.AssignPolicy2;
 import domain.SeasonPolicies.ScoreComputingPolicy1;
 import domain.Users.Referee;
 
@@ -32,6 +32,7 @@ public class Season {
         assignPolicy= new AssignPolicy2();
         referees = new HashMap<>();
         seasonID = idCounter++;
+        RoundGames = new HashMap<>();
     }
 
     public boolean addReferee(RefereeTraining refereeTraining, Referee referee){
@@ -111,5 +112,9 @@ public class Season {
 
     public HashMap<Integer,HashSet<Game>> getGames() {
         return RoundGames;
+    }
+
+    public void setSeasonGames(HashMap<Integer, HashSet<Game>> roundGames) {
+        RoundGames = roundGames;
     }
 }

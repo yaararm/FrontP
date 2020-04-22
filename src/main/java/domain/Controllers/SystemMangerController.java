@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +57,15 @@ public class SystemMangerController {
     //UC 8.2
     public boolean removeUserFromSystem(SignedUser signedUser) throws Exception {
         //TODO think about system constraints
+        if(signedUser instanceof ManagementUser){
+            ManagementUser managementUser= (ManagementUser) signedUser;
+            HashMap<Team, ManagementUser> teams = managementUser.getTeams();
+            for (Team team : teams.keySet()) {
+                if (team.getTeamOwners().size()==1 && team.getTeamOwners().contains(signedUser)){
+                    throw new Exception("Can't remove this user from the system since he is the only team owner of " +team.getTeamName());
+                }
+            }
+        }
         signedUser.deleteUser();
         return true;
     }
@@ -100,12 +110,5 @@ public class SystemMangerController {
             System.err.println("Error: " + e.getMessage());
         }
         return logs;
-    }
-
-    public static void main(String[] args) throws Exception {
-        SystemMangerController systemMangerController = new SystemMangerController();
-        List<List<String>> systemEventsLog = systemMangerController.getSystemEventsLog(System.currentTimeMillis() - 1000000000,
-                System.currentTimeMillis());
-        System.out.println("ff");
     }
 }

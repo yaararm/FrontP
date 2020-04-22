@@ -1,5 +1,7 @@
 package unit;
 
+import domain.Controllers.SystemController;
+import domain.Controllers.TeamOwnerController;
 import domain.Controllers.Utils;
 import domain.Enums.FootballerPosition;
 import domain.Enums.TeamState;
@@ -11,6 +13,8 @@ import domain.Users.TeamManager;
 import org.junit.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -75,5 +79,32 @@ public class ManagementUserTest {
         } catch (Exception ignored) {
         }
 
+    }
+
+
+    @Test
+    public void deleteUserTest() {
+        try {
+            assertTrue(mu.deleteUser());
+            for (Team team : mu.getTeams().keySet()) {
+                assertFalse(team.getTeamCoaches().contains(mu));
+            }
+            for (Map.Entry<Team, HashSet<Owner>> teamHashSetEntry : mu.getAssignedOwners().entrySet()) {
+                for (Owner owner : teamHashSetEntry.getValue()) {
+                    assertFalse(teamHashSetEntry.getKey().getTeamOwners().contains(owner));
+
+                }
+            }
+            for (Map.Entry<Team, HashSet<TeamManager>> teamHashSetEntry : mu.getAssignedTeamManagers().entrySet()) {
+                for (TeamManager teamManager : teamHashSetEntry.getValue()) {
+                    assertFalse(teamHashSetEntry.getKey().getTeamManagers().contains(teamManager));
+                }
+            }
+            assertFalse(SystemController.userNameUser.containsKey(mu.getUserName()));
+            assertTrue(SystemController.archiveUsers.containsKey(mu.getUserName()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

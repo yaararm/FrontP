@@ -1,9 +1,7 @@
 package domain.Impl;
 
-import domain.Controllers.Utils;
 import domain.Enums.FieldType;
 import domain.Interfaces.Asset;
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.HashMap;
 import java.util.HashSet;
