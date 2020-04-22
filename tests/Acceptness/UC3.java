@@ -115,7 +115,7 @@ public class UC3 {
     public void test_UC3_5_Acceptance() throws Exception { //Todo
         Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
         long start =  System.currentTimeMillis();
-        SystemController.search("barcelona");
+        SystemController.search(f,"barcelona");
         Map<String, Long> mymap = fc.mySearchHistory(f, start,System.currentTimeMillis());
         boolean ns;
     }

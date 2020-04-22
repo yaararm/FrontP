@@ -14,7 +14,7 @@ public class SystemManagerTest {
     public void test_addComplaint(){
         Fan f = new Fan("shachar10@gmail.com", "12345654", "shachar", "rumney", "shachar12@gmail.com");
         Complaint c = new Complaint(f,"hola bebe!");
-        SystemManager sm = new SystemManager();
+        SystemManager sm = new SystemManager("itai@gmail.com","345678923","iati","dagan","itai@gmail.com");
 
        boolean ans =  sm.addComplaint(c);
        assertTrue(ans);
