@@ -18,6 +18,8 @@ public class Team {
     private Members teamMembers;
     private HashSet<Field> fields;
     private HashSet<FinanceActivity> financeActivities;
+
+
     PersonalPage teamPersonalPage;
 
     public Team(String teamName, TeamState state, ManagementUser managementUser) {
@@ -127,6 +129,9 @@ public class Team {
         return true;
     }
 
+    public PersonalPage getTeamPersonalPage() {
+        return teamPersonalPage;
+    }
     public String getTeamName() {
         return teamName;
     }
@@ -143,5 +148,4 @@ public class Team {
         this.state = newState;
         return true;
     }
-
 }

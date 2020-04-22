@@ -9,10 +9,8 @@ import org.junit.Test;
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertEquals;
 
-public class UC2 {
 
-//ToDo figure out whether every test should work on his own?
-    //Todo also- not acceptance shouldfailed?
+public class UC2 {
 
     GuestController gc = new GuestController();
 

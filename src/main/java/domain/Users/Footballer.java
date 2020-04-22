@@ -14,7 +14,6 @@ public class Footballer extends TeamUser implements Asset {
     private PersonalPage myPersonalPage;
     private FootballerPosition footballerPosition;
 
-
     public Footballer(String username, String password, String firstName, String lastName, String email, FootballerPosition footballerPosition) {
         super(username, password, firstName, lastName, email);
         this.footballerPosition = footballerPosition;
