@@ -9,6 +9,7 @@ import domain.Enums.FootballerPosition;
 import domain.Enums.TeamState;
 import domain.Impl.Field;
 import domain.Impl.Team;
+import domain.Interfaces.Asset;
 import domain.Users.*;
 import org.junit.*;
 
@@ -47,6 +48,11 @@ public class UC6 {
     @Test(expected = Exception.class)
     public void test_UC6_1_nonAcceptnace() throws Exception {
         Team extraTeam = teamOwnerController.addNewTeamToSystem(owner,"Macabi");
+    }
+
+    @Test(expected = Exception.class)
+    public void test_UC6_1_nonAcceptnace_nonpramision() throws Exception {
+        teamOwnerController.addNewTeamToSystem(teamManager,"gogo");
     }
 
 
@@ -96,6 +102,11 @@ public class UC6 {
         teamOwnerController.removeMemberFromTeam(teamManager,newTeam,footballer);
     }
 
+    @Test(expected = Exception.class)
+    public void test_UC6_1_2_nonAcceptnace_noAssetToRemove() throws Exception {
+        Footballer footballer = new Footballer("sh","1990","sharon","tzur","sharon@gmail.com",FootballerPosition.Center_Back);
+        teamOwnerController.removeMemberFromTeam(owner,newTeam,footballer);
+    }
 
 
     //UC 6.1.3
@@ -116,6 +127,12 @@ public class UC6 {
         HashMap info = new HashMap();
         info.put("email","amitTheCoach@gmail.com");
         teamOwnerController.editAssetOfTeam(teamManager,coach,info);
+
+    }
+
+    @Test(expected = Exception.class)
+    public void test_UC6_1_3_nonAcceptnace_noAsset() throws Exception {
+        teamOwnerController.editAssetOfTeam(owner,null,new HashMap<>());
 
     }
 
@@ -269,7 +286,6 @@ public class UC6 {
 
 
     //UC 6.6.2
-
     @Test
     public void test_UC6_6_2_acceptnce() throws Exception {
         if(newTeam.getState()==TeamState.active){
@@ -283,6 +299,15 @@ public class UC6 {
         Owner newOwner =new Owner("alisa","123","alisa","fingold","ali@gmail.com");
         Team team = teamOwnerController.addNewTeamToSystem(newOwner,"qweenB");
         teamOwnerController.openTeam(newOwner,team);
+    }
+
+    @Test(expected = Exception.class)
+    public void test_UC6_6_2_nonAccaptnace_close() throws Exception {
+        Owner newOwner =new Owner("alisa","123","alisa","fingold","ali@gmail.com");
+        Team team = teamOwnerController.addNewTeamToSystem(newOwner,"snoky");
+        SystemMangerController.permanentlyCloseTeam(team);
+        teamOwnerController.openTeam(newOwner,team);
+
     }
 
     @Test(expected = Exception.class)
