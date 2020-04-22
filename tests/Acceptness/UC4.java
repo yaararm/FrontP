@@ -12,6 +12,7 @@ import java.util.Map;
 import static domain.Enums.FootballerPosition.*;
 import static domain.Enums.TeamState.active;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class UC4 {
@@ -64,8 +65,11 @@ public class UC4 {
         valuesToUpdate.put("history","i love spain");
         valuesToUpdate.put("home","is whenever im with you");
         pps.addContentToPersonalPage(ramos.getMyPersonalPage(),valuesToUpdate);
-        boolean ans = (((TeamMemberPersonalPage)ramos.getMyPersonalPage()).getContent().compareTo("history: i love spain\nhome: is whenever im with you\n")==0);
-        assertTrue(ans);
+        TeamMemberPersonalPage tmpp = (TeamMemberPersonalPage)ramos.getMyPersonalPage();
+        String ans1 = tmpp.getContent();
+        assertEquals(ans1, "home: is whenever im with you\n");
+
+
     }
 
     @Test

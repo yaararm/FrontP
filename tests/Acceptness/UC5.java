@@ -66,7 +66,7 @@ public class UC5 {
         valuesToUpdate.put("history","i love tlv");
         valuesToUpdate.put("home","is serbia");
         pps.addContentToPersonalPage(ivitz.getMyPersonalPage(),valuesToUpdate);
-        boolean ans = (((TeamMemberPersonalPage)ivitz.getMyPersonalPage()).getContent().compareTo("history: i love tlv\nhome: is serbia\n")==0);
+        boolean ans = (((TeamMemberPersonalPage)ivitz.getMyPersonalPage()).getContent().compareTo("home: is serbia\n")==0);
         assertTrue(ans);
     }
 

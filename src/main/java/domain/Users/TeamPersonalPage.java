@@ -25,7 +25,7 @@ public class TeamPersonalPage extends PersonalPage{
             teamFields = "Filed Name: "+ field.getName() +", Field Location: "+ field.getLocation() +", Field Type: "+field.getFieldType()+
                     ", Number Of seats: "+field.getSeats() + "\n";
         }
-
+        pageName = team.getTeamName();
         //Logger
         SystemController.logger.info("Creation | New Personal Page for Team have been created have been defined; Owner NAME: " + user.getFirstName()+" "+user.getLastName() +
                 "; Personal Page ID: " + this.getPpID() + "; Team ID:" + team.getTeamID());
