@@ -40,14 +40,14 @@ public class SystemMangerController {
     //UC 8.1
     public boolean permanentlyCloseTeam(Team team) throws Exception {
         if (team.getState() == TeamState.active || team.getState() == TeamState.notActive) {
-            team.setStatus(TeamState.permanentlyClosed);
+            //Todo send alerts
             boolean remove = SystemController.systemTeams.remove(team);
             if (remove) {
                 SystemController.archivedTeams.add(team);
             } else {
                 throw new Exception("Couldn't close this team");
             }
-            //Todo send alerts
+            team.setStatus(TeamState.permanentlyClosed);
         } else {
             throw new Exception("This team is already permanently closed");
         }
@@ -57,31 +57,32 @@ public class SystemMangerController {
     //UC 8.2
     public boolean removeUserFromSystem(SignedUser signedUser) throws Exception {
         //TODO think about system constraints
-        if(signedUser instanceof ManagementUser){
-            ManagementUser managementUser= (ManagementUser) signedUser;
+        if (signedUser instanceof ManagementUser) {
+            ManagementUser managementUser = (ManagementUser) signedUser;
             HashMap<Team, ManagementUser> teams = managementUser.getTeams();
             for (Team team : teams.keySet()) {
-                if (team.getTeamOwners().size()==1 && team.getTeamOwners().contains(signedUser)){
-                    throw new Exception("Can't remove this user from the system since he is the only team owner of " +team.getTeamName());
+                if (team.getTeamOwners().size() == 1 && team.getTeamOwners().contains(signedUser)) {
+                    throw new Exception("Can't remove this user from the system since he is the only team owner of " + team.getTeamName());
                 }
             }
         }
+        //todo send alerts
         signedUser.deleteUser();
         return true;
     }
 
-    //UC 8.3
+    //UC 8.3.1
     public List<Complaint> getAllComplaints() {
         return new ArrayList<>(ComplaintSystemController.newComplaint);
     }
 
-    //UC 8.4
+    //UC 8.3.2
     public boolean addCommentToComplaint(SystemManager systemManager, Complaint complaint, String comment) throws Exception {
         return complaint.addComment(systemManager, comment);
         //TODO send notification to the fan
     }
 
-    //UC 8.5
+    //UC 8.4
     public List<List<String>> getSystemEventsLog(long fromDate, long toDate) throws Exception {
         if (fromDate < toDate) {
             List<List<String>> lists = readFromLog();
