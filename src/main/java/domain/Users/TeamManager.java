@@ -1,15 +1,11 @@
 package domain.Users;
 
-import domain.Controllers.SystemController;
-import domain.Controllers.TeamOwnerController;
 import domain.Controllers.Utils;
 import domain.Enums.TeamManagerPermissions;
-import domain.Impl.Team;
 import domain.Interfaces.Asset;
 
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class TeamManager extends ManagementUser implements Asset {
@@ -23,25 +19,13 @@ public class TeamManager extends ManagementUser implements Asset {
         }
     }
 
-    @Override
-    public boolean deleteUser() throws Exception {
-        for (Team team : this.teams.keySet()) {
-            team.removeTeamMember(this);
-        }
-        for (Map.Entry<Team, HashSet<Owner>> teamHashSetEntry : assignedOwners.entrySet()) {
-            for (Owner owner : teamHashSetEntry.getValue()) {
-                TeamOwnerController.removeTeamOwner(this, teamHashSetEntry.getKey(), owner);
-            }
-        }
-        for (Map.Entry<Team, HashSet<TeamManager>> teamHashSetEntry : assignedTeamManagers.entrySet()) {
-            for (TeamManager teamManager : teamHashSetEntry.getValue()) {
-                TeamOwnerController.removeTeamManager(this, teamHashSetEntry.getKey(), teamManager);
-            }
-        }
-        SystemController.archiveUsers.put(this.getUserName(),this);
-        SystemController.userNameUser.remove(this);
-        return true;
+    public TeamManager(SignedUser signedUser) throws Exception {
+        this(signedUser.getUserName(),signedUser.getPassword(),signedUser.getFirstName(),signedUser.getLastName(),signedUser.getEmail());
+        if (!(signedUser instanceof Footballer || signedUser instanceof Coach || signedUser instanceof TeamManager))
+            throw new Exception("Only the following combinations are allowed: teamOwner and (Footballer or Coach or TeamManager)");
+        this.additionalRole = signedUser;
     }
+
 
     public boolean addPermissions(TeamManagerPermissions ... teamManagerPermissions){
         for (TeamManagerPermissions teamManagerPermission : teamManagerPermissions) {

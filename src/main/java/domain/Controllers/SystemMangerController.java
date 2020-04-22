@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,13 +19,13 @@ public class SystemMangerController {
     //Wasn't in UC
     public Owner signUpNewOwner(ManagementUser teamOwner, String firstName, String lastName, String email) throws Exception {
         boolean valid = EmailValidator.getInstance().isValid(email);
-        if(!valid)
+        if (!valid)
             throw new Exception("Not valid Email");
 
-        String username = lastName+"_"+firstName;
-        String password = lastName+"_"+firstName+"_123";
+        String username = lastName + "_" + firstName;
+        String password = lastName + "_" + firstName + "_123";
 
-        if(SystemController.userNameUser.containsKey(username))
+        if (SystemController.userNameUser.containsKey(username))
             throw new Exception("This user name already exist in the system");
 
         //TODO Send Email
@@ -32,7 +33,7 @@ public class SystemMangerController {
         String hashPassword = Utils.sha256(password);
 
         Owner owner = new Owner(username, hashPassword, firstName, lastName, email);
-        SystemController.userNameUser.put(username,owner);
+        SystemController.userNameUser.put(username, owner);
         return owner;
     }
 
@@ -40,8 +41,13 @@ public class SystemMangerController {
     public boolean permanentlyCloseTeam(Team team) throws Exception {
         if (team.getState() == TeamState.active || team.getState() == TeamState.notActive) {
             team.setStatus(TeamState.permanentlyClosed);
+            boolean remove = SystemController.systemTeams.remove(team);
+            if (remove) {
+                SystemController.archivedTeams.add(team);
+            } else {
+                throw new Exception("Couldn't close this team");
+            }
             //Todo send alerts
-            //todo save data on team
         } else {
             throw new Exception("This team is already permanently closed");
         }
@@ -50,7 +56,17 @@ public class SystemMangerController {
 
     //UC 8.2
     public boolean removeUserFromSystem(SignedUser signedUser) throws Exception {
-        //TODO add to all the users how we should remove them
+        //TODO think about system constraints
+        if(signedUser instanceof ManagementUser){
+            ManagementUser managementUser= (ManagementUser) signedUser;
+            HashMap<Team, ManagementUser> teams = managementUser.getTeams();
+            for (Team team : teams.keySet()) {
+                if (team.getTeamOwners().size()==1 && team.getTeamOwners().contains(signedUser)){
+                    throw new Exception("Can't remove this user from the system since he is the only team owner of " +team.getTeamName());
+                }
+            }
+        }
+        signedUser.deleteUser();
         return true;
     }
 
@@ -71,7 +87,7 @@ public class SystemMangerController {
             List<List<String>> lists = readFromLog();
             return lists.stream().filter(strings -> {
                 long dataEpoch = Long.parseLong(strings.get(0));
-                return dataEpoch>fromDate && dataEpoch<toDate;
+                return dataEpoch > fromDate && dataEpoch < toDate;
             }).collect(Collectors.toList());
         } else {
             throw new Exception("Wrong Dates");
@@ -86,7 +102,7 @@ public class SystemMangerController {
             String strLine;
             /* read log line by line */
             while ((strLine = br.readLine()) != null) {
-                String[] values = strLine.split(";");
+                String[] values = strLine.split("\\|");
                 logs.add(Arrays.asList(values));
             }
             fstream.close();
@@ -94,5 +110,12 @@ public class SystemMangerController {
             System.err.println("Error: " + e.getMessage());
         }
         return logs;
+    }
+
+    public static void main(String[] args) throws Exception {
+        SystemMangerController systemMangerController = new SystemMangerController();
+        List<List<String>> systemEventsLog = systemMangerController.getSystemEventsLog(System.currentTimeMillis() - 1000000000,
+                System.currentTimeMillis());
+        System.out.println("ff");
     }
 }

@@ -1,24 +1,84 @@
 package domain.Impl;
 
+import domain.Enums.FieldType;
 import domain.Enums.RefereeRole;
 import domain.Users.Fan;
 import domain.Users.Referee;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 
 public class Game {
 
-    private List<Fan> fansObserver = new ArrayList();
-    private int state;
+    private Season season;
+    private Field field;
+    private Team homeTeam;
+    private Team awayTeam;
+    private long gameDate;
+    private EventLog eventLog;
     private Referee mainReferee;
     private Referee secondaryReferee1;
     private Referee secondaryReferee2;
-    private long gameDate;
-    private EventLog eventLog;
+    private int state;
+    private List<Fan> fansObserver = new ArrayList();
+    private int homeScore=0;
+    private int awayScore=0;
 
+    //ToDO delete
+    public Game() {
+    }
+
+    public Game(Season season, Team homeTeam, Team awayTeam) {
+        this.season = season;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.eventLog = new EventLog(this);
+        for (Field f :homeTeam.getFields() ) {
+            if(f.getFieldType() == FieldType.Tournament){
+                this.field=f;
+                break;
+                //ToDo what if team have no tournament fields?
+            }
+        }
+    }
+
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public Field getField() {
+        return field;
+    }
+
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public Team getAwayTeam() {
+        return awayTeam;
+    }
+
+    public Referee getMainReferee() {
+        return mainReferee;
+    }
+
+    public Referee getSecondaryReferee1() {
+        return secondaryReferee1;
+    }
+
+    public Referee getSecondaryReferee2() {
+        return secondaryReferee2;
+    }
+
+    public int getHomeScore() {
+        return homeScore;
+    }
+
+    public int getAwayScore() {
+        return awayScore;
+    }
 
     public int getState() {
         return state;
@@ -27,6 +87,26 @@ public class Game {
     public void setState(int state) {
         this.state = state;
         notifyAllObservers();
+    }
+
+    public void setField(Field field) {
+        this.field = field;
+    }
+
+    public void setGameDate(long gameDate) {
+        this.gameDate = gameDate;
+    }
+
+    public void setMainReferee(Referee mainReferee) {
+        this.mainReferee = mainReferee;
+    }
+
+    public void setSecondaryReferee1(Referee secondaryReferee1) {
+        this.secondaryReferee1 = secondaryReferee1;
+    }
+
+    public void setSecondaryReferee2(Referee secondaryReferee2) {
+        this.secondaryReferee2 = secondaryReferee2;
     }
 
     public boolean attachObserver(Fan fan) {
@@ -80,4 +160,5 @@ public class Game {
     public EventLog getEventLog() {
         return eventLog;
     }
+
 }

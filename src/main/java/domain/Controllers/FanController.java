@@ -1,8 +1,8 @@
 package domain.Controllers;
 
+import domain.Impl.Game;
 import domain.Users.Complaint;
 import domain.Users.Fan;
-import domain.Impl.Game;
 import domain.Users.PersonalPage;
 
 import java.util.HashMap;
@@ -49,7 +49,8 @@ public class FanController {
         }
         Complaint complaint = new Complaint(fan, description);
         fan.addToMyComplaints(complaint);
-        SystemController.logger.info("New complaint have been created; Complaint ID: " + complaint.getComplaintID() + "; Fan ID: " + fan.getFanID());
+        //Logger
+        SystemController.logger.info("Creation | New complaint have been created; Complaint ID: " + complaint.getComplaintID() + "; Fan ID: " + fan.getFanID());
         return true;
 
     }

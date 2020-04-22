@@ -1,13 +1,14 @@
 package domain.Users;
 
+import domain.Controllers.SystemController;
 import domain.Enums.RefereeRole;
 import domain.Enums.RefereeTraining;
 import domain.Enums.UserStatus;
 import domain.Impl.Game;
 import domain.Impl.Season;
-import domain.Controllers.SystemController;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Referee extends SignedUser {
     private static int idCounter = 0;
@@ -20,7 +21,7 @@ public class Referee extends SignedUser {
     private HashMap<RefereeRole, HashSet<Game>> games;
     private HashSet<Season> seasons;
 
-
+    // ====== Constructor ============
     public Referee(String userName, String hashPassword, int id, String fName, String lName, String email, RefereeTraining refereeTraining) {
         super(email, hashPassword, fName, lName, email);
         this.id=id;
@@ -32,31 +33,14 @@ public class Referee extends SignedUser {
 
     }
 
-    @Override
-    //TODO save the data
-    public boolean deleteUser() {
-        long today = System.currentTimeMillis();
-        for (RefereeRole role: games.keySet()) {
-            for (Game game: games.get(role)) {
-                if(game.getGameDate()>=today){
-                    if(!game.removeReferee(this, role)){
-                        //TODO Should we throw exception here?
-                    }
-                }
-            }
-        }
-        SystemController.removeUserFromActiveList(userName);
-        seasons.forEach(season -> season.removeReferee(refereeTraining, this));
-        this.changeStatus(UserStatus.NotActive);
-        return true;
+    // ======== Getters and Setters ============
+
+    public void addSeason(Season season) {
+        seasons.add(season);
     }
 
     public RefereeTraining getRefereeTraining() {
         return refereeTraining;
-    }
-
-    public void addSeason(Season season) {
-        seasons.add(season);
     }
 
     public void setFirstName(String firstName) {
@@ -83,6 +67,11 @@ public class Referee extends SignedUser {
         return games;
     }
 
+    public HashSet<Season> getSeasons() {
+        return seasons;
+    }
+
+    // ============ to String ===========
     @Override
     public String toString() {
         String string = super.toString();
@@ -91,5 +80,24 @@ public class Referee extends SignedUser {
             string += season.toString();
         }
         return string;
+    }
+
+    @Override
+    //TODO save the data
+    public boolean deleteUser() throws Exception {
+        long today = System.currentTimeMillis();
+        for (RefereeRole role: games.keySet()) {
+            for (Game game: games.get(role)) {
+                if(game.getGameDate()>=today){
+                    if(!game.removeReferee(this, role)){
+                        SystemController.logger.error("Deletion | Can't Delete User; User ID: " + this.getId());
+                    }
+                }
+            }
+        }
+        SystemController.removeUserFromActiveList(userName);
+        seasons.forEach(season -> season.removeReferee(refereeTraining, this));
+        this.changeStatus(UserStatus.NotActive);
+        return true;
     }
 }

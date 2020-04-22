@@ -5,7 +5,7 @@ import domain.Controllers.SystemController;
 import domain.Enums.RefereeTraining;
 import domain.Impl.League;
 import domain.Impl.Season;
-import domain.SeasonPolicies.AssignPolicy2;
+import domain.SeasonPolicies.AssignPolicy1;
 import domain.SeasonPolicies.ScoreComputingPolicy2;
 import domain.Users.AssociationRepresentative;
 import domain.Users.Referee;
@@ -225,9 +225,9 @@ public class UC9 {
             Season s = l.getLeaguesSeasons().get(2020);
 
             //set policy
-            ac.setAssignPolicy(assRep,s,new AssignPolicy2());
+            ac.setAssignPolicy(assRep,s,new AssignPolicy1());
 
-            assertTrue(s.getAssignPolicy() instanceof AssignPolicy2);;
+            assertTrue(s.getAssignPolicy() instanceof AssignPolicy1);;
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -245,9 +245,9 @@ public class UC9 {
         Season s = l.getLeaguesSeasons().get(2020);
 
         //set policy
-        ac.setAssignPolicy(assRep,s,new AssignPolicy2());
+        ac.setAssignPolicy(assRep,s,new AssignPolicy1());
 
-        assertTrue(s.getAssignPolicy() instanceof AssignPolicy2);;
+        assertTrue(s.getAssignPolicy() instanceof AssignPolicy1);;
     }
     //endregion
 }

@@ -1,11 +1,10 @@
 package domain.Impl;
 
-import domain.Controllers.Utils;
 import domain.Enums.FieldType;
 import domain.Interfaces.Asset;
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class Field implements Asset {
@@ -16,6 +15,8 @@ public class Field implements Asset {
     private String location;
     private String name;
     private FieldType fieldType;
+    private HashSet<Game> games;
+
 
     public Field(int seats, String location, String name, FieldType fieldType) {
         this.id = idCounter++;
@@ -66,5 +67,17 @@ public class Field implements Asset {
 
     public FieldType getFieldType() {
         return fieldType;
+    }
+
+    public HashSet<Game> getGames() {
+        return games;
+    }
+
+    public boolean addGame(Game g) {
+        return this.games.add(g);
+    }
+
+    public boolean removeGame(Game g) {
+        return this.games.remove(g);
     }
 }
