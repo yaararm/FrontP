@@ -111,11 +111,4 @@ public class SystemMangerController {
         }
         return logs;
     }
-
-    public static void main(String[] args) throws Exception {
-        SystemMangerController systemMangerController = new SystemMangerController();
-        List<List<String>> systemEventsLog = systemMangerController.getSystemEventsLog(System.currentTimeMillis() - 1000000000,
-                System.currentTimeMillis());
-        System.out.println("ff");
-    }
 }
