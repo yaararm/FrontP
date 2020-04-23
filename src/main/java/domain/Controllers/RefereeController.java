@@ -62,13 +62,16 @@ public class RefereeController {
         long currentTime =System.currentTimeMillis();
         HashSet <Game> relevantGames = new HashSet<>();
         for (RefereeRole role: games.keySet()) {
-            for (Game game : games.get(role)) {
-                long gameStart = game.getGameDate();
-                long gameEnd = game.getGameDate()+ TimeUnit.MINUTES.toMillis(300);
-                if (currentTime >= gameStart && currentTime <= gameEnd) {
-                    relevantGames.add(game);
+            if(role.equals(RefereeRole.Main)){
+                for (Game game : games.get(role)) {
+                    long gameStart = game.getGameDate();
+                    long gameEnd = game.getGameDate()+ TimeUnit.MINUTES.toMillis(390);
+                    if (currentTime >= gameStart && currentTime <= gameEnd) {
+                        relevantGames.add(game);
+                    }
                 }
             }
+
         }
         return relevantGames;
     }
