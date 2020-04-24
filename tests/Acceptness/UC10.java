@@ -22,6 +22,7 @@ public class UC10 {
     //Class Fields
     static RefereeController rc;
     private static Referee r;
+    private static Referee r2;
     private static Game g1;
     private static Game g2;
     private static Game g3;
@@ -47,6 +48,8 @@ public class UC10 {
         ac.appointReferee(assRep, 524323454, "shofet", "aaa", "aaa@ref.com", RefereeTraining.Begginer);
         r = (Referee) SystemController.userNameUser.get("aaa@ref.com");
 
+        ac.appointReferee(assRep, 555555555, "shofet2", "aaa2", "aaa2@ref.com", RefereeTraining.Begginer);
+        r2 = (Referee) SystemController.userNameUser.get("aaa2@ref.com");
         //add referee to season
         ac.setRefereeToSeason(assRep, s, r);
 
@@ -75,6 +78,7 @@ public class UC10 {
         g3.setMainReferee(r);
 
         r.addGame(RefereeRole.Secondary, g4);
+        g4.setMainReferee(r2);
 
 
     }
@@ -204,7 +208,6 @@ public class UC10 {
     @Test(expected = Exception.class)
     public void Test_createGameReportNotMainReferee() throws Exception {
         EventLog gameEventsLog = rc.createGameReport(r,g4);
-        assertEquals(3, gameEventsLog.getEvents().size());
     }
     //endregion
 
