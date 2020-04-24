@@ -115,7 +115,7 @@ public class UC10 {
     @Test
     public void Test_getCurrentGames() {
         HashSet<Game> games = rc.getCurrentGames(r);
-        assertEquals(1, games.size());
+        assertEquals(2, games.size());
     }
 
     @Test

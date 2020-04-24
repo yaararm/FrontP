@@ -158,8 +158,8 @@ public class UC9 {
             Season s = l.getLeaguesSeasons().get(2001);
 
             //add referee to system
-            ac.appointReferee(assRep, 524323454, "shofet", "aaa", "aaa@ref.com", RefereeTraining.Begginer);
-            Referee r = (Referee) SystemController.userNameUser.get("aaa@ref.com");
+            ac.appointReferee(assRep, 524323999, "shofet", "aaa", "aaa777@ref.com", RefereeTraining.Begginer);
+            Referee r = (Referee) SystemController.userNameUser.get("aaa777@ref.com");
 
             //add referee to season
             ac.setRefereeToSeason(assRep,s,r);
