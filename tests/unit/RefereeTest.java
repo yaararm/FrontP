@@ -4,14 +4,12 @@ import domain.Enums.RefereeRole;
 import domain.Impl.Game;
 import domain.Impl.Season;
 import domain.Impl.Team;
+import domain.Users.Fan;
 import domain.Users.Owner;
 import domain.Users.Referee;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static domain.Enums.RefereeRole.Secondary;
 import static domain.Enums.RefereeTraining.Expert;
@@ -30,6 +28,7 @@ public class RefereeTest {
     Season seas = new Season(2019,System.currentTimeMillis());
     Game g = new Game(seas,team,team2);
     Referee r = new Referee("refe@gmail.com","456fdj6", 12378546,"rafi","hamud","refe@gmail.com",Expert );
+    Referee r2 = new Referee("refe2@gmail.com","456fdj6", 123758966,"rafi","hamud","refe2@gmail.com",Expert );
 
     @Test
     public void test_Add_Game(){
@@ -60,7 +59,17 @@ public class RefereeTest {
 
 
         assertTrue( r.deleteUser());
-        r.getStatus().compareTo(NotActive);
+       assertTrue( r.getStatus().compareTo(NotActive) ==0);
+    }
+
+    @Test
+    public void test_Delete_user2()throws Exception{
+        long tommrorw = System.currentTimeMillis() +20;
+        Game g = new Game(seas,team,team2);
+        g.setGameDate(tommrorw);
+        assertFalse( r2.deleteUser());
+        assertFalse( r.getStatus().compareTo(NotActive) ==0);
+        }
     }
 
 
@@ -68,4 +77,3 @@ public class RefereeTest {
 
 
 
-}
