@@ -60,10 +60,6 @@ public class Referee extends SignedUser {
         this.lastName = lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getRefereeID() {
         return refereeID;
     }
@@ -100,6 +96,7 @@ public class Referee extends SignedUser {
                 if (game.getGameDate() >= today) {
                     if (!game.removeReferee(this, role)) {
                         SystemController.logger.error("Deletion | Can't Delete User; User ID: " + this.getId());
+                        return false;
                     }
                 }
             }
