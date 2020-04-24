@@ -90,6 +90,7 @@ public class UC10 {
             HashMap<String, String> newVal = new HashMap<>();
             newVal.put("Password", "123456");
             newVal.put("first name", "moshik");
+            newVal.put("last name","afia");
             SignedInController.updateDetails(r, newVal);
             assertEquals(Utils.sha256("123456"), r.getPassword());
             assertEquals("moshik", r.getFirstName());
