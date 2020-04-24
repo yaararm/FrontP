@@ -126,25 +126,25 @@ public class PersonalPageSystem {
             }
         } else {
             for (Map.Entry<String, String> entry : valuesToUpdate.entrySet()) {
-                switch (entry.getKey()) {
-                    case "coachName":
-                        ((TeamPersonalPage) personalPage).setCoachName(entry.getValue());
-                        break;
-                    case "teamFootballerMembers":
-                        ((TeamPersonalPage) personalPage).setTeamFootballerMembers(entry.getValue());
-                        break;
-                    case "teamFields":
-                        ((TeamPersonalPage) personalPage).setTeamFields(entry.getValue());
-                        break;
-                    case "records":
-                        ((TeamPersonalPage) personalPage).setRecords(entry.getValue());
-                        break;
-                    case "Games":
-                        ((TeamPersonalPage) personalPage).setGames(entry.getValue());
-                        break;
-                }
+            switch (entry.getKey()) {
+                case "coachName":
+                    ((TeamPersonalPage) personalPage).setCoachName(entry.getValue());
+                    break;
+                case "teamFootballerMembers":
+                    ((TeamPersonalPage) personalPage).setTeamFootballerMembers(entry.getValue());
+                    break;
+                case "teamFields":
+                    ((TeamPersonalPage) personalPage).setTeamFields(entry.getValue());
+                    break;
+                case "records":
+                    ((TeamPersonalPage) personalPage).setRecords(entry.getValue());
+                    break;
+                case "Games":
+                    ((TeamPersonalPage) personalPage).setGames(entry.getValue());
+                    break;
             }
         }
+    }
         return true;
     }
 

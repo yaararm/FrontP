@@ -8,10 +8,7 @@ import domain.Enums.FootballerPosition;
 import domain.Enums.TeamState;
 import domain.Impl.Field;
 import domain.Impl.Team;
-import domain.Users.Footballer;
-import domain.Users.Guest;
-import domain.Users.Owner;
-import domain.Users.User;
+import domain.Users.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import static domain.Enums.CoachPosition.Main;
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertEquals;
 
@@ -107,7 +105,9 @@ public class UC2 {
        Owner owner = new Owner("mey@gmail.com","123","im","owner","mey@gmail.com");
        Team team = new Team("macabi_TLV", TeamState.active,owner);
        Footballer footballer = new Footballer("yossi@ben.com","19921995","yossi","ben","yossi@ben.com", FootballerPosition.Center_Back);
-       team.addTeamMember(owner, footballer);
+        Coach kika = new Coach("kika45@gmail.com", "789431256", "kiktrha", "stgerein", "kika45@gmail.com", Main);
+        team.addTeamMember(owner,kika);
+        team.addTeamMember(owner, footballer);
        Guest gs  = new Guest();
 
         HashMap<String, HashSet<Object>> result=  SystemController.search(gs, "macabi_TLV" );
