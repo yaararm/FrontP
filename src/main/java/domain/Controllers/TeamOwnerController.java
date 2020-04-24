@@ -154,6 +154,7 @@ public class TeamOwnerController {
                 Owner owner = new Owner(newOwner);
                 team.addTeamMember(addingOwner, owner);
                 addingOwner.addOwner(team, (Owner) owner);
+                SystemController.userNameUser.put(owner.getUserName(),owner);
             }
             return true;
         } else
