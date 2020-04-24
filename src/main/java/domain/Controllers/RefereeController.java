@@ -100,7 +100,10 @@ public class RefereeController {
     }
 
     //Use Case 10.4.2
-    public EventLog createGameReport(Referee referee, Game game) {
+    public EventLog createGameReport(Referee referee, Game game) throws Exception {
+        if(!(game.getMainReferee().equals(referee))){
+            throw new Exception("Not Main Referee Of This Game");
+        }
         return game.getEventLog();
     }
 
