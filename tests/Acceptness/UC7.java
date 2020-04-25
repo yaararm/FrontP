@@ -28,7 +28,7 @@ public class UC7 {
     @BeforeClass
     public static void beforeClass() throws Exception {
         owner = new Owner("avi@gmail.com", "123456", "avi", "levi", "avi@gmail.com");
-        team = TeamOwnerController.addNewTeamToSystem(owner,"team1");
+        team = TeamOwnerController.addNewTeamToSystem(owner,"team1111");
         manager = TeamOwnerController.signUpNewTeamManager(owner,"moshe","cohen","man@asd.com", team);
         field = new Field(100,"here","sdf", FieldType.Tournament);
         coach = new Coach("avi@gmail.com", "123456", "avi", "levi", "avi@gmail.com", CoachPosition.Fitness);
@@ -36,7 +36,7 @@ public class UC7 {
     }
 
     public static void givePermission() throws Exception {
-        EnumMap<TeamManagerPermissions, Boolean> permissions = new EnumMap<TeamManagerPermissions, Boolean>(TeamManagerPermissions.class);
+        EnumMap<TeamManagerPermissions, Boolean> permissions = new EnumMap<>(TeamManagerPermissions.class);
         for (TeamManagerPermissions value : TeamManagerPermissions.values()) {
             permissions.put(value, true);
         }
@@ -44,7 +44,7 @@ public class UC7 {
     }
 
     public static void removePermission() throws Exception {
-        EnumMap<TeamManagerPermissions, Boolean> permissions = new EnumMap<TeamManagerPermissions, Boolean>(TeamManagerPermissions.class);
+        EnumMap<TeamManagerPermissions, Boolean> permissions = new EnumMap<>(TeamManagerPermissions.class);
         for (TeamManagerPermissions value : TeamManagerPermissions.values()) {
             permissions.put(value, false);
         }

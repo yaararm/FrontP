@@ -23,6 +23,7 @@ public class Season {
     private League league;
     private HashSet<Team> seasonsTeams;
     private HashMap<Integer,HashSet<Game>> RoundGames;
+    private ScoreBoard scoreBoard;
 
 
     public Season(Integer year, long startDate) {
@@ -33,6 +34,7 @@ public class Season {
         referees = new HashMap<>();
         seasonID = idCounter++;
         RoundGames = new HashMap<>();
+        seasonsTeams = new HashSet<>();
     }
 
     public boolean addReferee(RefereeTraining refereeTraining, Referee referee){
@@ -49,17 +51,18 @@ public class Season {
 
     public boolean removeReferee(RefereeTraining refereeTraining, Referee referee){
         HashSet<Referee> referees = this.referees.get(refereeTraining);
-        if(referees.remove(referee))
-            return true;
-        return false;
+        return referees.remove(referee);
     }
 
     public void setSeasonTeams(HashSet<Team> seasonsTeams) throws Exception {
         if(System.currentTimeMillis() > this.startDate){
             throw new Exception("cant change season teams after season start date");
         }
-
         this.seasonsTeams = seasonsTeams;
+
+        //init new scoreBoard for those teams
+        scoreBoard = new ScoreBoard(this);
+
     }
 
     @Override
@@ -116,5 +119,9 @@ public class Season {
 
     public void setSeasonGames(HashMap<Integer, HashSet<Game>> roundGames) {
         RoundGames = roundGames;
+    }
+
+    public ScoreBoard getScoreBoard() {
+        return scoreBoard;
     }
 }

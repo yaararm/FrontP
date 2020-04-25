@@ -22,18 +22,17 @@ public class SystemMangerController {
         if (!valid)
             throw new Exception("Not valid Email");
 
-        String username = lastName + "_" + firstName;
         String password = lastName + "_" + firstName + "_123";
 
-        if (SystemController.userNameUser.containsKey(username))
+        if (SystemController.userNameUser.containsKey(email))
             throw new Exception("This user name already exist in the system");
 
         //TODO Send Email
 
         String hashPassword = Utils.sha256(password);
 
-        Owner owner = new Owner(username, hashPassword, firstName, lastName, email);
-        SystemController.userNameUser.put(username, owner);
+        Owner owner = new Owner(email, hashPassword, firstName, lastName, email);
+        SystemController.userNameUser.put(email, owner);
         return owner;
     }
 

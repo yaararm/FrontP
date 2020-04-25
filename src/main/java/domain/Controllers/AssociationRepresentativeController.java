@@ -3,6 +3,7 @@ package domain.Controllers;
 import domain.Enums.RefereeTraining;
 import domain.Impl.League;
 import domain.Impl.Season;
+import domain.Impl.Team;
 import domain.Interfaces.AssignPolicy;
 import domain.Interfaces.ScoreComputingPolicy;
 import domain.Users.AssociationRepresentative;
@@ -55,7 +56,6 @@ public class AssociationRepresentativeController {
     //Use Case 9.3.1
     public boolean appointReferee(AssociationRepresentative associationRepresentative, int id, String fName, String lName, String email, RefereeTraining refereeTraining) throws Exception {
         int length = String.valueOf(id).length();
-        String userName = email;
         String password = String.valueOf(id);
         boolean valid = EmailValidator.getInstance().isValid(email);
 
@@ -70,13 +70,13 @@ public class AssociationRepresentativeController {
         if (findUserByID(id))
             throw new Exception("This ID Exist In The System");
 
-        boolean send = ExternalServices.sendInviteToTheSystem(email, userName, password, associationRepresentative.getFirstName() + " " + associationRepresentative.getLastName());
+        boolean send = ExternalServices.sendInviteToTheSystem(email, email, password, associationRepresentative.getFirstName() + " " + associationRepresentative.getLastName());
         if (!send)
             throw new Exception("Have been problem with send the email");
 
         String hashPassword = Utils.sha256(password);
-        Referee newReferee = new Referee(userName, hashPassword, id, fName, lName, email, refereeTraining);
-        userNameUser.put(userName, newReferee);
+        Referee newReferee = new Referee(email, hashPassword, id, fName, lName, email, refereeTraining);
+        userNameUser.put(email, newReferee);
 
         //Logger
         SystemController.logger.info("Creation | New Referee have been appoint; referee ID: " + newReferee.getRefereeID() +
@@ -105,8 +105,7 @@ public class AssociationRepresentativeController {
     //Use Case 9.4 A
     public Set<Referee> getAllRefereeThatCanBeForLeague(League league) {
         int numTraining = league.getMinRefereeTrainingRequired().getNumVal();
-        HashSet<Referee> refereeThatFitToTraining = findRefereeThatFitToTraining(numTraining);
-        return refereeThatFitToTraining;
+        return findRefereeThatFitToTraining(numTraining);
     }
 
     //Use Case 9.4 B
@@ -151,8 +150,9 @@ public class AssociationRepresentativeController {
 
     }
 
+    //UseCase 9.7* TBD
     public boolean assignGames(AssociationRepresentative associationRepresentative, Season season) throws Exception {
-        if (season.getGames().size()==0)
+        if (!(season.getGames().size()==0))
             throw new Exception("Seasons games already assigned");
 
         season.setSeasonGames(season.getAssignPolicy().assignSeasonGames(season));
@@ -162,5 +162,18 @@ public class AssociationRepresentativeController {
                 "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());
         return true;
     }
+
+    public boolean setSeasonsTeams(AssociationRepresentative associationRepresentative, Season season,HashSet<Team> seasonsTeams) throws Exception {
+        if (!(season.getSeasonsTeams().size()==0))
+            throw new Exception("Seasons teams already assigned");
+
+        season.setSeasonTeams(seasonsTeams);
+
+        //Logger
+        SystemController.logger.info("Creation | "+seasonsTeams.size()+" New Teams have been assign to season; SeasonID: " + season.getSeasonID()  +
+                "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());
+        return true;
+    }
+
 
 }

@@ -110,6 +110,11 @@ public class UC9 {
     }
 
     @Test(expected = Exception.class)
+    public void Test_appointRefereeInvalidID() throws Exception {
+        ac.appointReferee(assRep, 1, "shofet", "one", "2shofet@ref.com", RefereeTraining.Begginer);
+    }
+
+    @Test(expected = Exception.class)
     public void Test_appointRefereeInvalidEmail() throws Exception {
         ac.appointReferee(assRep, 333333333, "shofet", "two", "shofetref.com", RefereeTraining.Begginer);
     }
@@ -126,6 +131,11 @@ public class UC9 {
             e.printStackTrace();
             fail();
         }
+    }
+    @Test(expected = Exception.class)
+    public void Test_removeRefereeNotExist() throws Exception {
+        Referee referee = new Referee("aaabbb","123123123",123123123,"sss","fff","sss@sss.com",RefereeTraining.Medium);
+        ac.removeReferee(assRep,referee);
     }
     //endregion
 
