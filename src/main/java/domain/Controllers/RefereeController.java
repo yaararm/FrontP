@@ -8,43 +8,12 @@ import domain.Impl.Game;
 import domain.Users.Referee;
 import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class RefereeController {
-    //Use Case 10.1
-    public boolean updateDetails(Referee referee, HashMap<String, String> valuesToUpdate) throws Exception {
-        for (Map.Entry<String, String> entry : valuesToUpdate.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            switch (key.toLowerCase()) {
-                case "password":
-                    if(value.length() >= 6) {
-                        String hashPassword = Utils.sha256(value);
-                        referee.setPassword(hashPassword);
-                        break;
-                    }
-                    else{
-                        throw new Exception("Password not long enough");
-                    }
-                case "email":
-                    if(EmailValidator.getInstance().isValid(value)){
-                        referee.setEmail(value);
-                        break;
-                    }
-                    else{
-                        throw new Exception("Not Valid Email");
-                    }
-                case "first name":
-                    referee.setFirstName(value);
-                    break;
-                case "last name":
-                    referee.setLastName(value);
-                    break;
-            }
-        }
-        return true;
-    }
 
     //Use Case 10.2
     public HashMap<Game, RefereeRole> showRefereeAssignedGames(Referee referee) throws Exception {
@@ -80,7 +49,7 @@ public class RefereeController {
 
 
     //Use Case 10.3 B
-    public boolean addEventToGame(Referee referee, Game game, EventType eventType, int eventMinute, String description){
+    public boolean addEventToCurrentGame(Referee referee, Game game, EventType eventType, int eventMinute, String description){
         Event event = new Event(eventType, eventMinute, description, referee);
         game.getEventLog().addEvent(event);
         return true;
@@ -93,13 +62,16 @@ public class RefereeController {
         long currentTime =System.currentTimeMillis();
         HashSet <Game> relevantGames = new HashSet<>();
         for (RefereeRole role: games.keySet()) {
-            for (Game game : games.get(role)) {
-                long gameStart = game.getGameDate();
-                long gameEnd = game.getGameDate()+ TimeUnit.MINUTES.toMillis(300);
-                if (currentTime >= gameStart && currentTime <= gameEnd) {
-                    relevantGames.add(game);
+            if(role.equals(RefereeRole.Main)){
+                for (Game game : games.get(role)) {
+                    long gameStart = game.getGameDate();
+                    long gameEnd = game.getGameDate()+ TimeUnit.MINUTES.toMillis(390);
+                    if (currentTime >= gameStart && currentTime <= gameEnd) {
+                        relevantGames.add(game);
+                    }
                 }
             }
+
         }
         return relevantGames;
     }
@@ -127,13 +99,13 @@ public class RefereeController {
         return true;
     }
 
-
-    //todo thonk how to send that
     //Use Case 10.4.2
-    public EventLog createGameReport(Referee referee, Game game) {
+    public EventLog createGameReport(Referee referee, Game game) throws Exception {
+        if(!(game.getMainReferee().equals(referee))){
+            throw new Exception("Not Main Referee Of This Game");
+        }
         return game.getEventLog();
     }
-
 
 
 }

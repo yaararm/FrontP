@@ -18,6 +18,7 @@ import java.util.HashSet;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 
 public class UC6 {
@@ -36,6 +37,7 @@ public class UC6 {
         newTeam = teamOwnerController.addNewTeamToSystem(owner,"Macabi");
         teamManager = new TeamManager("theMan","12345","the","man","theMan@gmail.com");
     }
+
 
     //UC 6.1
     @Test
@@ -330,12 +332,6 @@ public class UC6 {
     }
 
 
-    @AfterClass
-    public static void afterClass() throws Exception {
-        SystemMangerController systemMangerController = new SystemMangerController();
-        systemMangerController.removeUserFromSystem(owner);
-        systemMangerController.removeUserFromSystem(teamManager);
-        systemMangerController.permanentlyCloseTeam(newTeam);
-    }
+
 
 }

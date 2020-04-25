@@ -11,12 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Footballer extends TeamUser implements Asset {
-    PersonalPage myPersonalPage;
-    FootballerPosition footballerPosition;
-
-    public PersonalPage getMyPersonalPage() {
-        return myPersonalPage;
-    }
+    private PersonalPage myPersonalPage;
+    private FootballerPosition footballerPosition;
 
     public Footballer(String username, String password, String firstName, String lastName, String email, FootballerPosition footballerPosition) {
         super(username, password, firstName, lastName, email);
@@ -25,9 +21,6 @@ public class Footballer extends TeamUser implements Asset {
         PersonalPageSystem.addToFootballerList(this, myPersonalPage);
     }
 
-    public FootballerPosition getFootballerPosition() {
-        return footballerPosition;
-    }
 
     @Override
     public boolean editAsset(HashMap<String, String> changes) throws Exception {
@@ -51,22 +44,35 @@ public class Footballer extends TeamUser implements Asset {
         return true;
     }
 
+    //========== Getters and Setters ================
+    public FootballerPosition getFootballerPosition() {
+        return footballerPosition;
+    }
+
+    public PersonalPage getMyPersonalPage() {
+        return myPersonalPage;
+    }
+
+
+    //========== To String ================
+    @Override
+    public String toString() {
+        String string = super.toString() +" ";
+        string += footballerPosition.toString() +" ";
+        return string;
+    }
+
+    //========== Delete ================
     @Override
     public boolean deleteUser() throws Exception {
         PersonalPageSystem.moveToArchive(myPersonalPage);
         for (Team team : this.teams.keySet()) {
             team.removeTeamMember(this);
         }
-        SystemController.archiveUsers.put(this.getUserName(),this);
+        SystemController.archiveUsers.put(this.getUserName(), this);
         SystemController.userNameUser.remove(this);
         return true;
     }
 
-    @Override
-    public String toString() {
-        String string = super.toString();
-        string += footballerPosition.toString();
-        return string;
-    }
 
 }

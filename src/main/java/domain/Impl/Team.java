@@ -3,7 +3,6 @@ package domain.Impl;
 import domain.Controllers.PersonalPageSystem;
 import domain.Controllers.SystemController;
 import domain.Enums.TeamState;
-import domain.Interfaces.Asset;
 import domain.Users.*;
 
 import java.util.ArrayList;
@@ -19,6 +18,8 @@ public class Team {
     private Members teamMembers;
     private HashSet<Field> fields;
     private HashSet<FinanceActivity> financeActivities;
+
+
     PersonalPage teamPersonalPage;
 
     public Team(String teamName, TeamState state, ManagementUser managementUser) {
@@ -96,8 +97,6 @@ public class Team {
         return true;
     }
 
-
-
     public HashSet<Footballer> getTeamFootballers() {
         return this.teamMembers.getFootballers();
     }
@@ -118,7 +117,6 @@ public class Team {
         this.financeActivities.add(financeActivity);
         return true;
     }
-
     public HashSet<Field> getFields() {
         return fields;
     }
@@ -128,6 +126,9 @@ public class Team {
         return true;
     }
 
+    public PersonalPage getTeamPersonalPage() {
+        return teamPersonalPage;
+    }
     public String getTeamName() {
         return teamName;
     }
@@ -144,5 +145,4 @@ public class Team {
         this.state = newState;
         return true;
     }
-
 }

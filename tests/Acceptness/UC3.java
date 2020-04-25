@@ -3,6 +3,7 @@ package Acceptness;
 import domain.Controllers.*;
 import domain.Enums.TeamState;
 import domain.Impl.Game;
+import domain.Impl.Season;
 import domain.Impl.Team;
 import domain.Users.*;
 import org.junit.Before;
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static domain.Enums.FootballerPosition.Striker;
 import static domain.Enums.TeamState.active;
@@ -45,16 +47,19 @@ public class UC3 {
 
 
     FanController fc = new FanController();
-
+    Owner tw = new Owner("yaya@gmail.com", "123456789", "yaara", "rumney", "yaya@gmail.com");
+    Team team = new Team("Arsenal", active, tw);
+    Owner tw2 = new Owner("yaeli@gmail.com", "4564644554", "yaeli", "rumney", "yaeli@gmail.com");
+    Team team2 = new Team("Liverpool", active, tw);
+    Season seas = new Season(2019,System.currentTimeMillis());
     // ============== Follow 3.2 ============
 
 
     @Test
     public void test_UC3_2_Acceptance() throws Exception {
         Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
-        Owner tw = new Owner("yaya@gmail.com", "123456789", "yaara", "rumney", "yaya@gmail.com");
-        Team team = new Team("Arsenal", active, tw);
-        Footballer tiri = TeamOwnerController.signUpNewFootballer(tw, "tiri", "henry", "tiri@gmail.com", Striker, team);
+
+        Footballer tiri = TeamOwnerController.signUpNewFootballer(tw, "tiri", "henry", "tiri12@gmail.com", Striker, team);
 
         boolean ans = fc.follow(f, tiri.getMyPersonalPage());
         assertTrue(ans);
@@ -64,8 +69,7 @@ public class UC3 {
     @Test
     public void test_UC3_2_NotAcceptance_remove() throws Exception {
         Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
-        Owner tw = new Owner("yaya@gmail.com", "123456789", "yaara", "rumney", "yaya@gmail.com");
-        Team team = new Team("Arsenal", active, tw);
+
         Footballer tiri = TeamOwnerController.signUpNewFootballer(tw, "tiri", "henry", "tiri@gmail.com", Striker, team);
         fc.follow(f, tiri.getMyPersonalPage());
         boolean ans = fc.follow(f, tiri.getMyPersonalPage());
@@ -75,10 +79,11 @@ public class UC3 {
 
     // ============ Subscribe 3.3 ===========
 
+
     @Test
     public void test_UC3_3_Acceptance() {
         Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
-        Game g = new Game();
+        Game g = new Game(seas,team,team2);
         boolean ans = fc.subscribe(f, g);
         assertTrue(ans);
     }
@@ -86,7 +91,7 @@ public class UC3 {
     @Test
     public void test_UC3_3_NotAcceptance_remove() {
         Fan f1 = new Fan("sha@gmail.com", "12347834", "sha", "rumney", "sha@gmail.com");
-        Game g1 = new Game();
+        Game g1 = new Game(seas,team,team2);
         g1.attachObserver(f1);
         boolean ans = fc.subscribe(f1, g1);
         assertFalse(ans);
@@ -115,9 +120,12 @@ public class UC3 {
     public void test_UC3_5_Acceptance() throws Exception { //Todo
         Fan f = new Fan("shachar@gmail.com", "12345654", "shachar", "rumney", "shachar@gmail.com");
         long start =  System.currentTimeMillis();
-        SystemController.search("barcelona");
+        TimeUnit.SECONDS.sleep(1);
+        SystemController.search(f,"barcelona");
+        TimeUnit.SECONDS.sleep(1);
         Map<String, Long> mymap = fc.mySearchHistory(f, start,System.currentTimeMillis());
-        boolean ns;
+        boolean ns= mymap.isEmpty();
+        assertFalse(ns);
     }
 
     @Test
@@ -155,15 +163,10 @@ public class UC3 {
         valuesToUpdate.put("email","perri@gmail.com");
         valuesToUpdate.put("password","1234561234");
         fc.updateDetails(f4,valuesToUpdate );
-        boolean ans = ( f4.getEmail().compareTo("perri@gmail.com")==0) && (f4.getFirstName().compareTo("asaf")==0)
+        boolean ans =  (f4.getFirstName().compareTo("asaf")==0)
                 && (f4.getLastName().compareTo("perri")==0);   // && (f4.getPassword().compareTo("1234561234")==0); cant check password
 
         assertTrue(ans);
 
     }
-
-
-
-
-
 }

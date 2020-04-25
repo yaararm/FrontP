@@ -150,4 +150,17 @@ public class AssociationRepresentativeController {
         return true;
 
     }
+
+    public boolean assignGames(AssociationRepresentative associationRepresentative, Season season) throws Exception {
+        if (season.getGames().size()==0)
+            throw new Exception("Seasons games already assigned");
+
+        season.setSeasonGames(season.getAssignPolicy().assignSeasonGames(season));
+
+        //Logger
+        SystemController.logger.info("Creation | New Games have been assign to season; SeasonID: " + season.getSeasonID() + "; Assign Policy Name: " + season.getAssignPolicy().getName() +
+                "; Association Representative ID:" + associationRepresentative.getAssociationRepresentativeID());
+        return true;
+    }
+
 }

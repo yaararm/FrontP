@@ -4,18 +4,18 @@ import domain.Controllers.SystemController;
 import domain.Impl.Team;
 
 public class TeamMemberPersonalPage extends PersonalPage {
-    String birthday="";
-    String history="";
-    String hobbies="";
-    String type="";
-    String role="";
-    String team="";
-    String content="";
+    private String birthday="";
+    private String history="";
+    private String hobbies="";
+    private String type="";
+    private String role="";
+    private String team="";
+    private String content="";
+
+
 
     public TeamMemberPersonalPage(TeamUser user) {
         super(user);
-
-        this.pageName = user.getFirstName() + " " + user.getLastName();
         for (Team team1 : user.getTeams().keySet()) {
             team += team1.getTeamName() +"\n";
         }
@@ -29,18 +29,11 @@ public class TeamMemberPersonalPage extends PersonalPage {
             type = "Coach";
             role = ((Coach) user).getCoachPosition().toString();
         }
-
+        pageName = user.firstName +" "+user.lastName;
         //Logger
         SystemController.logger.info("Creation | New Personal Page for Team Member have been created have been defined; Owner name: " + user.getFirstName() + " " + user.getLastName() +
                 "; Personal Page ID: " + this.getPpID());
 
-    }
-
-    @Override
-    public String toString() {
-        String string = super.toString();
-        string +=  birthday + " " + history + " " + hobbies + " " + type + " "+ role + " "+  team + " " + content;
-        return string;
     }
 
     // =========== Getters and Setters =============
@@ -93,6 +86,14 @@ public class TeamMemberPersonalPage extends PersonalPage {
     }
 
     public void setContent(String content) {
-        this.content += content;
+        this.content = content;
+    }
+
+
+    @Override
+    public String toString() {
+        String string = super.toString();
+        string +=  birthday + " " + history + " " + hobbies + " " + type + " "+ role + " "+  team + " " + content;
+        return string;
     }
 }

@@ -1,25 +1,21 @@
 package domain.Users;
 
-import domain.Users.Coach;
-import domain.Users.Fan;
-import domain.Users.Footballer;
-import domain.Users.SignedUser;
-
 import java.util.HashSet;
 
 public abstract class PersonalPage {
     private static int idCounter = 0;
     private int ppID;
 
-    SignedUser pageOwner;
-    long openDate;
-    HashSet<Fan> fans = new HashSet<>();
-    String pageName;
+    private SignedUser pageOwner;
+    private long openDate;
+    private HashSet<Fan> fans = new HashSet<>();
+    protected String pageName;
 
     public PersonalPage(SignedUser user) {
         pageOwner = user;
         this.openDate= System.currentTimeMillis();
         ppID= idCounter++;
+
     }
 
     // ============== Fans For Page ==========
@@ -38,7 +34,7 @@ public abstract class PersonalPage {
 
     @Override
     public String toString() {
-        return pageOwner.toString();
+        return pageOwner.toString() +" "+pageName +" ";
     }
 
     // ======== Getters ============
@@ -52,6 +48,18 @@ public abstract class PersonalPage {
 
     public int getPpID() {
         return ppID;
+    }
+
+    public static int getIdCounter() {
+        return idCounter;
+    }
+
+    public HashSet<Fan> getFans() {
+        return fans;
+    }
+
+    public String getPageName() {
+        return pageName;
     }
 
 }

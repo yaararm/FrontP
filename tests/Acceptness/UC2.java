@@ -2,17 +2,28 @@ package Acceptness;
 
 import domain.Controllers.GuestController;
 import domain.Controllers.SignedInController;
+import domain.Controllers.SystemController;
+import domain.Enums.FieldType;
+import domain.Enums.FootballerPosition;
+import domain.Enums.TeamState;
+import domain.Impl.Field;
+import domain.Impl.Team;
+import domain.Users.*;
 import org.junit.Before;
 import org.junit.Test;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
+import static domain.Enums.CoachPosition.Main;
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertEquals;
 
-public class UC2 {
 
-//ToDo figure out whether every test should work on his own?
-    //Todo also- not acceptance shouldfailed?
+public class UC2 {
 
     GuestController gc = new GuestController();
 
@@ -88,6 +99,40 @@ public class UC2 {
     }
 
     //===================================== search 2.5 ==================================//
+
+    @Test
+    public void test_UC2_5_Acceptance() throws Exception {
+       Owner owner = new Owner("mey@gmail.com","123","im","owner","mey@gmail.com");
+       Team team = new Team("macabi_TLV", TeamState.active,owner);
+       Footballer footballer = new Footballer("yossi@ben.com","19921995","yossi","ben","yossi@ben.com", FootballerPosition.Center_Back);
+        Coach kika = new Coach("kika45@gmail.com", "789431256", "kiktrha", "stgerein", "kika45@gmail.com", Main);
+        team.addTeamMember(owner,kika);
+        team.addTeamMember(owner, footballer);
+       Guest gs  = new Guest();
+
+        HashMap<String, HashSet<Object>> result=  SystemController.search(gs, "macabi_TLV" );
+        List<Object> list = new ArrayList<Object>(result.get("Footballer"));
+        List<Object> list2 = new ArrayList<Object>(result.get("Team"));
+        boolean ans = list.get(0).toString().contains("yossi");
+        boolean ans2 = list2.get(0).toString(). contains("macabi_TLV");
+        assertTrue(ans);
+        assertTrue(ans2);
+
+    }
+
+    @Test
+    public void test_UC2_5_NotAcceptance() {
+        Guest gs1  = new Guest();
+
+        HashMap<String, HashSet<Object>> result=  SystemController.search(gs1, "gibrish" );
+        List<Object> list = new ArrayList<Object>(result.get("Footballer"));
+        List<Object> list2 = new ArrayList<Object>(result.get("Team"));
+        boolean ans = list.isEmpty();
+        boolean ans2 = list2.isEmpty();
+        assertTrue(ans);
+        assertTrue(ans2);
+
+    }
 
 
 }

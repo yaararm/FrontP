@@ -2,8 +2,8 @@ package domain.Impl;
 
 import domain.Enums.RefereeTraining;
 import domain.Interfaces.AssignPolicy;
-import domain.SeasonPolicies.AssignPolicy2;
 import domain.Interfaces.ScoreComputingPolicy;
+import domain.SeasonPolicies.AssignPolicy2;
 import domain.SeasonPolicies.ScoreComputingPolicy1;
 import domain.Users.Referee;
 
@@ -19,10 +19,10 @@ public class Season {
     //Connections
     private ScoreComputingPolicy scorePolicy;
     private AssignPolicy assignPolicy;
-    HashMap<RefereeTraining, HashSet<Referee>> referees;
-    League league;
-    HashSet<Team> seasonsTeams;
-    HashMap<Integer,HashSet<Game>> RoundGames;
+    private HashMap<RefereeTraining, HashSet<Referee>> referees;
+    private League league;
+    private HashSet<Team> seasonsTeams;
+    private HashMap<Integer,HashSet<Game>> RoundGames;
 
 
     public Season(Integer year, long startDate) {
@@ -32,6 +32,7 @@ public class Season {
         assignPolicy= new AssignPolicy2();
         referees = new HashMap<>();
         seasonID = idCounter++;
+        RoundGames = new HashMap<>();
     }
 
     public boolean addReferee(RefereeTraining refereeTraining, Referee referee){
@@ -57,7 +58,6 @@ public class Season {
         if(System.currentTimeMillis() > this.startDate){
             throw new Exception("cant change season teams after season start date");
         }
-
         this.seasonsTeams = seasonsTeams;
     }
 
@@ -111,5 +111,9 @@ public class Season {
 
     public HashMap<Integer,HashSet<Game>> getGames() {
         return RoundGames;
+    }
+
+    public void setSeasonGames(HashMap<Integer, HashSet<Game>> roundGames) {
+        RoundGames = roundGames;
     }
 }

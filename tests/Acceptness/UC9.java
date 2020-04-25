@@ -10,6 +10,7 @@ import domain.SeasonPolicies.ScoreComputingPolicy2;
 import domain.Users.AssociationRepresentative;
 import domain.Users.Referee;
 import org.junit.*;
+
 import static org.junit.Assert.*;
 
 public class UC9 {
@@ -72,6 +73,12 @@ public class UC9 {
 
     }
 
+    //add Season To League
+    @Test(expected = Exception.class)
+    public void Test_addSeasonToLeagueInvalidYear() throws Exception {
+        League l = SystemController.leagueNameLeagues.get("league1");
+        ac.addSeasonToLeague(assRep, l, 1900, 1235656890);
+    }
     //endregion
 
     //region Test Use Case 9.3.1
@@ -105,7 +112,6 @@ public class UC9 {
     @Test(expected = Exception.class)
     public void Test_appointRefereeInvalidEmail() throws Exception {
         ac.appointReferee(assRep, 333333333, "shofet", "two", "shofetref.com", RefereeTraining.Begginer);
-
     }
     //endregion
 
@@ -158,14 +164,15 @@ public class UC9 {
             Season s = l.getLeaguesSeasons().get(2001);
 
             //add referee to system
-            ac.appointReferee(assRep, 524323454, "shofet", "aaa", "aaa@ref.com", RefereeTraining.Begginer);
-            Referee r = (Referee) SystemController.userNameUser.get("aaa@ref.com");
+            ac.appointReferee(assRep, 524323999, "shofet", "aaa", "aaa777@ref.com", RefereeTraining.Begginer);
+            Referee r = (Referee) SystemController.userNameUser.get("aaa777@ref.com");
 
             //add referee to season
-            ac.setRefereeToSeason(assRep,s,r);
+            ac.setRefereeToSeason(assRep, s, r);
 
 
-            assertTrue(s.getReferees().get(RefereeTraining.Begginer).contains(r));;
+            assertTrue(s.getReferees().get(RefereeTraining.Begginer).contains(r));
+
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -182,13 +189,14 @@ public class UC9 {
             League l = SystemController.leagueNameLeagues.get("league4");
 
             //define season
-            ac.addSeasonToLeague(assRep, l, 2020, System.currentTimeMillis()*2);
+            ac.addSeasonToLeague(assRep, l, 2020, System.currentTimeMillis() * 2);
             Season s = l.getLeaguesSeasons().get(2020);
 
             //set policy
-            ac.setScoreComputingPolicy(assRep,s,new ScoreComputingPolicy2());
+            ac.setScoreComputingPolicy(assRep, s, new ScoreComputingPolicy2());
 
-            assertTrue(s.getScorePolicy() instanceof ScoreComputingPolicy2);;
+            assertTrue(s.getScorePolicy() instanceof ScoreComputingPolicy2);
+
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -206,9 +214,10 @@ public class UC9 {
         Season s = l.getLeaguesSeasons().get(2020);
 
         //set policy
-        ac.setScoreComputingPolicy(assRep,s,new ScoreComputingPolicy2());
+        ac.setScoreComputingPolicy(assRep, s, new ScoreComputingPolicy2());
 
-        assertTrue(s.getScorePolicy() instanceof ScoreComputingPolicy2);;
+        assertTrue(s.getScorePolicy() instanceof ScoreComputingPolicy2);
+
     }
     //endregion
 
@@ -221,13 +230,14 @@ public class UC9 {
             League l = SystemController.leagueNameLeagues.get("league6");
 
             //define season
-            ac.addSeasonToLeague(assRep, l, 2020, System.currentTimeMillis()*2);
+            ac.addSeasonToLeague(assRep, l, 2020, System.currentTimeMillis() * 2);
             Season s = l.getLeaguesSeasons().get(2020);
 
             //set policy
-            ac.setAssignPolicy(assRep,s,new AssignPolicy1());
+            ac.setAssignPolicy(assRep, s, new AssignPolicy1());
 
-            assertTrue(s.getAssignPolicy() instanceof AssignPolicy1);;
+            assertTrue(s.getAssignPolicy() instanceof AssignPolicy1);
+
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -245,9 +255,10 @@ public class UC9 {
         Season s = l.getLeaguesSeasons().get(2020);
 
         //set policy
-        ac.setAssignPolicy(assRep,s,new AssignPolicy1());
+        ac.setAssignPolicy(assRep, s, new AssignPolicy1());
 
-        assertTrue(s.getAssignPolicy() instanceof AssignPolicy1);;
+        assertTrue(s.getAssignPolicy() instanceof AssignPolicy1);
+
     }
     //endregion
 }

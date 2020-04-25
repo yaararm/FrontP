@@ -1,9 +1,7 @@
 package domain.Impl;
 
-import domain.Controllers.Utils;
 import domain.Enums.FieldType;
 import domain.Interfaces.Asset;
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,6 +24,7 @@ public class Field implements Asset {
         this.location = location;
         this.name = name;
         this.fieldType = fieldType;
+        this.games = new HashSet<>();
     }
 
     @Override

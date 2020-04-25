@@ -1,7 +1,9 @@
 package unit;
 
+import domain.Controllers.SystemController;
 import domain.Controllers.Utils;
 import domain.Enums.FootballerPosition;
+import domain.Impl.Team;
 import domain.Users.Footballer;
 import org.junit.*;
 
@@ -35,6 +37,12 @@ public class FootballerTest {
     public void deleteUserTest() {
         try {
             assertTrue(footballer.deleteUser());
+            for (Team team : footballer.getTeams().keySet()) {
+                assertFalse(team.getTeamCoaches().contains(footballer));
+            }
+            assertFalse(SystemController.userNameUser.containsKey(footballer.getUserName()));
+            assertTrue(SystemController.archiveUsers.containsKey(footballer.getUserName()));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
