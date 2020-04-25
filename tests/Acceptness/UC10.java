@@ -22,6 +22,7 @@ public class UC10 {
     //Class Fields
     static RefereeController rc;
     private static Referee r;
+    private static Referee r2;
     private static Game g1;
     private static Game g2;
     private static Game g3;
@@ -48,7 +49,7 @@ public class UC10 {
         r = (Referee) SystemController.userNameUser.get("aaa@ref.com");
 
         ac.appointReferee(assRep, 555555555, "shofet2", "aaa2", "aaa2@ref.com", RefereeTraining.Begginer);
-        Referee r2 = (Referee) SystemController.userNameUser.get("aaa2@ref.com");
+        r2 = (Referee) SystemController.userNameUser.get("aaa2@ref.com");
         //add referee to season
         ac.setRefereeToSeason(assRep, s, r);
 
@@ -71,6 +72,7 @@ public class UC10 {
         g1.setMainReferee(r);
         r.addGame(RefereeRole.Main, g1);
 
+        g2.setMainReferee(r);
         r.addGame(RefereeRole.Secondary, g2);
 
         r.addGame(RefereeRole.Main, g3);
@@ -89,7 +91,7 @@ public class UC10 {
             HashMap<String, String> newVal = new HashMap<>();
             newVal.put("Password", "123456");
             newVal.put("first name", "moshik");
-            newVal.put("last name","afia");
+            newVal.put("last name", "afia");
             SignedInController.updateDetails(r, newVal);
             assertEquals(Utils.sha256("123456"), r.getPassword());
             assertEquals("moshik", r.getFirstName());
@@ -141,13 +143,14 @@ public class UC10 {
 
     //region Test Use Case 10.4.1
     @Test
-    public void Test_getGamesForEdit(){
+    public void Test_getGamesForEdit() {
         HashSet<Game> games = rc.getGamesForEdit(r);
         assertEquals(1, games.size());
         assertTrue(games.contains(g4));
     }
+
     @Test
-    public void Test_getGamesEventsForEdit()  {
+    public void Test_getGamesEventsForEdit() {
         rc.addEventToCurrentGame(r, g1, EventType.Goal, 23, "aaa");
         rc.addEventToCurrentGame(r, g1, EventType.Offense, 85, "aaa");
 
@@ -159,7 +162,7 @@ public class UC10 {
     }
 
     @Test
-    public void Test_editGameEvent(){
+    public void Test_editGameEvent() {
         rc.addEventToCurrentGame(r, g2, EventType.Goal, 23, "aaa");
         HashSet<Event> gameEvents = rc.getGamesEventsForEdit(r, g2);
         assertEquals(1, gameEvents.size());
@@ -171,14 +174,14 @@ public class UC10 {
             assertEquals("aaa", event.getDescription());
             assertEquals(23, event.getEventMinute());
 
-            rc.editGameEvent(r,event,changes );
+            rc.editGameEvent(r, event, changes);
             assertEquals("bbb", event.getDescription());
             assertEquals(88, event.getEventMinute());
         }
     }
 
     @Test
-    public void Test_getGamesEventsForEditMoreThen5Hours()  {
+    public void Test_getGamesEventsForEditMoreThen5Hours() {
         HashSet<Game> games = rc.getGamesForEdit(r);
         assertTrue(games.contains(g4));
         assertFalse(games.contains(g2));
@@ -187,7 +190,7 @@ public class UC10 {
     }
 
     @Test
-    public void Test_getGamesForEditNotMainReferee(){
+    public void Test_getGamesForEditNotMainReferee() {
         HashSet<Game> games = rc.getGamesForEdit(r);
         assertEquals(1, games.size());
         assertFalse(games.contains(g2));
@@ -201,13 +204,13 @@ public class UC10 {
         rc.addEventToCurrentGame(r, g3, EventType.Offense, 24, "bbb");
         rc.addEventToCurrentGame(r, g3, EventType.Injury, 25, "ccc");
 
-        EventLog gameEventsLog = rc.createGameReport(r,g3);
+        EventLog gameEventsLog = rc.createGameReport(r, g3);
         assertEquals(3, gameEventsLog.getEvents().size());
     }
 
     @Test(expected = Exception.class)
     public void Test_createGameReportNotMainReferee() throws Exception {
-        EventLog gameEventsLog = rc.createGameReport(r,g2);
+        EventLog gameEventsLog = rc.createGameReport(r2, g2);
     }
     //endregion
 

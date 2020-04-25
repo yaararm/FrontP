@@ -31,46 +31,33 @@ public class Fan extends SignedUser {
 
     //========== Follow ================
     public boolean checkIfFollowed(PersonalPage personalPage) {
-        if (followedPersonalPages.contains(personalPage))
-            return true;
-        return false;
+        return followedPersonalPages.contains(personalPage);
     }
 
     public boolean removeFollowed(PersonalPage personalPage) {
-        if (followedPersonalPages.remove(personalPage))
-            return true;
-        return false;
+        return followedPersonalPages.remove(personalPage);
     }
 
     public boolean addToFollowed(PersonalPage personalPage) {
-        if (followedPersonalPages.add(personalPage))
-            return true;
-        return false;
+        return followedPersonalPages.add(personalPage);
 
     }
 
     //========== Get Notify ================
     public void update() {
         //TODO
-
     }
 
     public boolean addToObservedGames(Game game) {
-        if (observedGames.add(game))
-            return true;
-        return false;
+        return observedGames.add(game);
     }
 
     public boolean removeFromObservedGames(Game game) {
-        if (observedGames.remove(game))
-            return true;
-        return false;
+        return observedGames.remove(game);
     }
 
     public boolean addToMyComplaints(Complaint complaint) {
-        if (myComplaints.add(complaint))
-            return true;
-        return false;
+        return myComplaints.add(complaint);
     }
 
     public boolean addToMySearches(Long date, String search) {
