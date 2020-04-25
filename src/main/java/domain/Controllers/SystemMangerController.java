@@ -1,5 +1,6 @@
 package domain.Controllers;
 
+import domain.Enums.ComplaintStatus;
 import domain.Enums.TeamState;
 import domain.Impl.Team;
 import domain.Users.*;
@@ -100,5 +101,11 @@ public class SystemMangerController {
             System.err.println("Error: " + e.getMessage());
         }
         return logs;
+    }
+
+    public boolean closeComplaint(SystemManager systemManager, Complaint complaint) {
+        complaint.setStatus(ComplaintStatus.Closed);
+        ComplaintSystemController.moveToClose(complaint);
+        return true;
     }
 }

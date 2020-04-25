@@ -36,4 +36,13 @@ public class ComplaintSystemController {
                 "; Fan ID: " + id );
         return true;
     }
+
+    public static boolean moveToClose(Complaint complaint) {
+        boolean remove = newComplaint.remove(complaint);
+        if(remove){
+            closedComplaint.add(complaint);
+        }
+
+        return true;
+    }
 }

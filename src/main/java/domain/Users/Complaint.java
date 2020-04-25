@@ -22,7 +22,7 @@ public class Complaint {
         comments = new HashSet<>();
         reportDate = System.currentTimeMillis();
         status = ComplaintStatus.New;
-        ComplaintSystemController.addComplaint(this);
+        //ComplaintSystemController.addComplaint(this);
         this.complaintID = idCounter++;
     }
 
@@ -80,5 +80,13 @@ public class Complaint {
 
     public int getComplaintID() {
         return complaintID;
+    }
+
+    public long getReportDate() {
+        return reportDate;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

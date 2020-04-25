@@ -46,7 +46,7 @@ public class SystemController {
     //Use Case 3.5
     public static Map<String, Long> getSearchHistory(Fan fan, final long fromDate, final long toDate) {
         HashMap<Long, String> historyDateHashMap = fan.getMySearches();
-        if(historyDateHashMap != null) {
+        if(!historyDateHashMap.isEmpty()) {
             Map<String, Long> collect =
                     historyDateHashMap.entrySet().stream().filter(s -> s.getKey()<toDate && s.getKey()>fromDate).collect(Collectors.toMap(stringDateEntry -> stringDateEntry.getValue(), stringDateEntry -> stringDateEntry.getKey()));
             return collect;

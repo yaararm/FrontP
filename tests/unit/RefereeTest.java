@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static domain.Enums.RefereeRole.Main;
 import static domain.Enums.RefereeRole.Secondary;
 import static domain.Enums.RefereeTraining.Expert;
 import static domain.Enums.TeamState.active;
@@ -61,14 +62,15 @@ public class RefereeTest {
         assertTrue( r.deleteUser());
        assertTrue( r.getStatus().compareTo(NotActive) ==0);
     }
-
-    @Test
+     @Test
     public void test_Delete_user2()throws Exception{
-        long tommrorw = System.currentTimeMillis() +20;
+        long tommrorw = System.currentTimeMillis() +210000;
         Game g = new Game(seas,team,team2);
         g.setGameDate(tommrorw);
+        g.setMainReferee(r2);
+        r2.addGame(Main,g);
         assertFalse( r2.deleteUser());
-        assertFalse( r.getStatus().compareTo(NotActive) ==0);
+
         }
     }
 
