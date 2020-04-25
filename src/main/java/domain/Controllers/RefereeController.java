@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class RefereeController {
 
     //Use Case 10.2
-    public HashMap<Game, RefereeRole> showRefereeAssignedGames(Referee referee) throws Exception {
+    public HashMap<Game, RefereeRole> showRefereeAssignedGames(Referee referee) {
         HashMap<RefereeRole, HashSet<Game>> games = referee.getGames();
         HashMap <Game, RefereeRole> relevantGames = new HashMap<>();
         long currentTime =System.currentTimeMillis();
@@ -64,7 +64,7 @@ public class RefereeController {
         for (RefereeRole role: games.keySet()) {
             if(role.equals(RefereeRole.Main)){
                 for (Game game : games.get(role)) {
-                    long gameStart = game.getGameDate();
+                    long gameStart = game.getGameDate()+ TimeUnit.MINUTES.toMillis(90);
                     long gameEnd = game.getGameDate()+ TimeUnit.MINUTES.toMillis(390);
                     if (currentTime >= gameStart && currentTime <= gameEnd) {
                         relevantGames.add(game);
@@ -78,8 +78,7 @@ public class RefereeController {
 
     //Use Case 10.4.1 B
     public HashSet<Event> getGamesEventsForEdit(Referee referee, Game game){
-        HashSet<Event> events = game.getEventLog().getEvents();
-        return events;
+        return game.getEventLog().getEvents();
     }
 
     //Use Case 10.4.1 C
