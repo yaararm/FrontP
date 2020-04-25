@@ -1,5 +1,6 @@
 package domain.Controllers;
 
+import domain.Enums.ComplaintStatus;
 import domain.Impl.Game;
 import domain.Users.Complaint;
 import domain.Users.Fan;
@@ -49,10 +50,17 @@ public class FanController {
         }
         Complaint complaint = new Complaint(fan, description);
         fan.addToMyComplaints(complaint);
+        ComplaintSystemController.addComplaint(complaint);
         //Logger
         SystemController.logger.info("Creation | New complaint have been created; Complaint ID: " + complaint.getComplaintID() + "; Fan ID: " + fan.getFanID());
         return true;
 
+    }
+
+    public boolean closeComplaint(Fan fan, Complaint complaint) {
+        complaint.setStatus(ComplaintStatus.Closed);
+        ComplaintSystemController.moveToClose(complaint);
+        return true;
     }
 
     // ============ Search History ==============
