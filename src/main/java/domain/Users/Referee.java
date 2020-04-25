@@ -94,10 +94,10 @@ public class Referee extends SignedUser {
         for (RefereeRole role : games.keySet()) {
             for (Game game : games.get(role)) {
                 if (game.getGameDate() >= today) {
-                    if (!game.removeReferee(this, role)) {
+
                         SystemController.logger.error("Deletion | Can't Delete User; User ID: " + this.getId());
                         return false;
-                    }
+
                 }
             }
         }

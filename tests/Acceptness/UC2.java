@@ -1,14 +1,19 @@
 package Acceptness;
 
+import domain.Controllers.AssociationRepresentativeController;
 import domain.Controllers.GuestController;
 import domain.Controllers.SignedInController;
 import domain.Controllers.SystemController;
 import domain.Enums.FieldType;
 import domain.Enums.FootballerPosition;
+import domain.Enums.RefereeTraining;
 import domain.Enums.TeamState;
 import domain.Impl.Field;
+import domain.Impl.League;
+import domain.Impl.Season;
 import domain.Impl.Team;
 import domain.Users.*;
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -103,12 +108,13 @@ public class UC2 {
     @Test
     public void test_UC2_5_Acceptance() throws Exception {
        Owner owner = new Owner("mey@gmail.com","123","im","owner","mey@gmail.com");
-       Team team = new Team("macabi_TLV", TeamState.active,owner);
-       Footballer footballer = new Footballer("yossi@ben.com","19921995","yossi","ben","yossi@ben.com", FootballerPosition.Center_Back);
+        Team team = new Team("macabi_TLV", TeamState.active,owner);
+        Team team2 = new Team("hapoel_TLV", TeamState.active,owner);
+        Footballer footballer = new Footballer("yossi@ben.com","19921995","yossi","ben","yossi@ben.com", FootballerPosition.Center_Back);
         Coach kika = new Coach("kika45@gmail.com", "789431256", "kiktrha", "stgerein", "kika45@gmail.com", Main);
         team.addTeamMember(owner,kika);
         team.addTeamMember(owner, footballer);
-       Guest gs  = new Guest();
+        Guest gs  = new Guest();
 
         HashMap<String, HashSet<Object>> result=  SystemController.search(gs, "macabi_TLV" );
         List<Object> list = new ArrayList<Object>(result.get("Footballer"));

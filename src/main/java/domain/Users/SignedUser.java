@@ -53,9 +53,7 @@ public abstract class SignedUser extends User {
         this.password = password;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
