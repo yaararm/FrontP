@@ -97,8 +97,6 @@ public class Team {
         return true;
     }
 
-
-
     public HashSet<Footballer> getTeamFootballers() {
         return this.teamMembers.getFootballers();
     }
@@ -119,7 +117,6 @@ public class Team {
         this.financeActivities.add(financeActivity);
         return true;
     }
-
     public HashSet<Field> getFields() {
         return fields;
     }

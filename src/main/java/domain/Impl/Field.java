@@ -24,6 +24,7 @@ public class Field implements Asset {
         this.location = location;
         this.name = name;
         this.fieldType = fieldType;
+        this.games = new HashSet<>();
     }
 
     @Override

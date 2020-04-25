@@ -38,7 +38,7 @@ public class SystemMangerController {
     }
 
     //UC 8.1
-    public boolean permanentlyCloseTeam(Team team) throws Exception {
+    public static boolean permanentlyCloseTeam(Team team) throws Exception {
         if (team.getState() == TeamState.active || team.getState() == TeamState.notActive) {
             //Todo send alerts
             boolean remove = SystemController.systemTeams.remove(team);

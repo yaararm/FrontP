@@ -59,13 +59,13 @@ public class ScoreBoard {
         return true;
     }
 
-    public List<TeamScores> getBoard(){
+    public List<TeamScores> getBoard() {
         List<TeamScores> ans = new ArrayList<>(board.values());
         Collections.sort(ans, Comparator.comparing(TeamScores::getTotalPoints));
         return ans;
     }
 
-    class TeamScores{
+    public static class TeamScores {
         Team team;
         int numOfGames;
         int numOfWins;
@@ -79,12 +79,14 @@ public class ScoreBoard {
             this.team = t;
         }
 
-        private Integer getTotalPoints() {
+        public Integer getTotalPoints() {
             return TotalPoints;
         }
 
-        public Comparator<TeamScores> compareByTotalPoints = (TeamScores o1, TeamScores o2) ->
-                o1.getTotalPoints().compareTo(o2.getTotalPoints() );
+
+//        public static Comparator<TeamScores> compareByTotalPoints = (TeamScores o1, TeamScores o2) ->
+//                o1.getTotalPoints().compareTo(o2.getTotalPoints() );
+//    }
     }
 }
 

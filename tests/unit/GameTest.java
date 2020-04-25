@@ -1,7 +1,12 @@
 package unit;
 
+import domain.Controllers.TeamOwnerController;
+import domain.Enums.TeamState;
 import domain.Impl.Game;
+import domain.Impl.Season;
+import domain.Impl.Team;
 import domain.Users.Fan;
+import domain.Users.Owner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -14,7 +19,12 @@ public class GameTest {
 
     @BeforeClass
     public static void befort_class(){
-        game = new Game();
+        Season season = new Season(2020,12042020);
+        Owner owner1 = new Owner("ron","123","ron","niceman","ron@gmail.com");
+        Owner owner2 = new Owner("dan","123","dan","glizman","dan@gmail.com");
+        Team team1= new Team("beitar", TeamState.active,owner1);
+        Team team2 = new Team("galil",TeamState.active,owner2);
+        game = new Game(season,team1,team2);
         fan = new Fan("fan1","123","the","fan","thefan@gmail.com");
     }
 

@@ -43,7 +43,6 @@ public class Game {
         }
     }
 
-
     public Season getSeason() {
         return season;
     }
@@ -164,4 +163,25 @@ public class Game {
     public List<Fan> getFansObserver() {
         return fansObserver;
     }
+
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
+    }
+
+    public void setAwayTeam(Team awayTeam) {
+        this.awayTeam = awayTeam;
+    }
+
+    public void setHomeScore(int homeScore) {
+        this.homeScore = homeScore;
+    }
+
+    public void setAwayScore(int awayScore) {
+        this.awayScore = awayScore;
+    }
 }
+

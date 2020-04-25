@@ -1,9 +1,12 @@
 package unit;
 
+import domain.Controllers.SystemMangerController;
+import domain.Controllers.TeamOwnerController;
 import domain.Enums.FieldType;
 import domain.Enums.FootballerPosition;
 import domain.Enums.TeamState;
 import domain.Impl.Field;
+import domain.Impl.FinanceActivity;
 import domain.Impl.Team;
 import domain.Users.Fan;
 import domain.Users.Footballer;
@@ -33,7 +36,6 @@ public class TeamTest {
         footballer = new Footballer("at","1992","asaf","tzur","asaf@gmail.com", FootballerPosition.Center_Back);
         field2 = new Field(700,"Ber Sheva","terner",FieldType.Tournament);
         fan = new Fan("q","123","q","q","q@gmail.com");
-
         team_extre.addField(field2);
 
     }
@@ -69,10 +71,10 @@ public class TeamTest {
     }
 
 
-//    @Test(expected = Exception.class)
-//    public void test_addField_nonAcceptnce() throws Exception {
-//        team.addField(field2);
-//    }
+    @Test(expected = Exception.class)
+    public void test_addField_nonAcceptnce() throws Exception {
+        team_extre.addField(field2);
+    }
 
 
     @Test
@@ -86,5 +88,11 @@ public class TeamTest {
     @Test(expected = Exception.class)
     public void test_removeField_nonAcceptnce() throws Exception {
         team.removeField(field2);
+    }
+
+    @Test
+    public void test_removeFinanceActivity() throws Exception {
+        FinanceActivity financeActivity=new FinanceActivity("income",5000,"win",20200102,owner);
+        assertTrue(team.removeFinanceActivity(financeActivity)&&team.addFinanceActivity(financeActivity));
     }
 }

@@ -205,8 +205,7 @@ public class TeamOwnerController {
     }
 
     //UC 6.4
-    public static TeamManager signUpNewTeamManager(ManagementUser addingOwner, String firstName, String lastName, String email,
-                                                   Team team) throws Exception {
+    public static TeamManager signUpNewTeamManager(ManagementUser addingOwner, String firstName, String lastName, String email, Team team) throws Exception {
         if (addingOwner instanceof Owner || (addingOwner instanceof TeamManager && ((TeamManager) addingOwner).hasPermission(TeamManagerPermissions.AddManager))) {
             boolean valid = EmailValidator.getInstance().isValid(email);
             if (!valid)
