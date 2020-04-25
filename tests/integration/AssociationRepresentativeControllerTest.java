@@ -77,6 +77,7 @@ public class AssociationRepresentativeControllerTest {
         ac.setAssignPolicy(assRep, s, new AssignPolicy1());
         assertTrue(s.getAssignPolicy() instanceof AssignPolicy1);
 
+        //add owners
         Owner o1 = smc.signUpNewOwner(null,"owner1","last","owner1@gmail.com");
         Owner o2 = smc.signUpNewOwner(null,"owner2","last","owner2@gmail.com");
         Owner o3 = smc.signUpNewOwner(null,"owner3","last","owner3@gmail.com");
@@ -86,7 +87,7 @@ public class AssociationRepresentativeControllerTest {
         assertTrue(SystemController.userNameUser.containsKey("owner3@gmail.com"));
         assertTrue(SystemController.userNameUser.containsKey("owner4@gmail.com"));
 
-
+        //add teams
         Team t1 = TeamOwnerController.addNewTeamToSystem(o1,"team1");
         Team t2 = TeamOwnerController.addNewTeamToSystem(o2,"team2");
         Team t3 = TeamOwnerController.addNewTeamToSystem(o3,"team3");
@@ -96,6 +97,7 @@ public class AssociationRepresentativeControllerTest {
         assertTrue(SystemController.systemTeams.contains(t3));
         assertTrue(SystemController.systemTeams.contains(t4));
 
+        //add teams to season
         HashSet<Team> teams = new HashSet<>();
         teams.add(t1);
         teams.add(t2);
@@ -107,7 +109,7 @@ public class AssociationRepresentativeControllerTest {
         assertTrue(s.getSeasonsTeams().contains(t3));
         assertTrue(s.getSeasonsTeams().contains(t4));
 
-
+        //assign games
         ac.assignGames(assRep,s);
         assertEquals(3, s.getGames().size());
         assertEquals(2, s.getGames().get(1).size());
