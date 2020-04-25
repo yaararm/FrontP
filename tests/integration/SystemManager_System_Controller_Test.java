@@ -41,6 +41,7 @@ public class SystemManager_System_Controller_Test {
         assertTrue(team.getState()!= TeamState.permanentlyClosed);
         systemMangerController.permanentlyCloseTeam(team);
         assertTrue(team.getState()== TeamState.permanentlyClosed);
+        assertTrue(systemController.archivedTeams.contains(team));
     }
 
 

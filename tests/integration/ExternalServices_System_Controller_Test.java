@@ -25,4 +25,9 @@ public class ExternalServices_System_Controller_Test {
     }
 
     //establishConnectionToAssociationAccountingSystem
+    @Test
+    public void test_establishConnectionToAssociationAccountingSystem() throws InterruptedException {
+        assertTrue(externalServices.establishConnectionToAssociationAccountingSystem());
+        assertTrue(systemController.logger!=null);
+    }
 }
