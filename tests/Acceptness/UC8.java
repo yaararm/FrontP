@@ -70,7 +70,7 @@ public class UC8 {
     }
 
 
-    //UC 8.3 getAllComplaints
+    //UC 8.3.1 getAllComplaints
     @Test
     public void test_UC8_3_acceptnce(){
         Complaint complaint =new Complaint(fan,"not good");
@@ -78,9 +78,9 @@ public class UC8 {
         assertFalse(systemMangerController.getAllComplaints().isEmpty());
     }
 
-    //UC 8.4 addCommentToComplaint
+    //UC 8.3.2 addCommentToComplaint
     @Before
-    public void before_UC8_4_acceptnce(){
+    public void before_UC8_3_2_acceptnce(){
         Fan fan = new Fan("in","87654321","in","bar","in@gmail.com");
         complaintInSystem =new Complaint(fan,"not good");
         ComplaintSystemController.addComplaint(complaintInSystem);
@@ -88,11 +88,11 @@ public class UC8 {
     }
 
     @Test
-    public void test_UC8_4_accptnce() throws Exception {
+    public void test_UC8_3_2_accptnce() throws Exception {
         assertTrue(systemMangerController.addCommentToComplaint(systemManager,complaintInSystem,"ok"));
     }
     @Before
-    public void before_UC8_4_nonAcceptnce() throws Exception {
+    public void before_UC8_3_2_nonAcceptnce() throws Exception {
         Fan fan = new Fan("am","65456545","a","m","am@gmail.com");
         complaintInSystem = new Complaint(fan,"love this game");
         systemManager = new SystemManager("aviva","123","aviva","tova","aviva@gmail.com");
@@ -101,15 +101,15 @@ public class UC8 {
     }
 
     @Test(expected = Exception.class)
-    public void test_UC8_4_nonAcceptnce() throws Exception {
+    public void test_UC8_3_2_nonAcceptnce() throws Exception {
         complaintInSystem.setStatus(ComplaintStatus.Closed);
         systemMangerController.addCommentToComplaint(systemManager,complaintInSystem,"lala");
     }
 
 
-    //UC8.5 getSystemEventsLog
+    //UC8.4 getSystemEventsLog
     @Test
-    public void test_UC5_acceptnace() throws Exception {
+    public void test_UC8_4_acceptnace() throws Exception {
         Date from = new Date();
         Thread.sleep(1000*10);
         Date to =new Date();
@@ -119,7 +119,7 @@ public class UC8 {
     }
 
     @Test(expected = Exception.class)
-    public void test_UC5_nonAcceptnace() throws Exception {
+    public void test_UC8_4_nonAcceptnace() throws Exception {
         Date to = new Date();
         Thread.sleep(1000*10);
         Date from =new Date();
