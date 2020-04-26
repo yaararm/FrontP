@@ -1,12 +1,10 @@
 package unit;
 
-import domain.Controllers.PersonalPageSystem;
-import domain.Controllers.SystemController;
-import domain.Controllers.Utils;
-import domain.Enums.CoachPosition;
-import domain.Impl.Team;
-import domain.Users.AssociationRepresentative;
-import domain.Users.Coach;
+import domain.DB.SystemController;
+import domain.CrossCutting.Utils;
+import domain.BusinessLayer.Enum.CoachPosition;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Coach;
 import org.junit.*;
 
 import static org.junit.Assert.*;

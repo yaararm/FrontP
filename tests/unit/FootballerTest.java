@@ -1,10 +1,10 @@
 package unit;
 
-import domain.Controllers.SystemController;
-import domain.Controllers.Utils;
-import domain.Enums.FootballerPosition;
-import domain.Impl.Team;
-import domain.Users.Footballer;
+import domain.DB.SystemController;
+import domain.CrossCutting.Utils;
+import domain.BusinessLayer.Enum.FootballerPosition;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Footballer;
 import org.junit.*;
 
 import java.util.HashMap;

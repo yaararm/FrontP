@@ -1,16 +1,12 @@
 package unit;
 
-import domain.Impl.Team;
-import domain.Users.Footballer;
-import domain.Users.ManagementUser;
-import domain.Users.Owner;
-import domain.Users.TeamUser;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Footballer;
+import domain.BusinessLayer.Users.Owner;
 import org.junit.Test;
 
-import java.util.HashMap;
-
-import static domain.Enums.FootballerPosition.Striker;
-import static domain.Enums.TeamState.active;
+import static domain.BusinessLayer.Enum.FootballerPosition.Striker;
+import static domain.BusinessLayer.Enum.TeamState.active;
 import static junit.framework.TestCase.assertTrue;
 
 public class TeamUserTest {

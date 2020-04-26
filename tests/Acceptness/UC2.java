@@ -1,20 +1,15 @@
 package Acceptness;
 
-import domain.Controllers.AssociationRepresentativeController;
-import domain.Controllers.GuestController;
-import domain.Controllers.SignedInController;
-import domain.Controllers.SystemController;
-import domain.Enums.FieldType;
-import domain.Enums.FootballerPosition;
-import domain.Enums.RefereeTraining;
-import domain.Enums.TeamState;
-import domain.Impl.Field;
-import domain.Impl.League;
-import domain.Impl.Season;
-import domain.Impl.Team;
-import domain.Users.*;
-import org.apache.commons.lang3.SystemUtils;
-import org.junit.Before;
+import domain.BusinessLayer.Users.Coach;
+import domain.BusinessLayer.Users.Footballer;
+import domain.BusinessLayer.Users.Guest;
+import domain.BusinessLayer.Users.Owner;
+import domain.ServiceLayer.Controllers.GuestController;
+import domain.ServiceLayer.Controllers.SignedInController;
+import domain.DB.SystemController;
+import domain.BusinessLayer.Enum.FootballerPosition;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Team;
 import org.junit.Test;
 
 
@@ -23,7 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import static domain.Enums.CoachPosition.Main;
+import static domain.BusinessLayer.Enum.CoachPosition.Main;
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertEquals;
 

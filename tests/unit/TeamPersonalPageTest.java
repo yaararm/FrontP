@@ -1,12 +1,12 @@
 package unit;
 
-import domain.Impl.Team;
-import domain.Users.Fan;
-import domain.Users.Owner;
-import domain.Users.TeamPersonalPage;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Fan;
+import domain.BusinessLayer.Users.Owner;
+import domain.BusinessLayer.SystemFeatures.TeamPersonalPage;
 import org.junit.Test;
 
-import static domain.Enums.TeamState.active;
+import static domain.BusinessLayer.Enum.TeamState.active;
 import static junit.framework.TestCase.*;
 
 public class TeamPersonalPageTest {
@@ -22,7 +22,7 @@ public class TeamPersonalPageTest {
     }
 
     @Test
-    public void updatedetails(){
+    public void upFdatedetails(){
         tpt.setCoachName("samuel");
         tpt.setTeamFields("wembly");
         tpt.setTeamFootballerMembers("henri");

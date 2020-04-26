@@ -1,18 +1,14 @@
 package integration;
 
-import domain.Controllers.AssociationRepresentativeController;
-import domain.Controllers.SystemController;
-import domain.Enums.RefereeTraining;
-import domain.Impl.League;
-import domain.Impl.Season;
-import domain.Impl.Team;
-import domain.Users.AssociationRepresentative;
-import domain.Users.Fan;
-import domain.Users.Guest;
+import domain.ServiceLayer.Controllers.AssociationRepresentativeController;
+import domain.DB.SystemController;
+import domain.BusinessLayer.Enum.RefereeTraining;
+import domain.BusinessLayer.Football.League;
+import domain.BusinessLayer.Users.AssociationRepresentative;
+import domain.BusinessLayer.Users.Fan;
+import domain.BusinessLayer.Users.Guest;
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertNotNull;

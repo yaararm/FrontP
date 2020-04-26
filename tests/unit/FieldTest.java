@@ -1,12 +1,12 @@
 package unit;
 
-import domain.Enums.FieldType;
-import domain.Enums.TeamState;
-import domain.Impl.Field;
-import domain.Impl.Game;
-import domain.Impl.Season;
-import domain.Impl.Team;
-import domain.Users.Owner;
+import domain.BusinessLayer.Enum.FieldType;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Field;
+import domain.BusinessLayer.Football.Game;
+import domain.BusinessLayer.Football.Season;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Owner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

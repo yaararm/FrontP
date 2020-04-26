@@ -1,14 +1,12 @@
 package integration;
 
-import domain.Controllers.PersonalPageSystem;
-import domain.Enums.TeamState;
-import domain.Impl.Team;
-import domain.Users.Owner;
-import domain.Users.TeamPersonalPage;
+import domain.ServiceLayer.Controllers.PersonalPageSystem;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Owner;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -1,10 +1,17 @@
 package Acceptness;
 
-import domain.Controllers.*;
-import domain.Enums.ComplaintStatus;
-import domain.Enums.TeamState;
-import domain.Impl.Team;
-import domain.Users.*;
+import domain.BusinessLayer.Users.Fan;
+import domain.BusinessLayer.Users.Owner;
+import domain.BusinessLayer.Users.SystemManager;
+import domain.DB.SystemController;
+import domain.BusinessLayer.Enum.ComplaintStatus;
+import domain.BusinessLayer.Football.Team;
+import domain.ServiceLayer.Controllers.ComplaintSystemController;
+import domain.ServiceLayer.Controllers.GuestController;
+import domain.ServiceLayer.Controllers.SystemMangerController;
+import domain.ServiceLayer.Controllers.TeamOwnerController;
+import domain.BusinessLayer.SystemFeatures.Complaint;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,7 +30,7 @@ public class UC8 {
     private static SystemMangerController systemMangerController;
     private static Owner owner;
     private static Fan fan;
-    private  SystemManager systemManager;
+    private SystemManager systemManager;
     private  Complaint complaintInSystem;
 
 

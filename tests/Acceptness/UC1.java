@@ -1,6 +1,6 @@
 package Acceptness;
 
-import domain.FootballAssociationSystem;
+import domain.ServiceLayer.Controllers.FootballAssociationSystem;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;

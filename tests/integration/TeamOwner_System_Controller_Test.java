@@ -1,14 +1,14 @@
 package integration;
 
-import domain.Controllers.SystemController;
-import domain.Controllers.TeamOwnerController;
-import domain.Enums.CoachPosition;
-import domain.Enums.FootballerPosition;
-import domain.Impl.Team;
-import domain.Users.Coach;
-import domain.Users.Footballer;
-import domain.Users.Owner;
-import domain.Users.TeamManager;
+import domain.DB.SystemController;
+import domain.ServiceLayer.Controllers.TeamOwnerController;
+import domain.BusinessLayer.Enum.CoachPosition;
+import domain.BusinessLayer.Enum.FootballerPosition;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Coach;
+import domain.BusinessLayer.Users.Footballer;
+import domain.BusinessLayer.Users.Owner;
+import domain.BusinessLayer.Users.TeamManager;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertNotNull;

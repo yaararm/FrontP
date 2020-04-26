@@ -1,12 +1,12 @@
 package unit;
 
-import domain.Users.Complaint;
-import domain.Users.Fan;
-import domain.Users.SystemManager;
+import domain.BusinessLayer.SystemFeatures.Complaint;
+import domain.BusinessLayer.Users.Fan;
+import domain.BusinessLayer.Users.SystemManager;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import static domain.Enums.UserStatus.NotActive;
+import static domain.BusinessLayer.Enum.UserStatus.NotActive;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

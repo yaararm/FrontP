@@ -1,11 +1,11 @@
 package unit;
 
-import domain.Enums.TeamState;
-import domain.Impl.Season;
-import domain.Impl.Team;
-import domain.Interfaces.AssignPolicy;
-import domain.SeasonPolicies.AssignPolicy2;
-import domain.Users.Owner;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Season;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.SeasonPolicies.AssignPolicy;
+import domain.BusinessLayer.SeasonPolicies.AssignPolicy2;
+import domain.BusinessLayer.Users.Owner;
 import org.junit.*;
 
 import java.util.HashSet;
