@@ -1,6 +1,7 @@
 package Acceptness;
 
-import domain.ServiceLayer.Controllers.FootballAssociationSystem;
+import domain.FootballAssociationSystem;
+
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -9,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class UC1 {
 
     //jenkis test ToDo delete
+
     FootballAssociationSystem fas = new FootballAssociationSystem();
     @Test
     public void test_UC_1_1_Acceptance() throws Exception {
