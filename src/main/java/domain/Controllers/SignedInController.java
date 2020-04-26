@@ -23,7 +23,7 @@ public class SignedInController {
             }
             user.changeStatus(UserStatus.LogIn);
         } catch (Exception e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
         }
         return true;
     }
