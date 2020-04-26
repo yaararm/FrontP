@@ -1,16 +1,15 @@
 package unit;
 
-import domain.Enums.FieldType;
-import domain.Enums.TeamState;
-import domain.Impl.*;
-import domain.Interfaces.ScoreComputingPolicy;
-import domain.SeasonPolicies.ScoreComputingPolicy1;
-import domain.Users.Owner;
+import domain.BusinessLayer.Enum.FieldType;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.*;
+import domain.BusinessLayer.SeasonPolicies.ScoreComputingPolicy;
+import domain.BusinessLayer.SeasonPolicies.ScoreComputingPolicy1;
+import domain.BusinessLayer.Users.Owner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;

@@ -1,14 +1,19 @@
 package Acceptness;
 
-import domain.Controllers.*;
-import domain.Enums.EventType;
-import domain.Enums.RefereeRole;
-import domain.Enums.RefereeTraining;
-import domain.Enums.TeamState;
-import domain.Impl.*;
-import domain.Users.AssociationRepresentative;
-import domain.Users.Owner;
-import domain.Users.Referee;
+import domain.BusinessLayer.Football.*;
+import domain.BusinessLayer.SystemFeatures.EventLog;
+import domain.CrossCutting.Utils;
+import domain.DB.SystemController;
+import domain.BusinessLayer.Enum.EventType;
+import domain.BusinessLayer.Enum.RefereeRole;
+import domain.BusinessLayer.Enum.RefereeTraining;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.ServiceLayer.Controllers.AssociationRepresentativeController;
+import domain.ServiceLayer.Controllers.RefereeController;
+import domain.ServiceLayer.Controllers.SignedInController;
+import domain.BusinessLayer.Users.AssociationRepresentative;
+import domain.BusinessLayer.Users.Owner;
+import domain.BusinessLayer.Users.Referee;
 import org.junit.*;
 
 import java.util.HashMap;

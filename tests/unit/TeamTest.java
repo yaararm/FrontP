@@ -1,16 +1,14 @@
 package unit;
 
-import domain.Controllers.SystemMangerController;
-import domain.Controllers.TeamOwnerController;
-import domain.Enums.FieldType;
-import domain.Enums.FootballerPosition;
-import domain.Enums.TeamState;
-import domain.Impl.Field;
-import domain.Impl.FinanceActivity;
-import domain.Impl.Team;
-import domain.Users.Fan;
-import domain.Users.Footballer;
-import domain.Users.Owner;
+import domain.BusinessLayer.Enum.FieldType;
+import domain.BusinessLayer.Enum.FootballerPosition;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Field;
+import domain.BusinessLayer.Football.FinanceActivity;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Fan;
+import domain.BusinessLayer.Users.Footballer;
+import domain.BusinessLayer.Users.Owner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

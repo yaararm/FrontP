@@ -1,9 +1,9 @@
 package integration;
 
-import domain.Controllers.FanController;
-import domain.Controllers.SystemMangerController;
-import domain.Users.Complaint;
-import domain.Users.Fan;
+import domain.ServiceLayer.Controllers.FanController;
+import domain.ServiceLayer.Controllers.SystemMangerController;
+import domain.BusinessLayer.SystemFeatures.Complaint;
+import domain.BusinessLayer.Users.Fan;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

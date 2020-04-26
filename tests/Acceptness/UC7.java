@@ -1,13 +1,13 @@
 package Acceptness;
 
-import domain.Controllers.TeamOwnerController;
-import domain.Enums.CoachPosition;
-import domain.Enums.FieldType;
-import domain.Enums.FootballerPosition;
-import domain.Enums.TeamManagerPermissions;
-import domain.Impl.Field;
-import domain.Impl.Team;
-import domain.Users.*;
+import domain.BusinessLayer.Users.*;
+import domain.ServiceLayer.Controllers.TeamOwnerController;
+import domain.BusinessLayer.Enum.CoachPosition;
+import domain.BusinessLayer.Enum.FieldType;
+import domain.BusinessLayer.Enum.FootballerPosition;
+import domain.BusinessLayer.Enum.TeamManagerPermissions;
+import domain.BusinessLayer.Football.Field;
+import domain.BusinessLayer.Football.Team;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -1,14 +1,14 @@
 package unit;
 
-import domain.Controllers.Utils;
-import domain.Enums.TeamManagerPermissions;
-import domain.Users.TeamManager;
+import domain.CrossCutting.Utils;
+import domain.BusinessLayer.Enum.TeamManagerPermissions;
+import domain.BusinessLayer.Users.TeamManager;
 import org.junit.Test;
 
 import java.util.EnumMap;
 import java.util.HashMap;
 
-import static domain.Enums.TeamManagerPermissions.*;
+import static domain.BusinessLayer.Enum.TeamManagerPermissions.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 

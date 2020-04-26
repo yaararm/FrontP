@@ -1,8 +1,6 @@
 package unit;
 
-import domain.Enums.CoachPosition;
-import domain.Users.Coach;
-import domain.Users.Owner;
+import domain.BusinessLayer.Users.Owner;
 import org.junit.*;
 import static org.junit.Assert.*;
 

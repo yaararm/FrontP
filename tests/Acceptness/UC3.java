@@ -1,20 +1,26 @@
 package Acceptness;
 
-import domain.Controllers.*;
-import domain.Enums.TeamState;
-import domain.Impl.Game;
-import domain.Impl.Season;
-import domain.Impl.Team;
-import domain.Users.*;
-import org.junit.Before;
+import domain.BusinessLayer.Users.Fan;
+import domain.BusinessLayer.Users.Footballer;
+import domain.BusinessLayer.Users.Owner;
+import domain.BusinessLayer.Users.SignedUser;
+import domain.CrossCutting.Utils;
+import domain.DB.SystemController;
+import domain.BusinessLayer.Football.Game;
+import domain.BusinessLayer.Football.Season;
+import domain.BusinessLayer.Football.Team;
+import domain.ServiceLayer.Controllers.FanController;
+import domain.ServiceLayer.Controllers.GuestController;
+import domain.ServiceLayer.Controllers.SignedInController;
+import domain.ServiceLayer.Controllers.TeamOwnerController;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static domain.Enums.FootballerPosition.Striker;
-import static domain.Enums.TeamState.active;
+import static domain.BusinessLayer.Enum.FootballerPosition.Striker;
+import static domain.BusinessLayer.Enum.TeamState.active;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

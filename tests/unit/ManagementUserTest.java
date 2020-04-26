@@ -1,18 +1,13 @@
 package unit;
 
-import domain.Controllers.SystemController;
-import domain.Controllers.TeamOwnerController;
-import domain.Controllers.Utils;
-import domain.Enums.FootballerPosition;
-import domain.Enums.TeamState;
-import domain.Impl.Team;
-import domain.Users.Footballer;
-import domain.Users.ManagementUser;
-import domain.Users.Owner;
-import domain.Users.TeamManager;
+import domain.DB.SystemController;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.ManagementUser;
+import domain.BusinessLayer.Users.Owner;
+import domain.BusinessLayer.Users.TeamManager;
 import org.junit.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 

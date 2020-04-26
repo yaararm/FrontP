@@ -1,11 +1,11 @@
 package unit;
 
-import domain.Enums.RefereeTraining;
-import domain.Enums.TeamState;
-import domain.Impl.Season;
-import domain.Impl.Team;
-import domain.Users.Owner;
-import domain.Users.Referee;
+import domain.BusinessLayer.Enum.RefereeTraining;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Season;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Owner;
+import domain.BusinessLayer.Users.Referee;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

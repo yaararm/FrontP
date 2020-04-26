@@ -1,11 +1,15 @@
 package integration;
 
-import domain.Controllers.SystemController;
-import domain.Controllers.SystemMangerController;
-import domain.Controllers.TeamOwnerController;
-import domain.Enums.TeamState;
-import domain.Impl.Team;
-import domain.Users.*;
+import domain.BusinessLayer.Users.Fan;
+import domain.BusinessLayer.Users.Owner;
+import domain.BusinessLayer.Users.SystemManager;
+import domain.DB.SystemController;
+import domain.ServiceLayer.Controllers.SystemMangerController;
+import domain.ServiceLayer.Controllers.TeamOwnerController;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.SystemFeatures.Complaint;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 

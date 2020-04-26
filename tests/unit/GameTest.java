@@ -1,12 +1,11 @@
 package unit;
 
-import domain.Controllers.TeamOwnerController;
-import domain.Enums.TeamState;
-import domain.Impl.Game;
-import domain.Impl.Season;
-import domain.Impl.Team;
-import domain.Users.Fan;
-import domain.Users.Owner;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Game;
+import domain.BusinessLayer.Football.Season;
+import domain.BusinessLayer.Football.Team;
+import domain.BusinessLayer.Users.Fan;
+import domain.BusinessLayer.Users.Owner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

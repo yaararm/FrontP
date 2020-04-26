@@ -1,16 +1,17 @@
 package unit;
-
-import domain.Controllers.SystemController;
-import domain.Enums.CoachPosition;
-import domain.Enums.ComplaintStatus;
-import domain.Enums.TeamState;
-import domain.Impl.Game;
-import domain.Impl.Season;
-import domain.Impl.Team;
-import domain.Users.*;
+import domain.BusinessLayer.SystemFeatures.Complaint;
+import domain.BusinessLayer.SystemFeatures.PersonalPage;
+import domain.BusinessLayer.SystemFeatures.TeamMemberPersonalPage;
+import domain.BusinessLayer.Users.Coach;
+import domain.BusinessLayer.Users.Fan;
+import domain.BusinessLayer.Users.Owner;
+import domain.DB.SystemController;
+import domain.BusinessLayer.Enum.CoachPosition;
+import domain.BusinessLayer.Enum.TeamState;
+import domain.BusinessLayer.Football.Game;
+import domain.BusinessLayer.Football.Season;
+import domain.BusinessLayer.Football.Team;
 import org.junit.*;
-
-import java.util.List;
 
 import static org.junit.Assert.*;
 

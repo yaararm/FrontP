@@ -1,16 +1,17 @@
 package Acceptness;
 
-import domain.Controllers.PersonalPageSystem;
-import domain.Controllers.TeamOwnerController;
-import domain.Impl.Team;
-import domain.Users.*;
+import domain.BusinessLayer.SystemFeatures.TeamMemberPersonalPage;
+import domain.BusinessLayer.Users.Footballer;
+import domain.BusinessLayer.Users.Owner;
+import domain.ServiceLayer.Controllers.PersonalPageSystem;
+import domain.ServiceLayer.Controllers.TeamOwnerController;
+import domain.BusinessLayer.Football.Team;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import static domain.Enums.FootballerPosition.*;
-import static domain.Enums.TeamState.active;
+import static domain.BusinessLayer.Enum.FootballerPosition.*;
+import static domain.BusinessLayer.Enum.TeamState.active;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
