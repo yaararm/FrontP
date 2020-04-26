@@ -5,8 +5,7 @@ import domain.Controllers.SystemMangerController;
 import domain.Controllers.TeamOwnerController;
 import domain.Enums.TeamState;
 import domain.Impl.Team;
-import domain.Users.Owner;
-import domain.Users.User;
+import domain.Users.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -33,6 +32,18 @@ public class SystemManager_System_Controller_Test {
         assertTrue(systemController.userNameUser.containsValue(userOwner));
     }
 
+    @Test(expected = Exception.class)
+    public void test_signUpNewOwner_notValidEmail() throws Exception {
+        systemMangerController.signUpNewOwner(owner,"ko","ko","koko");
+    }
+
+    @Test(expected = Exception.class)
+    public void test_signUpNewOwner_existUser() throws Exception {
+        systemMangerController.signUpNewOwner(owner,"ro","cy","rocy@gmail.com");
+        systemMangerController.signUpNewOwner(owner,"ro","cy","rocy@gmail.com");
+
+    }
+
     //permanentlyCloseTeam
     @Test
     public void test_permanentlyCloseTeam() throws Exception {
@@ -42,6 +53,14 @@ public class SystemManager_System_Controller_Test {
         systemMangerController.permanentlyCloseTeam(team);
         assertTrue(team.getState()== TeamState.permanentlyClosed);
         assertTrue(systemController.archivedTeams.contains(team));
+    }
+
+    @Test
+    public void test_closeComplaint(){
+        Fan fan = new Fan("ury","123","ury","ury","ury@gmail.com");
+        Complaint complaint = new Complaint(fan,"nonoon");
+        SystemManager systemManager = new SystemManager("riki","123","riki","blich","riki@gmail.com");
+        systemMangerController.closeComplaint(systemManager,complaint);
     }
 
 

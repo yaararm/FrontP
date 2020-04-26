@@ -46,12 +46,36 @@ public class TeamOwner_System_Controller_Test {
         assertTrue(systemController.userNameUser.containsKey("jojo@gmail.com"));
     }
 
+    @Test(expected = Exception.class)
+    public void test_signUpNewFootballer_notValidEmail() throws Exception {
+        teamOwnerController.signUpNewFootballer(owner,"jojo","jojo","jojo",FootballerPosition.Attacking_Midfielder,team);
+    }
+
+    @Test(expected = Exception.class)
+    public void test_signUpNewFootballer_existUser() throws Exception {
+        teamOwnerController.signUpNewFootballer(owner,"omer","adam","oa@gmail.com",FootballerPosition.Attacking_Midfielder,team);
+        teamOwnerController.signUpNewFootballer(owner,"omer","adam","oa@gmail.com",FootballerPosition.Attacking_Midfielder,team);
+
+    }
+
     //signUpNewCoach
     @Test
     public void test_signUpNewCoach() throws Exception {
         Coach coach = teamOwnerController.signUpNewCoach(owner,"ros","theman","ros@gmail.com", CoachPosition.Fitness,team);
         assertTrue(team.getTeamCoaches().contains(coach));
         assertTrue(systemController.userNameUser.containsKey("ros@gmail.com"));
+    }
+
+    @Test(expected = Exception.class)
+    public void test_signUpNewCoach_notValidEmail() throws Exception {
+        teamOwnerController.signUpNewCoach(owner,"rosy","theman","rosgmail.com", CoachPosition.Fitness,team);
+    }
+
+    @Test(expected = Exception.class)
+    public void test_signUpNewCoach_exist() throws Exception {
+        teamOwnerController.signUpNewCoach(owner,"mushe","peretz","mosh@gmail.com",CoachPosition.Fitness,team);
+        teamOwnerController.signUpNewCoach(owner,"mushe","peretz","mosh@gmail.com",CoachPosition.Fitness,team);
+
     }
 
     //signUpNewTeamManager
@@ -69,6 +93,8 @@ public class TeamOwner_System_Controller_Test {
         }
         teamOwnerController.removeTeamManager(owner,team,teamManager);
     }
+
+
 
 
 
