@@ -1,4 +1,4 @@
-package domain.ServiceLayer.Controllers;
+package domain;
 
 import domain.BusinessLayer.SystemFeatures.TeamMemberPersonalPage;
 import domain.BusinessLayer.Users.Fan;
