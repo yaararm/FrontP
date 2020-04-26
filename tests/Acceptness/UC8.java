@@ -89,7 +89,8 @@ public class UC8 {
 
     @Test
     public void test_UC8_3_2_accptnce() throws Exception {
-        assertTrue(systemMangerController.addCommentToComplaint(systemManager,complaintInSystem,"ok"));
+        Complaint complaint = new Complaint(fan,"nice game");
+        assertTrue(systemMangerController.addCommentToComplaint(systemManager,complaint,"ok"));
     }
     @Before
     public void before_UC8_3_2_nonAcceptnce() throws Exception {
