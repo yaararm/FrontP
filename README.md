@@ -1,5 +1,5 @@
 # ProjectPreparation
-All rhe relevent document for the version under the "Documents" directory; 
+All rhe relevent documents for the version under the "Documents" directory; 
 
 ## Authors 
 * Alisa Faingold 205576937
