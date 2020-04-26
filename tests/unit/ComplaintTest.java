@@ -1,12 +1,12 @@
 package unit;
 
-import domain.BusinessLayer.Enum.ComplaintStatus;
-import domain.BusinessLayer.Users.Fan;
-import domain.BusinessLayer.Users.SystemManager;
-import domain.BusinessLayer.SystemFeatures.Complaint;
+import BusinessLayer.Enum.ComplaintStatus;
+import BusinessLayer.Users.Fan;
+import BusinessLayer.Users.SystemManager;
+import BusinessLayer.SystemFeatures.Complaint;
 
 import org.junit.*;
-import domain.BusinessLayer.SystemFeatures.Complaint;
+
 import static org.junit.Assert.*;
 
 

@@ -1,6 +1,6 @@
 package unit;
 
-import domain.BusinessLayer.Users.Owner;
+import BusinessLayer.Users.Owner;
 import org.junit.*;
 import static org.junit.Assert.*;
 

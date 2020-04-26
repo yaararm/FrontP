@@ -1,14 +1,14 @@
 package unit;
 
-import domain.BusinessLayer.Enum.FieldType;
-import domain.BusinessLayer.Enum.FootballerPosition;
-import domain.BusinessLayer.Enum.TeamState;
-import domain.BusinessLayer.Football.Field;
-import domain.BusinessLayer.Football.FinanceActivity;
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.Users.Fan;
-import domain.BusinessLayer.Users.Footballer;
-import domain.BusinessLayer.Users.Owner;
+import BusinessLayer.Enum.FieldType;
+import BusinessLayer.Enum.FootballerPosition;
+import BusinessLayer.Enum.TeamState;
+import BusinessLayer.Football.Field;
+import BusinessLayer.Football.FinanceActivity;
+import BusinessLayer.Football.Team;
+import BusinessLayer.Users.Fan;
+import BusinessLayer.Users.Footballer;
+import BusinessLayer.Users.Owner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

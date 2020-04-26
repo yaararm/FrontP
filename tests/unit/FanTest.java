@@ -1,16 +1,16 @@
 package unit;
-import domain.BusinessLayer.SystemFeatures.Complaint;
-import domain.BusinessLayer.SystemFeatures.PersonalPage;
-import domain.BusinessLayer.SystemFeatures.TeamMemberPersonalPage;
-import domain.BusinessLayer.Users.Coach;
-import domain.BusinessLayer.Users.Fan;
-import domain.BusinessLayer.Users.Owner;
-import domain.DB.SystemController;
-import domain.BusinessLayer.Enum.CoachPosition;
-import domain.BusinessLayer.Enum.TeamState;
-import domain.BusinessLayer.Football.Game;
-import domain.BusinessLayer.Football.Season;
-import domain.BusinessLayer.Football.Team;
+import BusinessLayer.SystemFeatures.Complaint;
+import BusinessLayer.SystemFeatures.PersonalPage;
+import BusinessLayer.SystemFeatures.TeamMemberPersonalPage;
+import BusinessLayer.Users.Coach;
+import BusinessLayer.Users.Fan;
+import BusinessLayer.Users.Owner;
+import DB.SystemController;
+import BusinessLayer.Enum.CoachPosition;
+import BusinessLayer.Enum.TeamState;
+import BusinessLayer.Football.Game;
+import BusinessLayer.Football.Season;
+import BusinessLayer.Football.Team;
 import org.junit.*;
 
 import static org.junit.Assert.*;

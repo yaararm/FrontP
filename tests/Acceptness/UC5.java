@@ -1,14 +1,14 @@
 package Acceptness;
 
-import domain.ServiceLayer.Controllers.PersonalPageSystem;
-import domain.BusinessLayer.Users.Coach;
-import domain.BusinessLayer.SystemFeatures.TeamMemberPersonalPage;
+import ServiceLayer.Controllers.PersonalPageSystem;
+import BusinessLayer.Users.Coach;
+import BusinessLayer.SystemFeatures.TeamMemberPersonalPage;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static domain.BusinessLayer.Enum.CoachPosition.Main;
-import static domain.BusinessLayer.Enum.CoachPosition.Strategy;
+import static BusinessLayer.Enum.CoachPosition.Main;
+import static BusinessLayer.Enum.CoachPosition.Strategy;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 

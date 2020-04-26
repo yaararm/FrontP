@@ -1,18 +1,18 @@
 package Acceptness;
 
-import domain.BusinessLayer.Users.Coach;
-import domain.BusinessLayer.Users.Footballer;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.Users.TeamManager;
-import domain.DB.SystemController;
-import domain.ServiceLayer.Controllers.SystemMangerController;
-import domain.ServiceLayer.Controllers.TeamOwnerController;
-import domain.BusinessLayer.Enum.CoachPosition;
-import domain.BusinessLayer.Enum.FieldType;
-import domain.BusinessLayer.Enum.FootballerPosition;
-import domain.BusinessLayer.Enum.TeamState;
-import domain.BusinessLayer.Football.Field;
-import domain.BusinessLayer.Football.Team;
+import BusinessLayer.Users.Coach;
+import BusinessLayer.Users.Footballer;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.Users.TeamManager;
+import DB.SystemController;
+import ServiceLayer.Controllers.SystemMangerController;
+import ServiceLayer.Controllers.TeamOwnerController;
+import BusinessLayer.Enum.CoachPosition;
+import BusinessLayer.Enum.FieldType;
+import BusinessLayer.Enum.FootballerPosition;
+import BusinessLayer.Enum.TeamState;
+import BusinessLayer.Football.Field;
+import BusinessLayer.Football.Team;
 import org.junit.*;
 
 import java.util.HashMap;

@@ -1,16 +1,16 @@
 package Acceptness;
 
-import domain.BusinessLayer.Users.Fan;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.Users.SystemManager;
-import domain.DB.SystemController;
-import domain.BusinessLayer.Enum.ComplaintStatus;
-import domain.BusinessLayer.Football.Team;
-import domain.ServiceLayer.Controllers.ComplaintSystemController;
-import domain.ServiceLayer.Controllers.GuestController;
-import domain.ServiceLayer.Controllers.SystemMangerController;
-import domain.ServiceLayer.Controllers.TeamOwnerController;
-import domain.BusinessLayer.SystemFeatures.Complaint;
+import BusinessLayer.Users.Fan;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.Users.SystemManager;
+import DB.SystemController;
+import BusinessLayer.Enum.ComplaintStatus;
+import BusinessLayer.Football.Team;
+import ServiceLayer.Controllers.ComplaintSystemController;
+import ServiceLayer.Controllers.GuestController;
+import ServiceLayer.Controllers.SystemMangerController;
+import ServiceLayer.Controllers.TeamOwnerController;
+import BusinessLayer.SystemFeatures.Complaint;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

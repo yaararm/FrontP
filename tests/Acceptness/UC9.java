@@ -1,14 +1,14 @@
 package Acceptness;
 
-import domain.ServiceLayer.Controllers.AssociationRepresentativeController;
-import domain.DB.SystemController;
-import domain.BusinessLayer.Enum.RefereeTraining;
-import domain.BusinessLayer.Football.League;
-import domain.BusinessLayer.Football.Season;
-import domain.BusinessLayer.SeasonPolicies.AssignPolicy1;
-import domain.BusinessLayer.SeasonPolicies.ScoreComputingPolicy2;
-import domain.BusinessLayer.Users.AssociationRepresentative;
-import domain.BusinessLayer.Users.Referee;
+import ServiceLayer.Controllers.AssociationRepresentativeController;
+import DB.SystemController;
+import BusinessLayer.Enum.RefereeTraining;
+import BusinessLayer.Football.League;
+import BusinessLayer.Football.Season;
+import BusinessLayer.SeasonPolicies.AssignPolicy1;
+import BusinessLayer.SeasonPolicies.ScoreComputingPolicy2;
+import BusinessLayer.Users.AssociationRepresentative;
+import BusinessLayer.Users.Referee;
 import org.junit.*;
 
 import static org.junit.Assert.*;

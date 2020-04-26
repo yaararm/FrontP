@@ -1,10 +1,10 @@
 package unit;
 
-import domain.DB.SystemController;
-import domain.CrossCutting.Utils;
-import domain.BusinessLayer.Enum.CoachPosition;
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.Users.Coach;
+import DB.SystemController;
+import CrossCutting.Utils;
+import BusinessLayer.Enum.CoachPosition;
+import BusinessLayer.Football.Team;
+import BusinessLayer.Users.Coach;
 import org.junit.*;
 
 import static org.junit.Assert.*;

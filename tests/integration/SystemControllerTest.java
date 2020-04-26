@@ -1,12 +1,12 @@
 package integration;
 
-import domain.ServiceLayer.Controllers.AssociationRepresentativeController;
-import domain.DB.SystemController;
-import domain.BusinessLayer.Enum.RefereeTraining;
-import domain.BusinessLayer.Football.League;
-import domain.BusinessLayer.Users.AssociationRepresentative;
-import domain.BusinessLayer.Users.Fan;
-import domain.BusinessLayer.Users.Guest;
+import ServiceLayer.Controllers.AssociationRepresentativeController;
+import DB.SystemController;
+import BusinessLayer.Enum.RefereeTraining;
+import BusinessLayer.Football.League;
+import BusinessLayer.Users.AssociationRepresentative;
+import BusinessLayer.Users.Fan;
+import BusinessLayer.Users.Guest;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;

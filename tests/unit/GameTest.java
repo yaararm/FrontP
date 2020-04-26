@@ -1,11 +1,11 @@
 package unit;
 
-import domain.BusinessLayer.Enum.TeamState;
-import domain.BusinessLayer.Football.Game;
-import domain.BusinessLayer.Football.Season;
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.Users.Fan;
-import domain.BusinessLayer.Users.Owner;
+import BusinessLayer.Enum.TeamState;
+import BusinessLayer.Football.Game;
+import BusinessLayer.Football.Season;
+import BusinessLayer.Football.Team;
+import BusinessLayer.Users.Fan;
+import BusinessLayer.Users.Owner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -1,9 +1,9 @@
 package unit;
 
-import domain.BusinessLayer.Enum.FootballerPosition;
-import domain.BusinessLayer.Football.Members;
-import domain.BusinessLayer.Users.Fan;
-import domain.BusinessLayer.Users.Footballer;
+import BusinessLayer.Enum.FootballerPosition;
+import BusinessLayer.Football.Members;
+import BusinessLayer.Users.Fan;
+import BusinessLayer.Users.Footballer;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

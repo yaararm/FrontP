@@ -1,11 +1,11 @@
 package unit;
 
-import domain.DB.SystemController;
-import domain.BusinessLayer.Enum.TeamState;
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.Users.ManagementUser;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.Users.TeamManager;
+import DB.SystemController;
+import BusinessLayer.Enum.TeamState;
+import BusinessLayer.Football.Team;
+import BusinessLayer.Users.ManagementUser;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.Users.TeamManager;
 import org.junit.*;
 
 import java.util.HashSet;

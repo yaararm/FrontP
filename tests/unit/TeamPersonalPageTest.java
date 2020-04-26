@@ -1,12 +1,12 @@
 package unit;
 
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.Users.Fan;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.SystemFeatures.TeamPersonalPage;
+import BusinessLayer.Football.Team;
+import BusinessLayer.Users.Fan;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.SystemFeatures.TeamPersonalPage;
 import org.junit.Test;
 
-import static domain.BusinessLayer.Enum.TeamState.active;
+import static BusinessLayer.Enum.TeamState.active;
 import static junit.framework.TestCase.*;
 
 public class TeamPersonalPageTest {

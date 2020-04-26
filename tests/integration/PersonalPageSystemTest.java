@@ -1,9 +1,9 @@
 package integration;
 
-import domain.ServiceLayer.Controllers.PersonalPageSystem;
-import domain.BusinessLayer.Enum.TeamState;
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.Users.Owner;
+import ServiceLayer.Controllers.PersonalPageSystem;
+import BusinessLayer.Enum.TeamState;
+import BusinessLayer.Football.Team;
+import BusinessLayer.Users.Owner;
 import org.junit.Test;
 
 import java.util.HashMap;

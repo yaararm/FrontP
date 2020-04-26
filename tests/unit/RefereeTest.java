@@ -1,20 +1,20 @@
 package unit;
 
-import domain.BusinessLayer.Enum.RefereeRole;
-import domain.BusinessLayer.Football.Game;
-import domain.BusinessLayer.Football.Season;
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.Users.Referee;
+import BusinessLayer.Enum.RefereeRole;
+import BusinessLayer.Football.Game;
+import BusinessLayer.Football.Season;
+import BusinessLayer.Football.Team;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.Users.Referee;
 import org.junit.Test;
 
 import java.util.*;
 
-import static domain.BusinessLayer.Enum.RefereeRole.Main;
-import static domain.BusinessLayer.Enum.RefereeRole.Secondary;
-import static domain.BusinessLayer.Enum.RefereeTraining.Expert;
-import static domain.BusinessLayer.Enum.TeamState.active;
-import static domain.BusinessLayer.Enum.UserStatus.NotActive;
+import static BusinessLayer.Enum.RefereeRole.Main;
+import static BusinessLayer.Enum.RefereeRole.Secondary;
+import static BusinessLayer.Enum.RefereeTraining.Expert;
+import static BusinessLayer.Enum.TeamState.active;
+import static BusinessLayer.Enum.UserStatus.NotActive;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -1,15 +1,15 @@
 package integration;
 
-import domain.ServiceLayer.Controllers.ComplaintSystemController;
-import domain.ServiceLayer.Controllers.FanController;
-import domain.BusinessLayer.SystemFeatures.Complaint;
-import domain.BusinessLayer.Users.Fan;
+import ServiceLayer.Controllers.ComplaintSystemController;
+import ServiceLayer.Controllers.FanController;
+import BusinessLayer.SystemFeatures.Complaint;
+import BusinessLayer.Users.Fan;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static domain.ServiceLayer.Controllers.ComplaintSystemController.archiveComplaint;
-import static domain.ServiceLayer.Controllers.ComplaintSystemController.newComplaint;
+import static ServiceLayer.Controllers.ComplaintSystemController.archiveComplaint;
+import static ServiceLayer.Controllers.ComplaintSystemController.newComplaint;
 import static junit.framework.TestCase.assertTrue;
 
 public class ComplaintSystemControlerTest {

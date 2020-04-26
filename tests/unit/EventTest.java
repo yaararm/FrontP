@@ -1,9 +1,9 @@
 package unit;
 
-import domain.BusinessLayer.Enum.EventType;
-import domain.BusinessLayer.Enum.RefereeTraining;
-import domain.BusinessLayer.Football.Event;
-import domain.BusinessLayer.Users.Referee;
+import BusinessLayer.Enum.EventType;
+import BusinessLayer.Enum.RefereeTraining;
+import BusinessLayer.Football.Event;
+import BusinessLayer.Users.Referee;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

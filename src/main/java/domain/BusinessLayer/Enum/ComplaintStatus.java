@@ -1,5 +1,0 @@
-package domain.BusinessLayer.Enum;
-
-public enum ComplaintStatus {
-    Closed, New, Archive;
-}

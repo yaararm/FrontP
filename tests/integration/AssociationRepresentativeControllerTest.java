@@ -1,19 +1,19 @@
 package integration;
 
-import domain.DB.SystemController;
-import domain.BusinessLayer.Enum.RefereeTraining;
-import domain.BusinessLayer.Football.League;
-import domain.BusinessLayer.Football.Season;
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.SeasonPolicies.AssignPolicy1;
-import domain.BusinessLayer.SeasonPolicies.ScoreComputingPolicy1;
-import domain.ServiceLayer.Controllers.SystemMangerController;
-import domain.ServiceLayer.Controllers.TeamOwnerController;
-import domain.BusinessLayer.Users.AssociationRepresentative;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.Users.Referee;
+import DB.SystemController;
+import BusinessLayer.Enum.RefereeTraining;
+import BusinessLayer.Football.League;
+import BusinessLayer.Football.Season;
+import BusinessLayer.Football.Team;
+import BusinessLayer.SeasonPolicies.AssignPolicy1;
+import BusinessLayer.SeasonPolicies.ScoreComputingPolicy1;
+import ServiceLayer.Controllers.SystemMangerController;
+import ServiceLayer.Controllers.TeamOwnerController;
+import BusinessLayer.Users.AssociationRepresentative;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.Users.Referee;
 import org.junit.*;
-import domain.ServiceLayer.Controllers.AssociationRepresentativeController;
+import ServiceLayer.Controllers.AssociationRepresentativeController;
 
 import java.util.HashSet;
 

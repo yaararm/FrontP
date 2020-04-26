@@ -1,15 +1,15 @@
 package unit;
 
-import domain.BusinessLayer.Enum.EventType;
-import domain.BusinessLayer.Enum.RefereeTraining;
-import domain.BusinessLayer.Enum.TeamState;
-import domain.BusinessLayer.Football.Event;
-import domain.BusinessLayer.Football.Game;
-import domain.BusinessLayer.Football.Season;
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.SystemFeatures.EventLog;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.Users.Referee;
+import BusinessLayer.Enum.EventType;
+import BusinessLayer.Enum.RefereeTraining;
+import BusinessLayer.Enum.TeamState;
+import BusinessLayer.Football.Event;
+import BusinessLayer.Football.Game;
+import BusinessLayer.Football.Season;
+import BusinessLayer.Football.Team;
+import BusinessLayer.SystemFeatures.EventLog;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.Users.Referee;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

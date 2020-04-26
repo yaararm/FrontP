@@ -1,6 +1,6 @@
 package unit;
 
-import domain.BusinessLayer.Users.AssociationRepresentative;
+import BusinessLayer.Users.AssociationRepresentative;
 import org.junit.*;
 import static org.junit.Assert.*;
 

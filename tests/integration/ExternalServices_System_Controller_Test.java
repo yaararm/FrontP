@@ -1,7 +1,7 @@
 package integration;
 
-import domain.ExternalServices.ExternalServices;
-import domain.DB.SystemController;
+import ExternalServices.ExternalServices;
+import DB.SystemController;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;

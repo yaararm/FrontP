@@ -1,19 +1,19 @@
 package Acceptness;
 
-import domain.BusinessLayer.Football.*;
-import domain.BusinessLayer.SystemFeatures.EventLog;
-import domain.CrossCutting.Utils;
-import domain.DB.SystemController;
-import domain.BusinessLayer.Enum.EventType;
-import domain.BusinessLayer.Enum.RefereeRole;
-import domain.BusinessLayer.Enum.RefereeTraining;
-import domain.BusinessLayer.Enum.TeamState;
-import domain.ServiceLayer.Controllers.AssociationRepresentativeController;
-import domain.ServiceLayer.Controllers.RefereeController;
-import domain.ServiceLayer.Controllers.SignedInController;
-import domain.BusinessLayer.Users.AssociationRepresentative;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.Users.Referee;
+import BusinessLayer.Football.*;
+import BusinessLayer.SystemFeatures.EventLog;
+import CrossCutting.Utils;
+import DB.SystemController;
+import BusinessLayer.Enum.EventType;
+import BusinessLayer.Enum.RefereeRole;
+import BusinessLayer.Enum.RefereeTraining;
+import BusinessLayer.Enum.TeamState;
+import ServiceLayer.Controllers.AssociationRepresentativeController;
+import ServiceLayer.Controllers.RefereeController;
+import ServiceLayer.Controllers.SignedInController;
+import BusinessLayer.Users.AssociationRepresentative;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.Users.Referee;
 import org.junit.*;
 
 import java.util.HashMap;

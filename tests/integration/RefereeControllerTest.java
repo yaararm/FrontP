@@ -1,16 +1,16 @@
 package integration;
 
-import domain.BusinessLayer.Football.*;
-import domain.BusinessLayer.SystemFeatures.EventLog;
-import domain.CrossCutting.Utils;
-import domain.DB.SystemController;
-import domain.BusinessLayer.Enum.EventType;
-import domain.BusinessLayer.Enum.RefereeRole;
-import domain.BusinessLayer.Enum.RefereeTraining;
-import domain.ServiceLayer.Controllers.*;
-import domain.BusinessLayer.Users.AssociationRepresentative;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.Users.Referee;
+import BusinessLayer.Football.*;
+import BusinessLayer.SystemFeatures.EventLog;
+import CrossCutting.Utils;
+import DB.SystemController;
+import BusinessLayer.Enum.EventType;
+import BusinessLayer.Enum.RefereeRole;
+import BusinessLayer.Enum.RefereeTraining;
+import ServiceLayer.Controllers.*;
+import BusinessLayer.Users.AssociationRepresentative;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.Users.Referee;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

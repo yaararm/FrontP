@@ -1,11 +1,11 @@
 package unit;
 
-import domain.BusinessLayer.Enum.FieldType;
-import domain.BusinessLayer.Enum.TeamState;
-import domain.BusinessLayer.Football.*;
-import domain.BusinessLayer.SeasonPolicies.ScoreComputingPolicy;
-import domain.BusinessLayer.SeasonPolicies.ScoreComputingPolicy1;
-import domain.BusinessLayer.Users.Owner;
+import BusinessLayer.Enum.FieldType;
+import BusinessLayer.Enum.TeamState;
+import BusinessLayer.Football.*;
+import BusinessLayer.SeasonPolicies.ScoreComputingPolicy;
+import BusinessLayer.SeasonPolicies.ScoreComputingPolicy1;
+import BusinessLayer.Users.Owner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package integration;
 
-import domain.ServiceLayer.Controllers.GuestController;
+import ServiceLayer.Controllers.GuestController;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

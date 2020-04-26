@@ -1,14 +1,14 @@
 package unit;
 
-import domain.ServiceLayer.Controllers.TeamOwnerController;
-import domain.BusinessLayer.Football.Team;
-import domain.BusinessLayer.Users.Footballer;
-import domain.BusinessLayer.Users.Owner;
-import domain.BusinessLayer.SystemFeatures.TeamMemberPersonalPage;
+import ServiceLayer.Controllers.TeamOwnerController;
+import BusinessLayer.Football.Team;
+import BusinessLayer.Users.Footballer;
+import BusinessLayer.Users.Owner;
+import BusinessLayer.SystemFeatures.TeamMemberPersonalPage;
 import org.junit.Test;
 
-import static domain.BusinessLayer.Enum.FootballerPosition.Center_Back;
-import static domain.BusinessLayer.Enum.TeamState.active;
+import static BusinessLayer.Enum.FootballerPosition.Center_Back;
+import static BusinessLayer.Enum.TeamState.active;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TeamMemberPersonalPageTest {

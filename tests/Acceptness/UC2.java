@@ -1,15 +1,15 @@
 package Acceptness;
 
-import domain.BusinessLayer.Users.Coach;
-import domain.BusinessLayer.Users.Footballer;
-import domain.BusinessLayer.Users.Guest;
-import domain.BusinessLayer.Users.Owner;
-import domain.ServiceLayer.Controllers.GuestController;
-import domain.ServiceLayer.Controllers.SignedInController;
-import domain.DB.SystemController;
-import domain.BusinessLayer.Enum.FootballerPosition;
-import domain.BusinessLayer.Enum.TeamState;
-import domain.BusinessLayer.Football.Team;
+import BusinessLayer.Users.Coach;
+import BusinessLayer.Users.Footballer;
+import BusinessLayer.Users.Guest;
+import BusinessLayer.Users.Owner;
+import ServiceLayer.Controllers.GuestController;
+import ServiceLayer.Controllers.SignedInController;
+import DB.SystemController;
+import BusinessLayer.Enum.FootballerPosition;
+import BusinessLayer.Enum.TeamState;
+import BusinessLayer.Football.Team;
 import org.junit.Test;
 
 
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import static domain.BusinessLayer.Enum.CoachPosition.Main;
+import static BusinessLayer.Enum.CoachPosition.Main;
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertEquals;
 

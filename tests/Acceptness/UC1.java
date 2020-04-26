@@ -1,6 +1,5 @@
 package Acceptness;
-
-import domain.FootballAssociationSystem;
+import BusinessLayer.FootballAssociationSystem;
 
 import org.junit.Test;
 
