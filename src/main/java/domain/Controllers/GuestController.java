@@ -27,7 +27,7 @@ public class GuestController {
             //Logger
             SystemController.logger.info("Creation | New Fan sing up to the system; user ID: " + newUser.getFanID());
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return true;
     }
