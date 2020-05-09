@@ -1,0 +1,14 @@
+@font-face {
+    -fx-font-family : 'Roboto Regular';
+    src: url('/resources/themeeme/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    -fx-font-family : 'Roboto Thin';
+    src: url('/resources/themeeme/fonts/Roboto-Thin.ttf');
+}
+
+@font-face {
+    -fx-font-family : 'Roboto Bold';
+    src: url('/resources/themeeme/fonts/Roboto-Bold.ttf');
+}

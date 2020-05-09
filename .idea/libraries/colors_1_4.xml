@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="colors-1.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/colors-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/controlsfx-8.40.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/fontawesomefx-8.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/GNAvatarView-1.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/GNButton-1.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/GNCalendar-1.0-alpha.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/jfoenix-8.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/scenicView.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
