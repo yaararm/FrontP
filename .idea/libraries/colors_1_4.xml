@@ -9,6 +9,7 @@
       <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/GNCalendar-1.0-alpha.jar!/" />
       <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/jfoenix-8.0.7.jar!/" />
       <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/scenicView.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../testdashboard/Resources/spring-context-5.2.5.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
