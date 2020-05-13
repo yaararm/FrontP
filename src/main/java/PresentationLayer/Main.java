@@ -21,7 +21,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader1 = new FXMLLoader();
             Parent root = fxmlLoader1.load(getClass().getResource("/main2.fxml").openStream());
             primaryStage.setTitle("Hello World");
-            Scene welcome = new Scene(root, 1300, 600);
+            Scene welcome = new Scene(root, 1300, 800);
             welcome.getStylesheets().addAll(
                   //  getClass().getResource("/fonts.css").toExternalForm()
                     getClass().getResource("/material-color.css").toExternalForm(),

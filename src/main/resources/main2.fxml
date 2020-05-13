@@ -4,15 +4,35 @@
 <?import com.jfoenix.controls.JFXBadge?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<StackPane fx:id="root" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PresentationLayer.PresentationController">
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PresentationLayer.PresentationController">
    <children>
       <HBox fx:id="main" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -52,13 +72,13 @@
                </HBox>
                <ScrollPane fx:id="scroll" fitToWidth="true" styleClass="scroll">
                   <content>
-                     <VBox fx:id="views" spacing="10.0" >
+                     <VBox fx:id="views" spacing="10.0">
                         <children>
-                           <TitledPane alignment="BASELINE_RIGHT" animated="false" collapsible="false" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" minHeight="30.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" style="-fx-background-color: gray;"  textFill="WHITE">
+                           <TitledPane alignment="BASELINE_RIGHT" animated="false" collapsible="false" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" minHeight="30.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" style="-fx-background-color: gray;" textFill="WHITE">
                              <content>
                                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                     <children>
-                                       <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="547.0"  text="Button" />
+                                       <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="547.0" text="Button" />
                                     </children>
                                  </VBox>
                              </content>
@@ -66,11 +86,11 @@
                                  <SVGPath styleClass="icon" />
                               </graphic>
                            </TitledPane>
-                           <TitledPane alignment="BASELINE_RIGHT" animated="false" collapsible="false" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" layoutX="10.0" layoutY="10.0" minHeight="30.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" style="-fx-background-color: gray;"  textFill="WHITE">
+                           <TitledPane alignment="BASELINE_RIGHT" animated="false" collapsible="false" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" layoutX="10.0" layoutY="10.0" minHeight="30.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" style="-fx-background-color: gray;" textFill="WHITE">
                               <content>
                                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                     <children>
-                                       <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="547.0"  text="Button" />
+                                       <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="547.0" text="Button" />
                                     </children>
                                  </VBox>
                               </content>
@@ -82,7 +102,7 @@
                               <content>
                                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                     <children>
-                                       <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="547.0"  text="Button" />
+                                       <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="547.0" text="Button" />
                                     </children>
                                  </VBox>
                               </content>
@@ -109,7 +129,7 @@
                   <String fx:value="drawer" />
                </styleClass>
             </VBox>
-            <VBox fx:id="content" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0"  HBox.hgrow="ALWAYS">
+            <VBox fx:id="content" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="904.0">
                      <children>
@@ -209,9 +229,9 @@
                         <String fx:value="border" />
                      </styleClass>
                   </HBox>
-                  <Pane prefHeight="569.0" prefWidth="1050.0">
+                  <Pane prefHeight="769.0" prefWidth="1050.0">
                      <children>
-                        <TabPane fx:id="Alltabs" prefHeight="558.0" prefWidth="710.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane fx:id="Alltabs" prefHeight="758.0" prefWidth="710.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
                             <Tab fx:id="guest" text="guest">
                               <content>
@@ -362,7 +382,7 @@
                               </Tab>
                           </tabs>
                         </TabPane>
-                        <VBox fx:id="test" layoutX="740.0" layoutY="60.0" prefHeight="519.0" prefWidth="339.0">
+                        <VBox fx:id="test" layoutX="740.0" layoutY="160.0" prefHeight="719.0" prefWidth="339.0">
                            <children>
                               <Group>
                                  <children>
@@ -452,7 +472,7 @@
                               </Group>
                               <Pane prefHeight="209.0" prefWidth="1050.0">
                                  <children>
-                                    <CalendarPane layoutX="-23.0" prefHeight="241.0" prefWidth="319.0" style="-fx-font-size: 10px" />
+                                    <CalendarPane layoutX="-23.0" layoutY="100.0" prefHeight="241.0" prefWidth="319.0" style="-fx-font-size: 10px" />
                                  </children>
                               </Pane>
                            </children>
