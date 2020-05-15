@@ -1,8 +1,4 @@
-/*
-    Created on : 25/10/2018, 08:00:15
-    Author     : Gleidson Neves da Silveira
-    Skeleton
-*/
+
 
 /************************************************************************************
 *
@@ -35,6 +31,9 @@
 
 {
   -fx-background-color : -base;
+    -fx-font-size: 14pt;
+
+
 }
 
 .spinner,
@@ -79,9 +78,7 @@
   -fx-background-color : derive(-base, -40%);
 }
 
-.button:focused {
-  -fx-background-color : derive(-base, -40%), derive(-base, -40%), -base;
-}
+
 
 .hyperlink {
   -fx-border-color : transparent;
@@ -238,7 +235,7 @@
 .check-box:selected:determinate .box,
 .text-area:focused
 {
-  -fx-border-color : -base;
+  -fx-border-color : gray;
 }
 
 
@@ -249,7 +246,7 @@
 .split-menu-button .arrow-button, .combo-box-base, .date-picker,
 .check-box:determinate .box, .text-area
 {
-  -fx-border-color : -box-fill;
+  -fx-border-color : gray;
 }
 
 .tab-pane:top .tab-header-area .tab-header-background
@@ -259,7 +256,7 @@
 
 .tab-pane:top .tab-header-area .headers-region .tab:selected:top
 {
-  -fx-border-color : transparent transparent -base transparent ;
+  -fx-border-color : transparent transparent transparent transparent ;
 }
 
 /************************************************************************************
@@ -775,7 +772,7 @@
 .date-picker-popup > .month-year-pane {
     -fx-background-color: white;
     -fx-background-insets: 0;
-    -fx-font-size : 12px;
+    -fx-font-size : 13px;
 
 }
 
@@ -835,6 +832,8 @@
     -fx-background-insets: 1 0 0 0;
     -fx-padding: 0;
 }
+
+
 
 .date-picker-popup > * > .previous-month,
 .date-picker-popup > * > .next-month {
@@ -967,9 +966,6 @@
   -fx-background-color : derive(-base, -10%);
   -fx-border-color : derive(-base, -10%);
 }
-
-
-
 .color-picker .arrow-button .arrow {
   -fx-padding: 0.236110875em 0.333333em 0.236110875em 0.333333em; /* (2/3 * 4.25) 4 (2/3 * 4.25) 4 */
   -fx-shape: "M-78,640l-6-5.5v-3l6,5l0,0l6-5v3L-78,640L-78,640z";
@@ -1401,6 +1397,7 @@
 
 .scroll-bar:disabled {
     -fx-opacity: 0.4;
+
 }
 
 /* ARROW SHAPES */
@@ -1729,11 +1726,11 @@
 *************************************************************************************/
 
 .text-10, .btn-small, .text-small {
-  -fx-font-size : 10px;
+  -fx-font-size : 14px;
 }
 
 .text-12, .h6 {
-    -fx-font-size : 12px;
+    -fx-font-size : 14px;
 }
 
 .text-14, .h5, .sub-title,
@@ -2213,7 +2210,7 @@
 }
 
 .tab:disabled {
-    -fx-opacity : .5;
+
 }
 
 .tab-white .depth-container .tab-header-area .headers-region .tab .jfx-rippler {
@@ -2337,23 +2334,23 @@
 .table-row-cell:filled:selected:focused
 {
   /* -fx-background-color : derive(-light-gray, 20%); */
-  -fx-text-color : -text-color;
+  -fx-text-color : black;
   -fx-border-color : transparent;
 }
 
 .table-row-cell:filled:selected .table-column .text
 {
-  -fx-fill : -inner-text;
+  -fx-fill : black;;
 }
 
 .table-row-cell:filled .table-column .text
 {
-  -fx-fill : -text-color;
+  -fx-fill : black;;
 }
 
 .table-row-cell
 {
-  -fx-text-color : -text-color;
+  -fx-text-color : black;;
   /* -fx-background-color : derive(-light-gray, 20%); */
   -fx-background-color : transparent;
   -fx-border-color : transparent;
@@ -2442,7 +2439,7 @@
 
 .tree-table-view .virtual-flow .clipped-container .sheet .tree-table-row-cell:selected .table-column:filled .text
 {
-  -fx-fill : white;
+  -fx-fill : black;
 }
 
 .tree-table-view .virtual-flow .clipped-container .sheet .tree-table-row-cell:filled .table-column:filled .text
@@ -2457,7 +2454,7 @@
 
 .tree-table-view .column-header-background .nested-column-header .table-column .label .text
 {
-  -fx-fill : -text-color;
+  -fx-fill : black;;
 }
 
 .table-column .arrow
@@ -2492,7 +2489,7 @@
 
 .tree-view .virtual-flow .clipped-container .sheet .tree-cell:filled:selected
 {
-  -fx-text-fill : white;
+  -fx-text-fill : black;;
 }
 
 .axis {

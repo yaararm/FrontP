@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import Client.ClientController;
@@ -20,7 +21,7 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader1 = new FXMLLoader();
             Parent root = fxmlLoader1.load(getClass().getResource("/main2.fxml").openStream());
-            primaryStage.setTitle("Hello World");
+            primaryStage.setTitle("Football Association System");
             Scene welcome = new Scene(root, 1300, 800);
             welcome.getStylesheets().addAll(
                   //  getClass().getResource("/fonts.css").toExternalForm()
@@ -31,7 +32,8 @@ public class Main extends Application {
  //                   getClass().getResource("/shape.css").toExternalForm(),
   //                  getClass().getResource("/typographic.css").toExternalForm()
                     getClass().getResource("/helpers.css").toExternalForm(),
-                    getClass().getResource("/master.css").toExternalForm()
+                    getClass().getResource("/master.css").toExternalForm(),
+                    getClass().getResource("/yaara.css").toExternalForm()
 
             );
 
@@ -41,6 +43,7 @@ public class Main extends Application {
             PresentationController myPresentationController = fxmlLoader1.getController();
             myPresentationController.set_ViewModel(clientController);
             clientController.addObserver(myPresentationController);
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
             primaryStage.setScene(welcome);
             primaryStage.show();
             myPresentationController.init();

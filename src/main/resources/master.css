@@ -10,10 +10,7 @@
   -fx-background-color : derive(-base, -40%);
 }
 
-.btn-focused
-{
-  -fx-background-color : derive(-base, -40%), derive(-base, -40%), derive(-base, -40%), -base;
-}
+
 
 
 
@@ -225,6 +222,8 @@
 {
     -fx-background-color : transparent;
     -fx-background-radius : 5px;
+    -fx-font-size: 10pt;
+
 }
 
 .calendar-pane .calendar-cell:selected
@@ -241,6 +240,7 @@
 .calendar-pane .calendar-cell .text
 {
      -fx-fill : -text-color;
+    -fx-font-size: 10pt;
 }
 
 /* .table-view .column-header-background .nested-column-header .table-column, */
