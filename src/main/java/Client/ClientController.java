@@ -1,9 +1,9 @@
 package Client;
 
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
@@ -12,17 +12,27 @@ import java.util.*;
 
 public class ClientController extends Observable implements Observer {
 
-    HttpHeaders httpHeaders;
     RestTemplate restTemplate;
-    HttpEntity<?> httpEntity;
     String localhost;
-    int Sessionid;
+    int sessionid;
+    int userType=0;
+    String userEmail ;
+    String fullName;
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
 
     public ClientController() {
-        httpHeaders = new HttpHeaders();
-        httpHeaders.set("headerName","value");
-        restTemplate = new RestTemplate();
-        httpEntity = new HttpEntity<>(httpHeaders);
+
         localhost = "http://localhost:8083/";
 
         }
@@ -39,39 +49,113 @@ public class ClientController extends Observable implements Observer {
     //1-owner
     //2-referee
     //3-ARP
-    //4-
+    //4-fan
     //5-
     public HashMap<String,String> loginDetails(String password, String email) { // add Sessionid, type of  //map
-        HashMap <String,String> toServer = new HashMap<>();
-       toServer.put("email",email);
-       toServer.put("password",password);
-       // HttpEntity<String> req = new HttpEntity<T>(toServer);
-       // ResponseEntity<HashMap<String,String>> respond = restTemplate.exchange(localhost+"Login", HttpMethod.POST,req,String.class);
-        return null;
-    }
+        // create an instance of RestTemplate
+        RestTemplate restTemplate = new RestTemplate();
+        // create headers
+        HttpHeaders headers = new HttpHeaders();
+        // set `content-type` header
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        // set `accept` header
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
-    //input: String: email
-    //output: String: user name
-     public String getUserFullName(String email) { //
-        HttpEntity<String> req = new HttpEntity<>(email);
-        ResponseEntity<String> respond = restTemplate.exchange(localhost+"getUserFullName", HttpMethod.GET,req,String.class);
-        return respond.getBody();
+        // request body parameters
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("username",email);
+        toServer.put("password",password);
+
+        // build the request
+        HttpEntity<Map<String, String>> entity = new HttpEntity<>(toServer, headers);
+
+        // send POST request
+        HashMap<String,String> response = restTemplate.postForObject(localhost+"login/", toServer, HashMap.class);
+        if (response.get("status").compareTo("fine")==0){
+            sessionid = Integer.parseInt(response.get("sid"));
+            userType = Integer.parseInt(response.get("type"));
+            userEmail = response.get("username");
+            fullName = response.get("firstname") +" "+response.get("lastname") ;
+        }
+
+        return response;
+
+
     }
 
     //input: map: email,password
     //output: map: status, ssesion id
-    public String signUp(String first, String last, String email, String passwordEncryped) { //map
+    public HashMap<String,String> signUp(String first, String last, String email, String passwordEncryped) { //map
+        // create an instance of RestTemplate
+        RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<String> req = new HttpEntity<>(first+","+last+","+email+ "," + passwordEncryped );
-        ResponseEntity<String> respond = restTemplate.exchange(localhost+"Login", HttpMethod.POST,req,String.class);
-        return respond.getBody();
-        // if there is exception- return the text of it
+        // create headers
+        HttpHeaders headers = new HttpHeaders();
+        // set `content-type` header
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        // set `accept` header
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        Map<String, Object> toServer = new HashMap<>();
+        // request body parameters
+        toServer.put("first",first);
+        toServer.put("last",last);
+        toServer.put("username",email);
+        toServer.put("password",passwordEncryped);
+
+        // build the request
+       // HttpEntity<Map<String, Object>> entity = new HttpEntity<>(toServer, headers);
+
+        // send POST request
+      //  ResponseEntity<HashMap> response = restTemplate.postForEntity(localhost+"register", entity, HashMap.class);
+        // build the request
+       // HttpEntity<Map<String, String>> entity = new HttpEntity<>(toServer, headers);
+        JSONObject json = new JSONObject(toServer);
+        System.out.println(json);
+        //JSONPObject test = new JSONPObject(toServer);
+        // send POST request
+        HashMap<String,String> ans = restTemplate.postForObject(localhost+"register", json, HashMap.class);
+        //restTemplate.postForObject(localhost+"register", json, HashMap.class);
+        //restTemplate.postForObject(localhost+"register",toServer,HashMap.class);
+        if (ans.get("status").compareTo("fine")==0){
+            sessionid = Integer.parseInt(ans.get("sid"));
+            userType = Integer.parseInt(ans.get("type"));
+            userEmail = ans.get("username");
+            fullName = ans.get("firstname") +" "+ans.get("lastname") ;
+        }
+        return ans;
     }
 
     //input:
     //output:
-    public void logout() {
-        // do logout
+    public HashMap<String,String> logout() {
+        // create an instance of RestTemplate
+        RestTemplate restTemplate = new RestTemplate();
+        // create headers
+        HttpHeaders headers = new HttpHeaders();
+        // set `content-type` header
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        // set `accept` header
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        // request body parameters
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("sid",String.valueOf(sessionid));
+
+        // build the request
+        HttpEntity<Map<String, String>> entity = new HttpEntity<>(toServer, headers);
+
+        // send POST request
+        HashMap<String,String> response = restTemplate.postForObject(localhost+"logout", toServer, HashMap.class);
+        if (response.get("status").compareTo("fine")==0){
+            sessionid = 0;
+            userType = 0;
+            userEmail = "";
+            fullName = "" ;
+        }
+        return response;
+
+
     }
 
     //input: String: team name

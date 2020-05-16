@@ -11,7 +11,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -152,19 +151,18 @@ public class PresentationController implements Observer {
                     return;
                 }
                 else{
-
-                    String exception = myClientController.signUp(first.getText(),last.getText(),email.getText(),passwordEncryped);
-                    if (exception.compareTo("fine")==0){
-                        String userName =  myClientController.getUserFullName(email.getText());
-                        title.setText("Hi, " + userName+"!");
-                        user_name_photo.setText(userName);
-                        //switchTab(myClientController.getUserInstance(email.getText(), email));
-                        //CheckForNewMessages(email.getText());
-                        stage.close();
+                    HashMap<String,String> response = myClientController.signUp(first.getText(),last.getText(),email.getText(),passwordEncryped);
+                    if (response.get("status").compareTo("fine")!=0){// change to string
+                        showErrors(tofill,response.get("error"));
 
                     }
-                    else{ //exception
-                        showErrors(tofill, exception);
+                    else {
+
+                        title.setText("Hi, " + myClientController.getFullName() + "!");
+
+                        //switchTab( myClientController.getUserType());
+                        //CheckForNewMessages( myClientController.getUserEmail());
+                        stage.close();
 
                     }
 
@@ -217,25 +215,22 @@ public class PresentationController implements Observer {
                // String password = password1.getText();
                 String mail =  userName1.getText();
 
-                if (myClientController.loginDetails(passwordEncryped,mail)!=null){ // change to string
-                    showErrors(invalid,invalid.getText());
+                HashMap<String,String> response = myClientController.loginDetails(passwordEncryped,mail);
+                if (response.get("status").compareTo("fine")!=0){// change to string
+                    showErrors(invalid,response.get("error"));
 
                 }
                 else{
 
-                    String userName =  myClientController.getUserFullName(mail);
-                    title.setText("Hi, " + userName+"!");
-                    user_name_photo.setText(userName);
+                    title.setText("Hi, " + myClientController.getFullName()+"!");
+
                     stage1.close();
-                    //switchTab(myClientController.getUserInstance(email.getText()),email)
+                    //switchTab( myClientController.getUserType());
                     //ToDo shange tab' change for tomer;
                 }
 
             }));
             stage1.show();
-
-
-
 
         } catch (Exception e) {
 
@@ -254,10 +249,21 @@ public class PresentationController implements Observer {
         Optional<ButtonType> result = alert4.showAndWait();
         if (result.get() == ButtonType.OK) {
             //user chose OK
-            title.setText("Hi, Guest!");
-            user_name_photo.setText("");
-            myClientController.logout();
-            //switchTab(0);
+
+            HashMap<String,String> response =   myClientController.logout();
+            if (response.get("status").compareTo("fine")==0){
+                //switchTab(0);
+                title.setText("Hi, Guest!");
+               // user_name_photo.setText("");
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText(response.get("error"));
+                alert.initStyle(StageStyle.UTILITY);
+                alert.showAndWait();
+            }
 
 
         } else {
@@ -393,13 +399,13 @@ public class PresentationController implements Observer {
    // Goal,Offside,Offense,RedTicket,YellowTicket,Injury,Substitute
    public void watchUpcomingsGames(ActionEvent actionEvent) {
        HashMap<String, String> myGames = new HashMap<>();//myClientController.getMyUpcomingsGames(user_email);
-       myGames.put("1234", "referee");
-       myGames.put("1235", "referee");
+      // myGames.put("1234", "referee");
+     //  myGames.put("1235", "referee");
        if (myGames == null || myGames.isEmpty()) {
            showErrors(error_upcomings_game, "There are no upcoming games!");
            return;
        } else {
-
+/*
            if (for_table.getChildren() != null) {
                for_table.getChildren().clear();
 
@@ -429,10 +435,10 @@ public class PresentationController implements Observer {
 
            }
 
+       }*/
        }
+
    }
-
-
 
     public void addEventToGame(ActionEvent actionEvent) {
         
