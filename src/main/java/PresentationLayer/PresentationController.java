@@ -96,14 +96,14 @@ public class PresentationController implements Observer {
         action.getItems().add("Outcome");
        // Image im  = new Image( "/resources/user.png");
       //  user_photo.setFill(new ImagePattern(im));
-       // initLeagues();
+       //initLeagues();
        // initPolicies() ;
 
-        //Image im =  new Image(getClass().getResourceAsStream("/user.png"));
+
 
 
         image.setImage(new Image(getClass().getResourceAsStream("/gBMMe.png")));
-        //image.setImage(new Image(getClass().getResourceAsStream("/user.png")));
+
 
 
     }
@@ -285,15 +285,14 @@ public class PresentationController implements Observer {
             return;
 
         }
-        String s = myClientController.creatNewTeam(team_name.getText());
-        if (s.compareTo("fine")==0){
+
+        HashMap<String,String> response =  myClientController.creatNewTeam(team_name.getText());
+        if (response.get("status").compareTo("fine")==0){
             String s1 = "Team: " +team_name.getText() +" created successfully";
-            showSuccess(error_team_name,s);
-
-
-
+            showSuccess(error_team_name,s1);
+            //initTeams
         }else{
-            showErrors(error_team_name,s);
+            showErrors(error_team_name,response.get("error"));
             }
 
     }
@@ -315,12 +314,13 @@ public class PresentationController implements Observer {
             showErrors(error_finance,"You must enter a description!");
             return;
         }
-        String exception = myClientController.reportNewFinanceAction((String)team_chooser.getValue(),(String)action.getValue(),amount.getText(),description.getText());
-        if (exception.compareTo("fine")==0){
+
+        HashMap<String,String> response = myClientController.reportNewFinanceAction((String)team_chooser.getValue(),(String)action.getValue(),amount.getText(),description.getText());
+        if (response.get("status").compareTo("fine")==0){
             String s = "Finance action to Team:"+ team_chooser.getValue()+" was successfuly reprted!";
             showSuccess(error_finance, s);
         } else{
-            showErrors(error_finance,exception);
+            showErrors(error_finance,response.get("error"));
         }
 
 
@@ -338,15 +338,16 @@ public class PresentationController implements Observer {
             showErrors(err_league,"you have to choose Referee Training!");
             return;
           }
-        String ans = myClientController.creatNewLeague(league_name.getText(),  value);
-        if (ans.compareTo("fine")==0){
+        HashMap<String,String> response =  myClientController.creatNewLeague(league_name.getText(),  value);
+        if (response.get("status").compareTo("fine")==0){
             String s = "The League: "+league_name.getText() +" successfully created in the system!";
             showSuccess(err_league,s);
+            initLeagues();
          }else{
-            showErrors(err_league,ans);
+            showErrors(err_league,response.get("error"));
 
         }
-        //ToDo update league fill
+
     }
 
     public void create_newSeason(ActionEvent actionEvent) {
@@ -358,14 +359,14 @@ public class PresentationController implements Observer {
            showErrors(err_season,"You must choose a start date and year!");
            return;
        }
-       String exception =myClientController.creatNewSeason(start_dat.getValue(),(String)league_choose.getValue());
-       if (exception.compareTo("fine")==0){
+        HashMap<String,String> response = myClientController.creatNewSeason(start_dat.getValue(),(String)league_choose.getValue());
+       if (response.get("status").compareTo("fine")==0){
            String suc = "Season of :"+  start_dat.getValue().getYear() + " successfully crated!"; // maybe the status
            showSuccess(err_season, suc);
-           //update season
+           initSeason((String)league_choose.getValue());
        }
        else{
-           showErrors(err_season,exception);
+           showErrors(err_season,response.get("error"));
        }
 
     }
@@ -383,13 +384,13 @@ public class PresentationController implements Observer {
             showErrors(err_policy,"You must choose a Policy!");
             return;
         }
-        String exception = myClientController.assignNewPolicy((String)league2.getValue(),(String)season.getValue(),(String)policy.getValue());
-        if (exception.compareTo("fine")==0){
+        HashMap<String,String> response = myClientController.assignNewPolicy((String)league2.getValue(),(String)season.getValue(),(String)policy.getValue());
+        if (response.get("status").compareTo("fine")==0){
             String s = "Policy: " + policy.getValue() +" For League "+ league2.getValue()+" Season " + season.getValue()+ " Successfuly assign!";
             showSuccess(err_policy,s);
 
         }else{
-            showErrors(err_policy, exception);
+            showErrors(err_policy, response.get("error"));
         }
 
     }
@@ -453,7 +454,24 @@ public class PresentationController implements Observer {
 
 
     //------------------------------------------Fan-------------------------------------
+    public void CheckForNewMessages(String email){
+        HashMap<String,String> mess = myClientController.checkForUpdates();
 
+        if(mess.get("status").compareTo("NoMessages")==0){
+            newAlerts.setVisible(false);
+            return;
+        }
+        newAlerts.setVisible(true);
+        String s = "";
+        for(String message : mess.keySet()){
+            if(mess.get(message).compareTo("NoMessages")!=0){
+
+                s+= mess.get(message) +"\n";
+            }
+        }
+
+        newalert_text.setText(s);
+    }
 
 
 
@@ -478,6 +496,7 @@ public class PresentationController implements Observer {
         Arp.setDisable(true);
         FanTab.setDisable(true);
         //CheckForNewMessages(email.getText());
+        initTeams
       }
         if (num==2){
             guest.setDisable(true);
@@ -510,30 +529,47 @@ public class PresentationController implements Observer {
     }*/
 
     private void initLeagues() {
-        ArrayList<String> leagues = myClientController.getAllLeagues();
-        for (String name : leagues){
-            league_choose.getItems().add(name);
-            league2.getItems().add(name);
+        HashMap<String,String> leagues = myClientController.getAllLeagues();
+        if(leagues.containsKey("status")){
+            return;
+        }
+        for (String id : leagues.keySet()){
+            if (id.compareTo("status")!=0){
+                league_choose.getItems().add(leagues.get(id));
+                league2.getItems().add(leagues.get(id));
+            }
+
         }
     }
 
     private void initSeason(String LeagueName) {
-        ArrayList<String> leagues = myClientController.getAllSeasons(LeagueName);
-        for (String name : leagues){
-            season.getItems().add(name);
+        HashMap<String,String> seasons = myClientController.getAllSeasons(LeagueName);
+        if(seasons.containsKey("status")){
+            return;
+        }
+        for (String id : seasons.keySet()) {
+            if (id.compareTo("status") != 0 &&id.compareTo("leaugueID") != 0) {
+                season.getItems().add(seasons.get(id));
+            }
         }
     }
 
     private void initPolicies() {
-        ArrayList<String> leagues = myClientController.getAllPolicies();
-        for (String name : leagues){
-            season.getItems().add(name);
+        ArrayList<String> policies = myClientController.getAllPolicies();
+        for (String name : policies){
+            policy.getItems().add(name);
         }
     }
-    private void initTeams(String email){
-        ArrayList<String> Teams = myClientController.getAllTeams(email);
-        for (String name : Teams){
-            team_chooser.getItems().add(name);
+    private void initTeams(){
+        HashMap<String,String> Teams = myClientController.getAllTeams();
+        if(Teams.containsKey("status")){
+            return;
+        }
+        for (String name : Teams.keySet()){
+            if (name.compareTo("status") != 0){
+                team_chooser.getItems().add(Teams.get(name));
+            }
+
         }
     }
 
@@ -578,24 +614,7 @@ public class PresentationController implements Observer {
     public void chosenSeasonForPolicies(ActionEvent actionEvent) {
     }
 
-    public void CheckForNewMessages(String email){
-        HashMap<String,String> mess = myClientController.checkForUpdates(email);
 
-        if(mess.get("status").compareTo("NoMessages")==0){
-            newAlerts.setVisible(false);
-            return;
-        }
-        newAlerts.setVisible(true);
-        String s = "";
-        for(String message : mess.keySet()){
-            if(mess.get(message).compareTo("NoMessages")!=0){
-
-                s+= mess.get(message) +"\n";
-            }
-        }
-
-        newalert_text.setText(s);
-    }
 
     public static class Stringshow {
         
