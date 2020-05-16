@@ -1,6 +1,5 @@
 package Client;
 
-import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -88,7 +87,6 @@ public class ClientController extends Observable implements Observer {
     public HashMap<String,String> signUp(String first, String last, String email, String passwordEncryped) { //map
         // create an instance of RestTemplate
         RestTemplate restTemplate = new RestTemplate();
-
         // create headers
         HttpHeaders headers = new HttpHeaders();
         // set `content-type` header
@@ -110,11 +108,11 @@ public class ClientController extends Observable implements Observer {
       //  ResponseEntity<HashMap> response = restTemplate.postForEntity(localhost+"register", entity, HashMap.class);
         // build the request
        // HttpEntity<Map<String, String>> entity = new HttpEntity<>(toServer, headers);
-        JSONObject json = new JSONObject(toServer);
-        System.out.println(json);
+        //JSONObject json = new JSONObject(toServer);
+       // System.out.println(json);
         //JSONPObject test = new JSONPObject(toServer);
         // send POST request
-        HashMap<String,String> ans = restTemplate.postForObject(localhost+"register", json, HashMap.class);
+        HashMap<String,String> ans = restTemplate.postForObject(localhost+"register", toServer, HashMap.class);
         //restTemplate.postForObject(localhost+"register", json, HashMap.class);
         //restTemplate.postForObject(localhost+"register",toServer,HashMap.class);
         if (ans.get("status").compareTo("fine")==0){
