@@ -95,7 +95,7 @@ public class PresentationController implements Observer {
     public TableView table;
     public TableColumn<Stringshow,String > Game;
     public TableColumn<Stringshow, String> Role;
-
+    public VBox functionsForUsers;
     public void set_ViewModel(ClientController vm) {
 
 
@@ -120,6 +120,11 @@ public class PresentationController implements Observer {
         // initGamePolicies() ;
         // initEvents()
 
+        Button button = new Button("Close");
+
+        Button button1 = new Button("Close");
+        Button button2 = new Button("Close");
+        functionsForUsers.getChildren().addAll(button, button1,button2);
         image.setImage(new Image(getClass().getResourceAsStream("/gBMMe.png")));
 
 
@@ -639,6 +644,12 @@ public class PresentationController implements Observer {
             newAlerts.setVisible(false);
         }
     }*/
+    {}
+    private void setUpForOwner(){
+
+    }
+
+
 
     private void initLeagues() {
         HashMap<String, String> leagues = myClientController.getAllLeagues();
