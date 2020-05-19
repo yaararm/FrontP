@@ -48,7 +48,7 @@
 #new_league:hover{-fx-background-color : derive(-base, -40%);}
 #Login:hover{-fx-background-color : derive(rgb(125, 163, 252), -40%);}
 #watch_result:hover{-fx-background-color : derive(-base, -40%);}
-
+#alerts:hover{-fx-background-color : derive(-base, -40%);}
 
 #title13,#title14,#title15,#title16,#title17,#title18,#title19,#title20,#title171 {
 

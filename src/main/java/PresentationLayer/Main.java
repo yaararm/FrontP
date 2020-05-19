@@ -22,7 +22,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader1 = new FXMLLoader();
             Parent root = fxmlLoader1.load(getClass().getResource("/main2.fxml").openStream());
             primaryStage.setTitle("Football Association System");
-            Scene welcome = new Scene(root, 1300, 800);
+            Scene welcome = new Scene(root, 1350, 800);
             welcome.getStylesheets().addAll(
                   //  getClass().getResource("/fonts.css").toExternalForm()
                     getClass().getResource("/material-color.css").toExternalForm(),
@@ -41,7 +41,7 @@ public class Main extends Application {
 
             ClientController clientController = new ClientController();
             PresentationController myPresentationController = fxmlLoader1.getController();
-            myPresentationController.set_ViewModel(clientController);
+            myPresentationController.set_ViewModel(clientController,welcome);
             clientController.addObserver(myPresentationController);
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
             primaryStage.setScene(welcome);

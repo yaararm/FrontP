@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jfoenix-8.0.7">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/jfoenix-8.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/scenicView.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/tilesfx-1.5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

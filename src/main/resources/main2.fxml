@@ -41,12 +41,12 @@
                      <ImageView fx:id="image" fitHeight="260.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" />
                   </children>
                </VBox>
-               <Pane prefHeight="122.0" prefWidth="246.0" />
+               <Pane prefHeight="83.0" prefWidth="246.0" />
 
-               <HBox fx:id="searchBox" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" style="-fx-background-color: gray;" styleClass="box-search">
+               <HBox fx:id="searchBox" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" styleClass="box-search">
                   <children>
                      <TextField fx:id="search" minHeight="-Infinity" prefHeight="38.0" prefWidth="185.0" promptText="Search.." style="-fx-background-color: white; -fx-border-color: black;" />
-                     <Button fx:id="clear" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" mnemonicParsing="false" onAction="#search" prefHeight="37.0" prefWidth="45.0" style="-fx-background-color: white; -fx-border-color: black;" styleClass="btn-transparent" text="Button" HBox.hgrow="ALWAYS">
+                     <Button fx:id="clear" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" mnemonicParsing="false" onAction="#search" prefHeight="36.0" prefWidth="45.0" style="-fx-background-color: rgb(125, 163, 252); -fx-border-color: black;" styleClass="btn-transparent" text="Button" HBox.hgrow="ALWAYS">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
@@ -58,6 +58,9 @@
                   <VBox.margin>
                      <Insets left="10.0" right="10.0" />
                   </VBox.margin>
+                  <padding>
+                     <Insets bottom="20.0" />
+                  </padding>
                </HBox>
                <VBox fx:id="views" spacing="10.0">
                   <children>
@@ -72,11 +75,11 @@
                         <graphic>
                            <SVGPath styleClass="icon" />
                         </graphic>
+                        <padding>
+                           <Insets bottom="10.0" />
+                        </padding>
                      </TitledPane>
-                     <TitledPane fx:id="controls" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" styleClass="drawer-menu" text="Controls">
-                        <graphic>
-                           <SVGPath content="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10S2 17.52 2 12zm10 6c3.31 0 6-2.69 6-6s-2.69-6-6-6-6 2.69-6 6 2.69 6 6 6z" styleClass="icon" />
-                        </graphic>
+                     <TitledPane fx:id="controls" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="drawer-menu" text="Controls">
                         <content>
                            <VBox fx:id="functionsForUsers">
                               <children>
@@ -85,10 +88,13 @@
                               </children>
                            </VBox>
                         </content>
+                        <padding>
+                           <Insets top="10.0" />
+                        </padding>
                      </TitledPane>
-                     <TitledPane fx:id="newAlerts" expanded="false" prefHeight="256.0" prefWidth="213.0" text="Watch my old Alerts">
+                     <TitledPane fx:id="oldAlerts" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="256.0" prefWidth="213.0" styleClass="drawer-menu" text="Watch my old Alerts">
                         <content>
-                           <TextArea fx:id="newalert_text" prefHeight="200.0" prefWidth="200.0" />
+                           <TextArea fx:id="oldalert_text" prefHeight="200.0" prefWidth="200.0" />
                         </content>
                      </TitledPane>
                   </children>
@@ -131,26 +137,13 @@
                         </HBox>
                         <HBox fx:id="alertsup" alignment="TOP_CENTER" prefHeight="41.0" prefWidth="148.0">
                            <children>
-                              <JFXBadge fx:id="bg_info" layoutX="732.0" layoutY="12.0" position="TOP_RIGHT" prefHeight="44.0" prefWidth="35.0" text="32" visible="false">
-                                 <styleClass>
-                                    <String fx:value="icon" />
-                                    <String fx:value="icon-danger" />
-                                 </styleClass>
-                                 <control>
-                                    <StackPane prefHeight="32.0" prefWidth="43.0" style="-fx-padding: 10;" styleClass="icon-notification">
-                                       <children>
-                                          <FontAwesomeIconView glyphName="FLAG" size="20" styleClass="icon" StackPane.alignment="CENTER" />
-                                       </children>
-                                    </StackPane>
-                                 </control>
-                              </JFXBadge>
                               <JFXBadge fx:id="notifications" position="TOP_RIGHT" prefHeight="44.0" prefWidth="35.0" text="16" visible="true">
                                  <styleClass>
                                     <String fx:value="icon" />
                                     <String fx:value="icon-warning" />
                                  </styleClass>
                                  <children>
-                                    <FontAwesomeIconView fx:id="alerts" glyphName="BELL" onMouseClicked="#showNewAlerts" size="16" styleClass="icon" text="New Alerts " wrappingWidth="109.0" />
+                                    <FontAwesomeIconView fx:id="something" glyphName="BELL" onMouseClicked="#showNewAlerts" size="16" style="-fx-fill: white" text="  New Alerts " wrappingWidth="109.0" />
                                  </children>
                               </JFXBadge>
                               <JFXBadge fx:id="messages" layoutX="759.0" layoutY="12.0" position="TOP_RIGHT" prefHeight="44.0" prefWidth="35.0" styleClass="icon" text="12">
@@ -189,7 +182,7 @@
                      <children>
                         <TabPane fx:id="Alltabs" prefHeight="758.0" prefWidth="710.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
-                            <Tab fx:id="guest" text="guest">
+                            <Tab fx:id="guest" text="g">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="226.0" prefWidth="675.0">
                                        <children>
@@ -207,7 +200,7 @@
                                     </AnchorPane>
                               </content>
                             </Tab>
-                            <Tab fx:id="Owner" text="Owner">
+                            <Tab fx:id="create_new_team" text="o">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -228,7 +221,7 @@
                                                             <Insets right="10.0" />
                                                          </padding>
                                                       </HBox>
-                                                      <Button fx:id="new_team3" defaultButton="true" layoutX="396.0" layoutY="68.0" mnemonicParsing="false" onAction="#create_newTeam" prefHeight="31.0" prefWidth="156.0" text="create new Team">
+                                                      <Button fx:id="new_team3" defaultButton="true" layoutX="54.0" layoutY="170.0" mnemonicParsing="false" onAction="#create_newTeam" prefHeight="31.0" prefWidth="156.0" text="create new Team">
                                                          <styleClass>
                                                             <String fx:value="btn-large" />
                                                             <String fx:value="login" />
@@ -240,26 +233,7 @@
                                                             <Font size="21.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="title14" layoutX="28.0" layoutY="213.0" prefHeight="39.0" prefWidth="469.0" text="To add Finance action please insert:">
-                                                         <font>
-                                                            <Font size="21.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <ChoiceBox fx:id="team_chooser" layoutX="42.0" layoutY="297.0" prefWidth="150.0" />
-                                                      <TextField fx:id="amount" layoutX="485.0" layoutY="297.0" prefHeight="31.0" prefWidth="152.0" promptText="amount" />
-                                                      <Button fx:id="report_action" defaultButton="true" layoutX="487.0" layoutY="380.0" mnemonicParsing="false" onAction="#reportNewFinance" prefHeight="31.0" prefWidth="156.0" text="report new Action">
-                                                         <styleClass>
-                                                            <String fx:value="btn-large" />
-                                                            <String fx:value="login" />
-                                                         </styleClass>
-                                                      </Button>
-                                                      <TextArea fx:id="description" layoutX="39.0" layoutY="380.0" prefHeight="73.0" prefWidth="250.0" promptText="description" />
-                                                      <ChoiceBox fx:id="action" layoutX="259.0" layoutY="297.0" prefWidth="150.0" />
-                                                      <Label fx:id="error_finance" layoutX="58.0" layoutY="475.0" prefHeight="27.0" prefWidth="319.0" text="error" visible="false" />
-                                                      <Label layoutX="45.0" layoutY="266.0" text="choose Team:" />
-                                                      <Label layoutX="260.0" layoutY="265.0" prefHeight="21.0" prefWidth="152.0" text="choose type of action:" />
-                                                      <Label layoutX="486.0" layoutY="267.0" prefHeight="21.0" prefWidth="152.0" text="amount:" />
-                                                      <Label layoutX="41.0" layoutY="352.0" prefHeight="21.0" prefWidth="152.0" text="add description:" />
+
                                                    </children>
                                                 </Pane>
                                              </children>
@@ -268,7 +242,7 @@
                                     </AnchorPane>
                                  </content>
                             </Tab>
-                              <Tab fx:id="referee" text="referee">
+                              <Tab fx:id="watch_upcoming" text="r">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -286,47 +260,15 @@
                                                       <Font size="21.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="title18" layoutX="28.0" layoutY="213.0" prefHeight="39.0" prefWidth="469.0" text="To add an event to game please insert:">
-                                                   <font>
-                                                      <Font size="21.0" />
-                                                   </font>
-                                                </Label>
-                                                <ChoiceBox fx:id="game_chooser" layoutX="42.0" layoutY="297.0" prefWidth="150.0" />
-                                                <TextField fx:id="minute" layoutX="485.0" layoutY="297.0" prefHeight="31.0" prefWidth="152.0" promptText="amount" />
-                                                <Button fx:id="add_event" defaultButton="true" layoutX="483.0" layoutY="380.0" mnemonicParsing="false" onAction="#addEventToGame" prefHeight="31.0" prefWidth="156.0" text="add event to game">
-                                                   <styleClass>
-                                                      <String fx:value="btn-large" />
-                                                      <String fx:value="login" />
-                                                   </styleClass>
-                                                </Button>
-                                                <TextArea fx:id="description_event" layoutX="39.0" layoutY="380.0" prefHeight="73.0" prefWidth="250.0" promptText="description" />
-                                                <ChoiceBox fx:id="type_event" layoutX="259.0" layoutY="297.0" prefWidth="150.0" />
-                                                <Label fx:id="error_add_event" layoutX="38.0" layoutY="475.0" prefHeight="27.0" prefWidth="457.0" text="error" visible="false" />
-                                                <Label layoutX="45.0" layoutY="266.0" text="choose Game:" />
-                                                <Label layoutX="260.0" layoutY="265.0" prefHeight="21.0" prefWidth="152.0" text="choose type of event:" />
-                                                <Label layoutX="486.0" layoutY="267.0" prefHeight="21.0" prefWidth="152.0" text="add minute (0-90)" />
-                                                <Label layoutX="41.0" layoutY="352.0" prefHeight="21.0" prefWidth="152.0" text="add description:" />
-                                                <Label fx:id="title20" layoutX="38.0" layoutY="537.0" prefHeight="39.0" prefWidth="469.0" text="To create a report  please choose game:">
-                                                   <font>
-                                                      <Font size="21.0" />
-                                                   </font>
-                                                </Label>
-                                                <ChoiceBox fx:id="game_chooser1" layoutX="42.0" layoutY="621.0" prefWidth="150.0" />
-                                                <Label layoutX="45.0" layoutY="590.0" text="choose Game:" />
-                                                <Label fx:id="error_report" layoutX="40.0" layoutY="670.0" prefHeight="27.0" prefWidth="465.0" text="error" visible="false" />
-                                                <Button fx:id="create_report" defaultButton="true" layoutX="490.0" layoutY="619.0" mnemonicParsing="false" onAction="#createReport" prefHeight="31.0" prefWidth="156.0" text="create report">
-                                                   <styleClass>
-                                                      <String fx:value="btn-large" />
-                                                      <String fx:value="login" />
-                                                   </styleClass>
-                                                </Button>
-                                                <TableView fx:id="table" layoutX="360.0" layoutY="25.0" prefHeight="164.0" prefWidth="299.0" visible="false" />
+
+
+                                                <TableView fx:id="table" layoutX="199.0" layoutY="296.0" prefHeight="260.0" prefWidth="319.0" visible="false" />
                                              </children>
                                           </Pane>
                                        </children></AnchorPane>
                                 </content>
                               </Tab>
-                              <Tab fx:id="ARP" text="ARP">
+                              <Tab fx:id="new_league_tab" text="a">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -334,30 +276,6 @@
                                              <children>
                                                 <Pane fx:id="pane2" prefHeight="663.0" prefWidth="769.0">
                                                    <children>
-                                                      <Button fx:id="new_policy" defaultButton="true" layoutX="541.0" layoutY="413.0" mnemonicParsing="false" onAction="#assignNewScorePolicy" prefHeight="31.0" prefWidth="156.0" text="assign new policy">
-                                                         <styleClass>
-                                                            <String fx:value="btn-large" />
-                                                            <String fx:value="login" />
-                                                         </styleClass>
-                                                      </Button>
-                                                      <ChoiceBox fx:id="league2" layoutX="27.0" layoutY="414.0" onAction="#chosenLeagueForScorePolicies" prefWidth="150.0" />
-                                                      <ChoiceBox fx:id="season" layoutX="198.0" layoutY="414.0" onAction="#chosenSeasonForPolicies" prefWidth="150.0" />
-                                                      <ChoiceBox fx:id="policy" layoutX="371.0" layoutY="414.0" prefWidth="150.0" />
-                                                      <Label fx:id="title17" layoutX="26.0" layoutY="331.0" prefHeight="39.0" prefWidth="559.0" text="To assign new Score Policy please choose:">
-                                                         <font>
-                                                            <Font size="21.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <ChoiceBox fx:id="league_choose" layoutX="34.0" layoutY="238.0" prefWidth="150.0" />
-                                                      <Label layoutX="25.0" layoutY="382.0" prefHeight="21.0" prefWidth="100.0" text="League:" />
-                                                      <Label layoutX="36.0" layoutY="213.0" prefHeight="21.0" prefWidth="100.0" text="League:" />
-                                                      <Label layoutX="199.0" layoutY="382.0" prefHeight="21.0" prefWidth="100.0" text="Season" />
-                                                      <Label layoutX="370.0" layoutY="382.0" prefHeight="21.0" prefWidth="100.0" text="Policy:" />
-                                                      <Label fx:id="title16" layoutX="35.0" layoutY="162.0" prefHeight="39.0" prefWidth="543.0" text="To create new Season please choose:">
-                                                         <font>
-                                                            <Font size="21.0" />
-                                                         </font>
-                                                      </Label>
                                                       <HBox fx:id="box_username" alignment="CENTER_RIGHT" layoutY="80.0" prefHeight="50.0" prefWidth="368.0">
                                                          <styleClass>
                                                             <String fx:value="box-light" />
@@ -382,36 +300,11 @@
                                                             <Font size="21.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="266.0" layoutY="50.0" prefHeight="21.0" prefWidth="134.0" text="Referee Training:" />
-                                                      <DatePicker fx:id="start_dat" layoutX="270.0" layoutY="240.0" />
-                                                      <Label layoutX="273.0" layoutY="213.0" prefHeight="21.0" prefWidth="185.0" text="Start Date and year:" />
-                                                      <Button fx:id="new_season" defaultButton="true" layoutX="541.0" layoutY="240.0" mnemonicParsing="false" onAction="#create_newSeason" prefHeight="31.0" prefWidth="156.0" text="create new Season">
-                                                         <styleClass>
-                                                            <String fx:value="btn-large" />
-                                                            <String fx:value="login" />
-                                                         </styleClass>
-                                                      </Button>
+
                                                       <Label fx:id="err_league" layoutX="49.0" layoutY="126.0" prefHeight="21.0" prefWidth="600.0" text="error" visible="false" />
-                                                      <Label fx:id="err_season" layoutX="32.0" layoutY="300.0" prefHeight="22.0" prefWidth="494.0" text="error" visible="false" />
-                                                      <Label fx:id="err_policy" layoutX="33.0" layoutY="470.0" prefHeight="21.0" prefWidth="491.0" text="error" visible="false" />
-                                                      <Button fx:id="new_policy1" defaultButton="true" layoutX="541.0" layoutY="614.0" mnemonicParsing="false" onAction="#assignNewGamePolicy" prefHeight="31.0" prefWidth="156.0" text="assign new policy">
-                                                         <styleClass>
-                                                            <String fx:value="btn-large" />
-                                                            <String fx:value="login" />
-                                                         </styleClass>
-                                                      </Button>
-                                                      <ChoiceBox fx:id="league21" layoutX="27.0" layoutY="615.0" onAction="#chosenLeagueForGamePolicies" prefWidth="150.0" />
-                                                      <ChoiceBox fx:id="season1" layoutX="198.0" layoutY="615.0" onAction="#chosenSeasonForPolicies" prefWidth="150.0" />
-                                                      <ChoiceBox fx:id="policy1" layoutX="371.0" layoutY="615.0" prefWidth="150.0" />
-                                                      <Label fx:id="title171" layoutX="26.0" layoutY="532.0" prefHeight="39.0" prefWidth="559.0" text="To assign new Game Policy please choose:">
-                                                         <font>
-                                                            <Font size="21.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="25.0" layoutY="583.0" prefHeight="21.0" prefWidth="100.0" text="League:" />
-                                                      <Label layoutX="199.0" layoutY="583.0" prefHeight="21.0" prefWidth="100.0" text="Season" />
-                                                      <Label layoutX="370.0" layoutY="583.0" prefHeight="21.0" prefWidth="100.0" text="Policy:" />
-                                                      <Label fx:id="err_policy1" layoutX="27.0" layoutY="660.0" prefHeight="21.0" prefWidth="507.0" text="error" visible="false" />
+                                                      <Label layoutX="263.0" layoutY="49.0" prefHeight="21.0" prefWidth="134.0" text="Referee Training:" />
+
+
                                                    </children>
                                                 </Pane>
                                              </children>
@@ -420,7 +313,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="FanTab" text="Fan">
+                              <Tab fx:id="FanTab" text="f">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -435,6 +328,183 @@
                                        </children>
                                     </AnchorPane>
                                 </content>
+                              </Tab>
+                              <Tab fx:id="add_finanace_action" text="o">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <HBox fx:id="hboxdesign231" prefHeight="719.0" prefWidth="1050.0">
+                                             <children>
+                                                <Pane fx:id="pane231" prefHeight="558.0" prefWidth="716.0">
+                                                   <children>
+                                                       <Label fx:id="title14" layoutX="28.0" layoutY="42.0" prefHeight="39.0" prefWidth="469.0" text="To add Finance action please insert:">
+                                                           <font>
+                                                               <Font size="21.0" />
+                                                           </font>
+                                                       </Label>
+                                                       <ChoiceBox fx:id="team_chooser" layoutX="42.0" layoutY="126.0" prefWidth="150.0" />
+                                                       <TextField fx:id="amount" layoutX="42.0" layoutY="322.0" prefHeight="31.0" prefWidth="152.0" promptText="amount" />
+                                                       <Button fx:id="report_action" defaultButton="true" layoutX="423.0" layoutY="420.0" mnemonicParsing="false" onAction="#reportNewFinance" prefHeight="31.0" prefWidth="156.0" text="report new Action">
+                                                           <styleClass>
+                                                               <String fx:value="btn-large" />
+                                                               <String fx:value="login" />
+                                                           </styleClass>
+                                                       </Button>
+                                                       <TextArea fx:id="description" layoutX="42.0" layoutY="414.0" prefHeight="73.0" prefWidth="250.0" promptText="description" />
+                                                       <ChoiceBox fx:id="action" layoutX="42.0" layoutY="224.0" prefWidth="150.0" />
+                                                       <Label fx:id="error_finance" layoutX="42.0" layoutY="500.0" prefHeight="27.0" prefWidth="542.0" text="error" visible="false" />
+                                                       <Label layoutX="45.0" layoutY="95.0" text="choose Team:" />
+                                                       <Label layoutX="44.0" layoutY="192.0" prefHeight="21.0" prefWidth="152.0" text="choose type of action:" />
+                                                       <Label layoutX="43.0" layoutY="292.0" prefHeight="21.0" prefWidth="152.0" text="amount:" />
+                                                       <Label layoutX="41.0" layoutY="386.0" prefHeight="21.0" prefWidth="152.0" text="add description:" />
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="add_event_game_tab" text="r">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                           <Pane fx:id="pane241" layoutY="1.0" prefHeight="718.0" prefWidth="716.0">
+                                               <Label fx:id="title18" layoutX="28.0" layoutY="36.0" prefHeight="39.0" prefWidth="469.0" text="To add an event to game please insert:">
+                                                   <font>
+                                                       <Font size="21.0" />
+                                                   </font>
+                                               </Label>
+                                               <ChoiceBox fx:id="game_chooser" layoutX="42.0" layoutY="120.0" prefWidth="150.0" />
+                                               <TextField fx:id="minute" layoutX="37.0" layoutY="348.0" prefHeight="31.0" prefWidth="152.0" promptText="amount" />
+                                               <Button fx:id="add_event" defaultButton="true" layoutX="483.0" layoutY="490.0" mnemonicParsing="false" onAction="#addEventToGame" prefHeight="31.0" prefWidth="156.0" text="add event to game">
+                                                   <styleClass>
+                                                       <String fx:value="btn-large" />
+                                                       <String fx:value="login" />
+                                                   </styleClass>
+                                               </Button>
+                                               <TextArea fx:id="description_event" layoutX="39.0" layoutY="488.0" prefHeight="73.0" prefWidth="250.0" promptText="description" />
+                                               <ChoiceBox fx:id="type_event" layoutX="40.0" layoutY="231.0" prefWidth="150.0" />
+                                               <Label fx:id="error_add_event" layoutX="38.0" layoutY="570.0" prefHeight="27.0" prefWidth="457.0" text="error" visible="false" />
+                                               <Label layoutX="45.0" layoutY="89.0" text="choose Game:" />
+                                               <Label layoutX="41.0" layoutY="199.0" prefHeight="21.0" prefWidth="152.0" text="choose type of event:" />
+                                               <Label layoutX="38.0" layoutY="322.0" prefHeight="21.0" prefWidth="152.0" text="add minute (0-90)" />
+                                               <Label layoutX="41.0" layoutY="446.0" prefHeight="21.0" prefWidth="152.0" text="add description:" />
+                                           </Pane>
+
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="create_report_tab" text="r">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Pane fx:id="pane242" layoutY="1.0" prefHeight="718.0" prefWidth="716.0">
+                                              <Label fx:id="title20" layoutX="38.0" layoutY="72.0" prefHeight="39.0" prefWidth="469.0" text="To create a report  please choose game:">
+                                                  <font>
+                                                      <Font size="21.0" />
+                                                  </font>
+                                              </Label>
+                                              <ChoiceBox fx:id="game_chooser1" layoutX="42.0" layoutY="156.0" prefWidth="150.0" />
+                                              <Label layoutX="45.0" layoutY="125.0" text="choose Game:" />
+                                              <Label fx:id="error_report" layoutX="40.0" layoutY="200.0" prefHeight="27.0" prefWidth="465.0" text="error" visible="false" />
+                                              <Button fx:id="create_report" defaultButton="true" layoutX="490.0" layoutY="154.0" mnemonicParsing="false" onAction="#createReport" prefHeight="31.0" prefWidth="156.0" text="create report">
+                                                  <styleClass>
+                                                      <String fx:value="btn-large" />
+                                                      <String fx:value="login" />
+                                                  </styleClass>
+                                              </Button>
+                                          </Pane>
+
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="new_season_tab" text="a">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <HBox fx:id="hboxdesign21" prefHeight="719.0" prefWidth="1050.0">
+                                             <children>
+                                                <Pane fx:id="pane21" prefHeight="663.0" prefWidth="769.0">
+                                                   <children>
+                                                       <DatePicker fx:id="start_dat" layoutX="270.0" layoutY="135.0" />
+                                                       <Label layoutX="273.0" layoutY="108.0" prefHeight="21.0" prefWidth="185.0" text="Start Date and year:" />
+                                                       <Button fx:id="new_season" defaultButton="true" layoutX="541.0" layoutY="135.0" mnemonicParsing="false" onAction="#create_newSeason" prefHeight="31.0" prefWidth="156.0" text="create new Season">
+                                                           <styleClass>
+                                                               <String fx:value="btn-large" />
+                                                               <String fx:value="login" />
+                                                           </styleClass>
+                                                       </Button>
+                                                       <ChoiceBox fx:id="league_choose" layoutX="34.0" layoutY="133.0" prefWidth="150.0" />
+                                                       <Label layoutX="34.0" layoutY="101.0" prefHeight="21.0" prefWidth="100.0" text="League:" />
+                                                       <Label fx:id="err_season" layoutX="32.0" layoutY="200.0" prefHeight="22.0" prefWidth="494.0" text="error" visible="false" />
+                                                      <Label fx:id="title16" layoutX="31.0" layoutY="30.0" prefHeight="39.0" prefWidth="543.0" text="To create new Season please choose:">
+                                                         <font>
+                                                            <Font size="21.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="assign_policy_tab" text="a">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <HBox fx:id="hboxdesign22" prefHeight="719.0" prefWidth="1050.0">
+                                             <children>
+                                                <Pane fx:id="pane22" prefHeight="663.0" prefWidth="769.0">
+                                                   <children>
+                                                       <Button fx:id="new_policy" defaultButton="true" layoutX="541.0" layoutY="119.0" mnemonicParsing="false" onAction="#assignNewScorePolicy" prefHeight="31.0" prefWidth="156.0" text="assign new policy">
+                                                           <styleClass>
+                                                               <String fx:value="btn-large" />
+                                                               <String fx:value="login" />
+                                                           </styleClass>
+                                                       </Button>
+                                                       <ChoiceBox fx:id="league2" layoutX="27.0" layoutY="120.0" onAction="#chosenLeagueForScorePolicies" prefWidth="150.0" />
+                                                       <ChoiceBox fx:id="season" layoutX="198.0" layoutY="120.0" onAction="#chosenSeasonForPolicies" prefWidth="150.0" />
+                                                       <ChoiceBox fx:id="policy" layoutX="371.0" layoutY="120.0" prefWidth="150.0" />
+                                                       <Label fx:id="title17" layoutX="26.0" layoutY="37.0" prefHeight="39.0" prefWidth="559.0" text="To assign new Score Policy please choose:">
+                                                           <font>
+                                                               <Font size="21.0" />
+                                                           </font>
+                                                       </Label>
+                                                       <Label layoutX="199.0" layoutY="88.0" prefHeight="21.0" prefWidth="100.0" text="Season" />
+                                                       <Label layoutX="370.0" layoutY="88.0" prefHeight="21.0" prefWidth="100.0" text="Policy:" />
+
+                                                       <Label fx:id="err_policy" layoutX="33.0" layoutY="180.0" prefHeight="21.0" prefWidth="491.0" text="error" visible="false" />
+                                                       <Button fx:id="new_policy1" defaultButton="true" layoutX="541.0" layoutY="320.0" mnemonicParsing="false" onAction="#assignNewGamePolicy" prefHeight="31.0" prefWidth="156.0" text="assign new policy">
+                                                           <styleClass>
+                                                               <String fx:value="btn-large" />
+                                                               <String fx:value="login" />
+                                                           </styleClass>
+                                                       </Button>
+                                                       <ChoiceBox fx:id="league21" layoutX="27.0" layoutY="321.0" onAction="#chosenLeagueForGamePolicies" prefWidth="150.0" />
+                                                       <ChoiceBox fx:id="season1" layoutX="198.0" layoutY="321.0" onAction="#chosenSeasonForPolicies" prefWidth="150.0" />
+                                                       <ChoiceBox fx:id="policy1" layoutX="371.0" layoutY="321.0" prefWidth="150.0" />
+                                                       <Label fx:id="title171" layoutX="26.0" layoutY="238.0" prefHeight="39.0" prefWidth="559.0" text="To assign new Game Policy please choose:">
+                                                           <font>
+                                                               <Font size="21.0" />
+                                                           </font>
+                                                       </Label>
+                                                       <Label layoutX="25.0" layoutY="289.0" prefHeight="21.0" prefWidth="100.0" text="League:" />
+                                                       <Label layoutX="199.0" layoutY="289.0" prefHeight="21.0" prefWidth="100.0" text="Season" />
+                                                       <Label layoutX="370.0" layoutY="289.0" prefHeight="21.0" prefWidth="100.0" text="Policy:" />
+                                                       <Label fx:id="err_policy1" layoutX="27.0" layoutY="400.0" prefHeight="21.0" prefWidth="507.0" text="error" visible="false" />
+                                                      <Label layoutX="29.0" layoutY="90.0" prefHeight="21.0" prefWidth="100.0" text="League:" />
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
                               </Tab>
                           </tabs>
                         </TabPane>
@@ -466,7 +536,7 @@
                                                 <Font name="Roboto Regular" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label alignment="CENTER_RIGHT" layoutX="160.0" layoutY="-34.0" prefHeight="35.0" prefWidth="88.0" style="-fx-text-fill: -text-color;" styleClass="h4" text="Registered" textFill="#8d8b8b">
+                                          <Label alignment="CENTER_RIGHT" layoutX="160.0" layoutY="-34.0" prefHeight="35.0" prefWidth="88.0" style="-fx-text-fill: -text-color;" styleClass="h4" text="Buisness" textFill="#8d8b8b">
                                              <font>
                                                 <Font name="Roboto Black" size="14.0" />
                                              </font>

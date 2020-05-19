@@ -1,6 +1,7 @@
 package PresentationLayer;
 
 import Client.ClientController;
+import com.jfoenix.controls.JFXBadge;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -15,7 +16,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
@@ -27,6 +30,7 @@ import java.util.*;
 
 public class PresentationController implements Observer {
     public ClientController myClientController;
+    private Scene MainScene;
     protected Scene scene_login;
     protected Stage stage1;
     protected int sessionid;
@@ -37,10 +41,14 @@ public class PresentationController implements Observer {
 
     }
 
+    //region Fxml
     @FXML
     public Button Logout;
     public Button Register;
     public Button Login;
+    public JFXBadge messages;
+    public JFXBadge notifications;
+    public HBox alertsup;
     public TextField username1;
     public TextField username2;
     protected PasswordField password1;
@@ -52,10 +60,7 @@ public class PresentationController implements Observer {
     public Label title;
     public Label user_name_photo;
     public TabPane Alltabs;
-    public Tab guest;
-    public Tab Owner;
-    public Tab referee;
-    public Tab FanTab;
+
     public Button new_team;
     public Label error_team_name;
     public TextField team_name;
@@ -74,8 +79,9 @@ public class PresentationController implements Observer {
     public Label err_season;
     public Label err_policy;
     public Label err_policy1;
-    public TitledPane newAlerts;
-    public TextArea newalert_text;
+    public TitledPane oldAlerts;
+    public TitledPane controls;
+    public TextArea oldalert_text;
     public ChoiceBox team_chooser;
     public TextField amount;
     public ChoiceBox action;
@@ -93,21 +99,34 @@ public class PresentationController implements Observer {
     public TextField minute;
     public TextArea description_event;
     public TableView table;
-    public TableColumn<Stringshow,String > Game;
+    public TableColumn<Stringshow, String> Game;
     public TableColumn<Stringshow, String> Role;
     public VBox functionsForUsers;
-    public void set_ViewModel(ClientController vm) {
+    public StackPane root;
+
+    //endregion
+    //regionTabs
+    ArrayList<Tab> arrTabs;
+    public Tab guest;
+    public Tab create_new_team;
+    public Tab add_finanace_action;
+    public Tab watch_upcoming;
+    public Tab FanTab;
+    public Tab add_event_game_tab;
+    public Tab create_report_tab;
+    public Tab new_league_tab;
+    public Tab new_season_tab;
+    public Tab assign_policy_tab;
+    //endregion
 
 
+    public void set_ViewModel(ClientController vm, Scene welcome) {
+        this.MainScene = welcome;
         this.myClientController = vm;
     }
 
     public void init() {
-//        guest.setDisable(false);
-//        rop.setDisable(true);
-//        referee.setDisable(true);
-//        owner.setDisable(true);
-        //       FanTab.setDisable(true);
+
         ref_train.getItems().add("Expert");
         ref_train.getItems().add("Medium");
         ref_train.getItems().add("Begginer");
@@ -119,17 +138,34 @@ public class PresentationController implements Observer {
         // initScorePolicies() ;
         // initGamePolicies() ;
         // initEvents()
-
-        Button button = new Button("Close");
-
-        Button button1 = new Button("Close");
-        Button button2 = new Button("Close");
-        functionsForUsers.getChildren().addAll(button, button1,button2);
+        //Alltabs.setDisable(true);
+        arrTabs = new ArrayList<>();
+        arrTabs.add(guest);
+        arrTabs.add(create_new_team);
+        arrTabs.add(add_finanace_action);
+        arrTabs.add(watch_upcoming);
+        arrTabs.add(FanTab);
+        arrTabs.add(add_event_game_tab);
+        arrTabs.add(create_report_tab);
+        arrTabs.add(new_league_tab);
+        arrTabs.add(new_season_tab);
+        arrTabs.add(assign_policy_tab);
+        switchTab(3);
         image.setImage(new Image(getClass().getResourceAsStream("/gBMMe.png")));
 
 
     }
 
+    public void manage_tabs(Tab selected) {
+        for (Tab t : arrTabs) {
+            if (t.equals(selected)) {
+                Alltabs.getSelectionModel().select(t);
+                t.setDisable(false);
+            } else {
+                t.setDisable(true);
+            }
+        }
+    }
 
 //-------------------------------------------GUEST, REGISTRATION--------------------------------------------------
 
@@ -271,9 +307,9 @@ public class PresentationController implements Observer {
 
             HashMap<String, String> response = myClientController.logout();
             if (response.get("status").compareTo("fine") == 0) {
-                //switchTab(0);
+                manage_tabs(guest);
                 title.setText("Hi, Guest!");
-                // user_name_photo.setText("");
+                functionsForUsers.getChildren().clear();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -446,30 +482,30 @@ public class PresentationController implements Observer {
             return;
         } else {
 
-            if(table.getColumns() !=null || table.getColumns().size()>0){
+            if (table.getColumns() != null || table.getColumns().size() > 0) {
                 table.getItems().clear();
                 table.getColumns().clear();
 
             }
 
 
-                TableColumn<String, upGames> column1 = new TableColumn<>("Game");
-                column1.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            TableColumn<String, upGames> column1 = new TableColumn<>("Game");
+            column1.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 
 
-                TableColumn<String, upGames> column2 = new TableColumn<>("Role");
-                column2.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+            TableColumn<String, upGames> column2 = new TableColumn<>("Role");
+            column2.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
             table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-                table.getColumns().add(column1);
-                table.getColumns().add(column2);
+            table.getColumns().add(column1);
+            table.getColumns().add(column2);
 
-                for (Map.Entry<String, String> entry : myGames.entrySet()) {
-                    table.getItems().add(new upGames(entry.getKey(), entry.getValue()));
-                    table.getItems().add(new upGames(entry.getKey(), entry.getValue()));
-                }
+            for (Map.Entry<String, String> entry : myGames.entrySet()) {
+                table.getItems().add(new upGames(entry.getKey(), entry.getValue()));
+                table.getItems().add(new upGames(entry.getKey(), entry.getValue()));
+            }
 
-                table.setVisible(true);
+            table.setVisible(true);
 
         }
 
@@ -552,10 +588,10 @@ public class PresentationController implements Observer {
         HashMap<String, String> mess = myClientController.checkForUpdates();
 
         if (mess.get("status").compareTo("NoMessages") == 0) {
-            newAlerts.setVisible(false);
+            oldAlerts.setVisible(false);
             return;
         }
-        newAlerts.setVisible(true);
+        oldAlerts.setVisible(true);
         String s = "";
         for (String message : mess.keySet()) {
             if (mess.get(message).compareTo("NoMessages") != 0) {
@@ -564,7 +600,7 @@ public class PresentationController implements Observer {
             }
         }
 
-        newalert_text.setText(s);
+        oldalert_text.setText(s);
     }
 
     public void showNewAlerts(MouseEvent mouseEvent) {
@@ -572,83 +608,169 @@ public class PresentationController implements Observer {
         //ToDo add alerts
         Stage popupwindow = new Stage();
         popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle("new report");
-        Label label1 = new Label(sb.toString());
+        popupwindow.setTitle("new Alerts");
+        Label label1 = new Label("Mark what you have read:");
+        CheckBox checkBox1 = new CheckBox("Green");
+        CheckBox checkBox2 = new CheckBox("     test Green");
+        CheckBox checkBox3 = new CheckBox("   another messasge Green");
         Button button1 = new Button("Close  window");
         button1.setOnAction(e -> popupwindow.close());
         VBox layout = new VBox(10);
         layout.setStyle("-fx-font-size: 14pt;\n" +
-
                 "    -fx-background-color: rgba(125,163,252,0.68);");
-        layout.getChildren().addAll(label1, button1);
-        layout.setAlignment(Pos.CENTER);
+
+        layout.getChildren().addAll(label1, checkBox1, checkBox2, checkBox3, button1);
+        layout.setAlignment(Pos.CENTER_LEFT);
         Scene scene1 = new Scene(layout, 400, 250);
         popupwindow.setX(1200);
-        popupwindow.setY(150);
+        popupwindow.setY(148);
         popupwindow.setScene(scene1);
         popupwindow.showAndWait();
+
 
     }
 
     //-----------------------------------PRIVATE AND MANAGING GUI--------------------------
+    //0- guest
+    //1-owner
+    //2-referee
+    //3-Arp
+    //4-fan
+    //5-
 
-    /*
-    private void switchTab(int num,String email){
-        //1-owner
-        //2-referee
-        //3-Arp
-        //4-fan
-        //5-
+    private void switchTab(int type) {
+        if (type == 0) { //Guest
+            Logout.setVisible(false);
+            messages.setVisible(false);
+            notifications.setVisible(false);
+            controls.setVisible(false);
+            oldAlerts.setVisible(false);
+            Login.setVisible(true);
+            Register.setVisible(true);
 
-        if (num >= 0 && num < Alltabs.getTabs().size()) {
-          Alltabs.getSelectionModel().select(num);
         }
-      if (num==1){ // owner
-        guest.setDisable(true);
-          Owner.setDisable(false);
-        referee.setDisable(true);
-        Arp.setDisable(true);
-        FanTab.setDisable(true);
-        //CheckForNewMessages(email.getText());
-        initTeams
-      }
-        if (num==2){ // referee
-            guest.setDisable(true);
-            Owner.setDisable(true);
-            referee.setDisable(false);
-            Arp.setDisable(true);
-            FanTab.setDisable(true);
-            //CheckForNewMessages(email.getText());
-            initEvents
-            initOnGoingGames
-            initReportGames
+        if (type != 0) {
+            Login.setVisible(false);
+            Register.setVisible(false);
+            Logout.setVisible(true);
+            controls.setVisible(true);
+
+            //ToDo manage alert check here!
+            alertsup.setVisible(true);
+            oldAlerts.setVisible(true);
         }
-        if (num==3){ //arp
-            guest.setDisable(true);
-            Owner.setDisable(true);
-            referee.setDisable(true);
-            Arp.setDisable(false);
-            FanTab.setDisable(true);
-            //CheckForNewMessages(email.getText());
-            initTeams(email);
+        if (type == 1) {//owner
+
+            Button createnewTeam = new Button("Create new team");
+            createnewTeam.setMinWidth(250);
+            Button addFinanceAction = new Button("Add Finance action");
+            addFinanceAction.setMinWidth(250);
+            functionsForUsers.getChildren().addAll(createnewTeam, addFinanceAction);
+            createnewTeam.setOnAction((event -> {
+                manage_tabs(create_new_team);
+            }));
+            addFinanceAction.setOnAction((event -> {
+                //initTeams();
+                manage_tabs(add_finanace_action);
+
+
+            }));
         }
-        if(num==4){//fan
-            CheckForNewMessages(email.getText());
-         }
-      if(num==0){
-            guest.setDisable(false);
-          Owner.setDisable(true);
-            referee.setDisable(true);
-            Arp.setDisable(true);
-            FanTab.setDisable(true);
-            newAlerts.setVisible(false);
+        if (type == 2) {//referee
+            Button watchUp = new Button("Watch my upcoming games");
+            watchUp.setMinWidth(250);
+            watchUp.setStyle(" -fx-font-size: 12pt;");
+            Button addEvent = new Button("Add event to game");
+            addEvent.setMinWidth(250);
+            Button createreport = new Button("Create report");
+            createreport.setMinWidth(250);
+            functionsForUsers.getChildren().addAll(watchUp, addEvent, createreport);
+            watchUp.setOnAction((event -> {
+                manage_tabs(watch_upcoming);
+            }));
+            addEvent.setOnAction((event -> {
+                // initEvents();
+                // initOnGoingGames();
+                manage_tabs(add_event_game_tab);
+
+
+            }));
+            createreport.setOnAction((event -> {
+
+                //initReportGames();
+                manage_tabs(create_report_tab);
+
+
+            }));
         }
-    }*/
-    {}
-    private void setUpForOwner(){
+        if (type == 3) {//arp
+
+            Button new_leagueb = new Button("Create new league");
+            new_leagueb.setMinWidth(250);
+            Button new_seasonb = new Button("Create New Season");
+            new_seasonb.setMinWidth(250);
+            Button assign_policyb = new Button("Assign policy");
+            assign_policyb.setMinWidth(250);
+            functionsForUsers.getChildren().addAll(new_leagueb, new_seasonb, assign_policyb);
+            new_leagueb.setOnAction((event -> {
+                manage_tabs(new_league_tab);
+            }));
+            new_seasonb.setOnAction((event -> {
+                // initLeagues();
+                manage_tabs(new_season_tab);
+            }));
+            assign_policyb.setOnAction((event -> {
+
+                // initLeagues();
+                // initScorePolicies();
+                // initGamePolicies();
+                manage_tabs(assign_policy_tab);
+            }));
+        }
+        if (type==4){
+
+        }
 
     }
 
+    /*
+
+            if (num==2){ // referee
+                guest.setDisable(true);
+                Owner.setDisable(true);
+                referee.setDisable(false);
+                Arp.setDisable(true);
+                FanTab.setDisable(true);
+                //CheckForNewMessages(email.getText());
+                initEvents
+
+            }
+            if (num==3){ //arp
+                guest.setDisable(true);
+                Owner.setDisable(true);
+                referee.setDisable(true);
+                Arp.setDisable(false);
+                FanTab.setDisable(true);
+                //CheckForNewMessages(email.getText());
+                initTeams(email);
+            }
+            if(num==4){//fan
+                CheckForNewMessages(email.getText());
+             }
+          if(num==0){
+                guest.setDisable(false);
+              Owner.setDisable(true);
+                referee.setDisable(true);
+                Arp.setDisable(true);
+                FanTab.setDisable(true);
+                newAlerts.setVisible(false);
+            }
+        }*/ {
+    }
+
+    private void setUpForOwner() {
+
+    }
 
 
     private void initLeagues() {
@@ -803,8 +925,6 @@ public class PresentationController implements Observer {
     public void chosenLeagueForGamePolicies(ActionEvent actionEvent) {
         initSeasonGame((String) league21.getValue());
     }
-
-
 
 
     public static class Stringshow {
