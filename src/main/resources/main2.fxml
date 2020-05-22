@@ -31,7 +31,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PresentationLayer.PresentationController">
+<StackPane fx:id="root" prefHeight="750.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PresentationLayer.PresentationController">
    <children>
       <HBox fx:id="main" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -46,7 +46,7 @@
                <HBox fx:id="searchBox" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" styleClass="box-search">
                   <children>
                      <TextField fx:id="search" minHeight="-Infinity" prefHeight="38.0" prefWidth="185.0" promptText="Search.." style="-fx-background-color: white; -fx-border-color: black;" />
-                     <Button fx:id="clear" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" mnemonicParsing="false" onAction="#search" prefHeight="36.0" prefWidth="45.0" style="-fx-background-color: rgb(125, 163, 252); -fx-border-color: black;" styleClass="btn-transparent" text="Button" HBox.hgrow="ALWAYS">
+                     <Button fx:id="clear" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" mnemonicParsing="false" onAction="#search" prefHeight="32.0" prefWidth="45.0" style="-fx-background-color: rgb(125, 163, 252); -fx-border-color: black;" styleClass="btn-transparent" text="Button" HBox.hgrow="ALWAYS">
                         <cursor>
                            <Cursor fx:constant="HAND" />
                         </cursor>
@@ -80,23 +80,45 @@
                         </padding>
                      </TitledPane>
                      <TitledPane fx:id="controls" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="drawer-menu" text="Controls">
-                        <content>
-                           <VBox fx:id="functionsForUsers">
+                      <content>
+                          <VBox fx:id="functionsForUsers">
                               <children>
 
 
                               </children>
-                           </VBox>
-                        </content>
-                        <padding>
-                           <Insets top="10.0" />
-                        </padding>
-                     </TitledPane>
-                     <TitledPane fx:id="oldAlerts" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="256.0" prefWidth="213.0" styleClass="drawer-menu" text="Watch my old Alerts">
-                        <content>
-                           <TextArea fx:id="oldalert_text" prefHeight="200.0" prefWidth="200.0" />
-                        </content>
-                     </TitledPane>
+                          </VBox>
+                      </content>
+                      <padding>
+                          <Insets top="10.0" />
+                      </padding>
+                  </TitledPane>
+                      <TitledPane fx:id="oldAlertstab" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#oldAlerts" styleClass="drawer-menu" text="Watch my old alerts">
+                          <content>
+                              <VBox fx:id="oldmessagevbox">
+                                  <children>
+
+
+                                  </children>
+                              </VBox>
+                          </content>
+                          <padding>
+                              <Insets top="10.0" />
+                          </padding>
+                      </TitledPane>
+                      <TitledPane fx:id="newAlerttab" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="drawer-menu" onMouseClicked="#newAlertsShow" text="Watch my new alerts!">
+                          <content>
+                              <VBox fx:id="newalertsvbox">
+                                  <children>
+
+
+                                  </children>
+                              </VBox>
+                          </content>
+                          <padding>
+                              <Insets top="10.0" />
+                          </padding>
+                      </TitledPane>
+
                   </children>
                   <padding>
                      <Insets left="10.0" right="10.0" />
@@ -115,11 +137,11 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="904.0">
                      <children>
-                        <HBox fx:id="menu_bar" focusTraversable="true" prefHeight="45.0" prefWidth="891.0" spacing="10.0">
+                        <HBox fx:id="menu_bar" focusTraversable="true" prefHeight="36.0" prefWidth="997.0" spacing="10.0">
 
 
                            <children>
-                              <Label fx:id="title" layoutX="2.0" layoutY="15.0" prefHeight="30.0" prefWidth="574.0" styleClass="h4" text="Hi, Guest!" textFill="#0000008c">
+                              <Label fx:id="title" layoutX="2.0" layoutY="15.0" prefHeight="30.0" prefWidth="625.0" styleClass="h4" text="Hi, Guest!" textFill="#0000008c">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
@@ -132,26 +154,17 @@
                               </Label>
                               <Button fx:id="Register" mnemonicParsing="false" onAction="#show_Registerform" prefHeight="28.0" prefWidth="104.0" styleClass="btn-large" text="Register" />
                               <Button fx:id="Login" mnemonicParsing="false" onAction="#show_Loginform" prefHeight="28.0" prefWidth="96.0" styleClass="btn-large" text="Login" />
-                              <Button fx:id="Logout" onAction="#logout" prefHeight="28.0" prefWidth="97.0" styleClass="btn-large" text="Logout" />
+                              <Button fx:id="Logout" onAction="#logout" prefHeight="31.0" prefWidth="91.0" styleClass="btn-large" text="Logout" />
                            </children>
                         </HBox>
-                        <HBox fx:id="alertsup" alignment="TOP_CENTER" prefHeight="41.0" prefWidth="148.0">
+                        <HBox fx:id="alertsup" alignment="TOP_CENTER" prefHeight="36.0" prefWidth="99.0">
                            <children>
-                              <JFXBadge fx:id="notifications" position="TOP_RIGHT" prefHeight="44.0" prefWidth="35.0" text="16" visible="true">
-                                 <styleClass>
-                                    <String fx:value="icon" />
-                                    <String fx:value="icon-warning" />
-                                 </styleClass>
+                              <JFXBadge fx:id="messages" layoutX="759.0" layoutY="12.0" position="TOP_RIGHT" prefHeight="36.0" prefWidth="54.0" styleClass="icon" text="12">
                                  <children>
-                                    <FontAwesomeIconView fx:id="something" glyphName="BELL" onMouseClicked="#showNewAlerts" size="16" style="-fx-fill: white" text="  New Alerts " wrappingWidth="109.0" />
+                                    <FontAwesomeIconView glyphName="ENVELOPE" size="20" styleClass="icon" text="" wrappingWidth="14.0" />
                                  </children>
                               </JFXBadge>
-                              <JFXBadge fx:id="messages" layoutX="759.0" layoutY="12.0" position="TOP_RIGHT" prefHeight="44.0" prefWidth="35.0" styleClass="icon" text="12">
-                                 <children>
-                                    <FontAwesomeIconView glyphName="ENVELOPE" size="20" styleClass="icon" text="" wrappingWidth="32.0" />
-                                 </children>
-                              </JFXBadge>
-                              <JFXButton fx:id="config" contentDisplay="GRAPHIC_ONLY" prefHeight="83.0" prefWidth="40.0" ripplerFill="BLACK" text="Button">
+                              <JFXButton fx:id="config" contentDisplay="GRAPHIC_ONLY" prefHeight="36.0" prefWidth="46.0" ripplerFill="BLACK" text="Button">
                                  <graphic>
                                     <SVGPath content="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="#00000080" styleClass="icon" />
                                  </graphic>
@@ -508,7 +521,7 @@
                               </Tab>
                           </tabs>
                         </TabPane>
-                        <VBox fx:id="test" layoutX="740.0" layoutY="160.0" prefHeight="719.0" prefWidth="339.0">
+                        <VBox fx:id="test" layoutX="740.0" layoutY="140.0" prefHeight="719.0" prefWidth="339.0">
                            <children>
                               <Group>
                                  <children>

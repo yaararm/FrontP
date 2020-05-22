@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
 <?import java.lang.*?>
-<StackPane prefHeight="422.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PresentationLayer.PresentationController">
+<StackPane prefHeight="422.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PresentationLayer.PresentationController" style="-fx-background-color: white;">
 
    <padding>
       <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />

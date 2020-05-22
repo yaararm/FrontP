@@ -25,7 +25,7 @@ public class ClientController extends Observable implements Observer {
     private HashMap<String, String> futureGames;
     private HashMap<String, String> editGames;
     private HashMap<String, String> unseenMessage;
-    private HashMap<String, String> getUnseenMessage;
+    private HashMap<String, String> oldmessage;
 
     public int getUserType() {
         return userType;
@@ -262,23 +262,50 @@ public class ClientController extends Observable implements Observer {
 
     //-----------------------------------Fan------------------------------------
 
-    //input: email
+    //input:
     //output: map: status, message
-    public HashMap<String, String> checkForUpdates() {
+    public HashMap<String, String> checkForOldUpdates() {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         Map<String, String> toServer = new HashMap<>();
         toServer.put("sid", String.valueOf(sessionid));
-        HashMap<String, String> response = restTemplate.postForObject(localhost + "checkForUpdates", toServer, HashMap.class);
+        HashMap<String, String> response = restTemplate.postForObject(localhost + " getSeenAlerts", toServer, HashMap.class);
 
-
+        oldmessage = response;
         return response;
 
     }
+    //input:
+    //output: map: status, message
+    public HashMap<String, String> checkForNewUpdates() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("sid", String.valueOf(sessionid));
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "  getUnseenAlerts", toServer, HashMap.class);
 
+        unseenMessage = response;
+        return response;
 
+    }
+    //input: new seen message
+    //output: map: status, message
+    public void setAlertsToSeen() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        Map<String, String> toServer = unseenMessage;
+        toServer.put("sid", String.valueOf(sessionid));
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "  setAlertToSeen", toServer, HashMap.class);
+
+        unseenMessage.clear();
+
+    }
     //-----------------------------------referee-------------------------
     public HashMap<String, String> addEventToGame(String game, String event, String minute, String description) {
         RestTemplate restTemplate = new RestTemplate();
@@ -489,6 +516,7 @@ public class ClientController extends Observable implements Observer {
         }
         return null;
     }
+
 
 
 }

@@ -251,7 +251,7 @@
 
 .tab-pane:top .tab-header-area .tab-header-background
 {
-    -fx-border-color : -separator-color;
+    -fx-border-color : transparent;
 }
 
 .tab-pane:top .tab-header-area .headers-region .tab:selected:top

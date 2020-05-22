@@ -17,10 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -58,10 +56,7 @@ public class PresentationController implements Observer {
     public Label lbl_error;
     public Label lbl_email;
     public Label title;
-    public Label user_name_photo;
     public TabPane Alltabs;
-
-    public Button new_team;
     public Label error_team_name;
     public TextField team_name;
     public ChoiceBox ref_train;
@@ -79,7 +74,7 @@ public class PresentationController implements Observer {
     public Label err_season;
     public Label err_policy;
     public Label err_policy1;
-    public TitledPane oldAlerts;
+
     public TitledPane controls;
     public TextArea oldalert_text;
     public ChoiceBox team_chooser;
@@ -87,10 +82,8 @@ public class PresentationController implements Observer {
     public ChoiceBox action;
     public TextArea description;
     public Label error_finance;
-    public Circle user_photo;
     public ImageView image;
     public Label error_upcomings_game;
-    public Pane for_table;
     public ChoiceBox game_chooser;
     public ChoiceBox game_chooser1;
     public ChoiceBox type_event;
@@ -99,10 +92,13 @@ public class PresentationController implements Observer {
     public TextField minute;
     public TextArea description_event;
     public TableView table;
-    public TableColumn<Stringshow, String> Game;
-    public TableColumn<Stringshow, String> Role;
     public VBox functionsForUsers;
     public StackPane root;
+    public TitledPane oldAlertstab;
+    public TitledPane newAlerttab;
+    public TitledPane watch_result;
+    public VBox newalertsvbox;
+    public VBox oldmessagevbox;
 
     //endregion
     //regionTabs
@@ -132,13 +128,6 @@ public class PresentationController implements Observer {
         ref_train.getItems().add("Begginer");
         action.getItems().add("Income");
         action.getItems().add("Expense");
-        // Image im  = new Image( "/resources/user.png");
-        //  user_photo.setFill(new ImagePattern(im));
-        //initLeagues();
-        // initScorePolicies() ;
-        // initGamePolicies() ;
-        // initEvents()
-        //Alltabs.setDisable(true);
         arrTabs = new ArrayList<>();
         arrTabs.add(guest);
         arrTabs.add(create_new_team);
@@ -150,7 +139,7 @@ public class PresentationController implements Observer {
         arrTabs.add(new_league_tab);
         arrTabs.add(new_season_tab);
         arrTabs.add(assign_policy_tab);
-        switchTab(3);
+        switchTab(0);
         image.setImage(new Image(getClass().getResourceAsStream("/gBMMe.png")));
 
 
@@ -176,7 +165,13 @@ public class PresentationController implements Observer {
             stage.setTitle("Register");
             FXMLLoader fxmlLoader12 = new FXMLLoader();
             Parent root = fxmlLoader12.load(getClass().getResource("/account.fxml").openStream());
-            Scene scene = new Scene(root, 800, 500);
+            Scene scene = new Scene(root, 750, 500);
+            scene.getStylesheets().addAll( getClass().getResource("/material-color.css").toExternalForm(),
+                    getClass().getResource("/skeleton.css").toExternalForm(), // buttons
+                    getClass().getResource("/light.css").toExternalForm(),
+                    getClass().getResource("/helpers.css").toExternalForm(),
+                    getClass().getResource("/master.css").toExternalForm(),
+                    getClass().getResource("/yaara.css").toExternalForm());
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
 
@@ -216,7 +211,7 @@ public class PresentationController implements Observer {
 
                         title.setText("Hi, " + myClientController.getFullName() + "!");
 
-                        //switchTab( myClientController.getUserType());
+                        //switchTab(4);
                         //CheckForNewMessages( myClientController.getUserEmail());
                         stage.close();
 
@@ -239,10 +234,16 @@ public class PresentationController implements Observer {
         try {
             stage1 = new Stage();
             stage1.setResizable(false);
-            stage1.setTitle("Register");
+            stage1.setTitle("Login");
             FXMLLoader fxmlLoader12 = new FXMLLoader();
             Parent root = fxmlLoader12.load(getClass().getResource("/login.fxml").openStream());
             scene_login = new Scene(root, 600, 400);
+            scene_login.getStylesheets().addAll( getClass().getResource("/material-color.css").toExternalForm(),
+                    getClass().getResource("/skeleton.css").toExternalForm(), // buttons
+                    getClass().getResource("/light.css").toExternalForm(),
+                    getClass().getResource("/helpers.css").toExternalForm(),
+                    getClass().getResource("/master.css").toExternalForm(),
+                    getClass().getResource("/yaara.css").toExternalForm());
             stage1.setScene(scene_login);
             stage1.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
 
@@ -281,7 +282,7 @@ public class PresentationController implements Observer {
 
                     stage1.close();
                     //switchTab( myClientController.getUserType());
-                    //ToDo shange tab' change for tomer;
+
                 }
 
             }));
@@ -584,25 +585,72 @@ public class PresentationController implements Observer {
 
 
     //------------------------------------------Fan-------------------------------------
-    public void CheckForNewMessages(String email) {
-        HashMap<String, String> mess = myClientController.checkForUpdates();
+    public void CheckForOldMessages() {
+        HashMap<String, String> mess = new HashMap<>();//myClientController.checkForOldUpdates();
+               mess.put("1","kjfdhsjkfhjsd");
+               mess.put("2", "arsenal won the derby!");
+               mess.put("3", "yalla hapoel");
+//        if (mess.get("amount").compareTo("0") == 0) {
+//            oldAlertstab.setVisible(false);
+//            return;
+//        }
+       // mess.remove("status");
+        //  mess.remove("amount");
 
-        if (mess.get("status").compareTo("NoMessages") == 0) {
-            oldAlerts.setVisible(false);
-            return;
-        }
-        oldAlerts.setVisible(true);
-        String s = "";
+        oldAlertstab.setVisible(true);
+        StringBuilder s = new StringBuilder();
         for (String message : mess.keySet()) {
-            if (mess.get(message).compareTo("NoMessages") != 0) {
-
-                s += mess.get(message) + "\n";
+              s.append( mess.get(message) + "\n"  );
             }
-        }
 
-        oldalert_text.setText(s);
+        TextArea oldText = new TextArea();
+        oldText.setText(s.toString());
+        if (oldmessagevbox.getChildren()!=null || oldmessagevbox.getChildren().size()>0){
+            oldmessagevbox.getChildren().clear();
+        }
+        oldmessagevbox.getChildren().add(oldText);
     }
 
+    public void checkForNewMessage(){
+        HashMap<String, String> mess = new HashMap<>(); //myClientController.checkForNewUpdates();
+                mess.put("1","kjfdhsjkfhjsd");
+        mess.put("2", "arsenal won the derby!");
+        mess.put("3", "yalla hapoel");
+//        if (mess.get("amount").compareTo("0") == 0) {
+//            newAlerttab.setVisible(false);
+//            return;
+//        }
+       // mess.remove("status");
+       // mess.remove("amount");
+        newAlerttab.setVisible(true);
+        StringBuilder s = new StringBuilder();
+        for (String message : mess.keySet()) {
+           s.append( mess.get(message) + "\n"  );
+        }
+        Button archives = new Button("Move to archives");
+        archives.setMinWidth(250);
+
+        TextArea newText = new TextArea();
+        newText.setText(s.toString());
+        if (newalertsvbox.getChildren()!=null || newalertsvbox.getChildren().size()>0){
+            newalertsvbox.getChildren().clear();
+        }
+        newalertsvbox.getChildren().addAll(newText,archives);
+        archives.setOnAction((event -> {
+
+            mess.clear();
+            newText.setText("");
+            myClientController.setAlertsToSeen();
+        }));
+
+    }
+    public void oldAlerts(MouseEvent mouseEvent) {
+        CheckForOldMessages();
+    }
+
+    public void newAlertsShow(MouseEvent mouseEvent) {
+        checkForNewMessage();
+    }
     public void showNewAlerts(MouseEvent mouseEvent) {
         StringBuilder sb = new StringBuilder();
         //ToDo add alerts
@@ -642,11 +690,13 @@ public class PresentationController implements Observer {
         if (type == 0) { //Guest
             Logout.setVisible(false);
             messages.setVisible(false);
-            notifications.setVisible(false);
+           // notifications.setVisible(false);
             controls.setVisible(false);
-            oldAlerts.setVisible(false);
+            oldAlertstab.setVisible(false);
+            newAlerttab.setVisible(false);
             Login.setVisible(true);
             Register.setVisible(true);
+
 
         }
         if (type != 0) {
@@ -656,8 +706,8 @@ public class PresentationController implements Observer {
             controls.setVisible(true);
 
             //ToDo manage alert check here!
-            alertsup.setVisible(true);
-            oldAlerts.setVisible(true);
+            CheckForOldMessages();
+            checkForNewMessage();
         }
         if (type == 1) {//owner
 
@@ -689,7 +739,7 @@ public class PresentationController implements Observer {
                 manage_tabs(watch_upcoming);
             }));
             addEvent.setOnAction((event -> {
-                // initEvents();
+                 initEvents();
                 // initOnGoingGames();
                 manage_tabs(add_event_game_tab);
 
@@ -730,45 +780,6 @@ public class PresentationController implements Observer {
         if (type==4){
 
         }
-
-    }
-
-    /*
-
-            if (num==2){ // referee
-                guest.setDisable(true);
-                Owner.setDisable(true);
-                referee.setDisable(false);
-                Arp.setDisable(true);
-                FanTab.setDisable(true);
-                //CheckForNewMessages(email.getText());
-                initEvents
-
-            }
-            if (num==3){ //arp
-                guest.setDisable(true);
-                Owner.setDisable(true);
-                referee.setDisable(true);
-                Arp.setDisable(false);
-                FanTab.setDisable(true);
-                //CheckForNewMessages(email.getText());
-                initTeams(email);
-            }
-            if(num==4){//fan
-                CheckForNewMessages(email.getText());
-             }
-          if(num==0){
-                guest.setDisable(false);
-              Owner.setDisable(true);
-                referee.setDisable(true);
-                Arp.setDisable(true);
-                FanTab.setDisable(true);
-                newAlerts.setVisible(false);
-            }
-        }*/ {
-    }
-
-    private void setUpForOwner() {
 
     }
 
@@ -843,10 +854,8 @@ public class PresentationController implements Observer {
     }
 
     private void initEvents() {
-        ArrayList<String> events = myClientController.getAllPossibleEvents();
-        for (String name : events) {
-            type_event.getItems().add(name);
-        }
+
+                    type_event.getItems().addAll( "Goal","Offside","Offense","RedTicket","YellowTicket","Injury","Substitute");
     }
 
     private void initOnGoingGames() {
@@ -925,6 +934,7 @@ public class PresentationController implements Observer {
     public void chosenLeagueForGamePolicies(ActionEvent actionEvent) {
         initSeasonGame((String) league21.getValue());
     }
+
 
 
     public static class Stringshow {
