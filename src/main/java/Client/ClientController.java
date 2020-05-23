@@ -1,6 +1,5 @@
 package Client;
 
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
@@ -78,7 +77,7 @@ public class ClientController extends Observable implements Observer {
         toServer.put("password", password);
 
         // send POST request
-        HashMap<String, String> response = restTemplate.postForObject(localhost + "login/", toServer, HashMap.class);
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "login", toServer, HashMap.class);
         if (response.get("status").compareTo("fine") == 0) {
             sessionid = Integer.parseInt(response.get("sid"));
             userType = Integer.parseInt(response.get("type"));
@@ -107,7 +106,7 @@ public class ClientController extends Observable implements Observer {
         // request body parameters
         toServer.put("firstname", first);
         toServer.put("lastname", last);
-        toServer.put("username", email);
+        toServer.put("email", email);
         toServer.put("password", passwordEncryped);
 
         HashMap<String, String> ans = restTemplate.postForObject(localhost + "register", toServer, HashMap.class);
@@ -136,9 +135,6 @@ public class ClientController extends Observable implements Observer {
         // request body parameters
         Map<String, String> toServer = new HashMap<>();
         toServer.put("sid", String.valueOf(sessionid));
-
-        // build the request
-        HttpEntity<Map<String, String>> entity = new HttpEntity<>(toServer, headers);
 
         // send POST request
         HashMap<String, String> response = restTemplate.postForObject(localhost + "logout", toServer, HashMap.class);

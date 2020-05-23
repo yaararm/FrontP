@@ -53,8 +53,8 @@ public class PresentationController implements Observer {
     public HBox alertsup;
     public TextField username1;
     public TextField username2;
-    protected PasswordField password1;
-    protected PasswordField password2;
+    public PasswordField password1;
+    public PasswordField password2;
     public Label lbl_username_login;
     public Label lbl_password;
     public Label lbl_error;
@@ -823,7 +823,7 @@ public class PresentationController implements Observer {
             newAlerttab.setVisible(false);
             Login.setVisible(true);
             Register.setVisible(true);
-
+            manage_tabs(guest);
 
         }
         if (type != 0) {
