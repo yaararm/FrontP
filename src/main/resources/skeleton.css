@@ -108,7 +108,7 @@
 
 .tab-pane:top .tab-header-area .headers-region .tab:selected:top
 {
-  -fx-border-width : 2px 0px 2px 0px;
+  -fx-border-width : 1px 0px 1px 0px;
 }
 
 /************************************************************************************
@@ -267,7 +267,7 @@
 
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label
 {
-    -fx-pref-width : 100px;
+    -fx-pref-width : 10px;
 }
 
 /************************************************************************************

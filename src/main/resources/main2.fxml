@@ -105,7 +105,7 @@
                               <Insets top="10.0" />
                           </padding>
                       </TitledPane>
-                      <TitledPane fx:id="newAlerttab" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="drawer-menu" onMouseClicked="#newAlertsShow" text="Watch my new alerts!">
+                      <TitledPane fx:id="newAlerttab" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#newAlertsShow" styleClass="drawer-menu" text="Watch my new alerts!">
                           <content>
                               <VBox fx:id="newalertsvbox">
                                   <children>
@@ -389,7 +389,7 @@
                                                    </font>
                                                </Label>
                                                <ChoiceBox fx:id="game_chooser" layoutX="42.0" layoutY="120.0" prefWidth="150.0" />
-                                               <TextField fx:id="minute" layoutX="37.0" layoutY="348.0" prefHeight="31.0" prefWidth="152.0" promptText="amount" />
+                                               <TextField fx:id="minute" layoutX="37.0" layoutY="348.0" prefHeight="31.0" prefWidth="152.0" promptText="minute" />
                                                <Button fx:id="add_event" defaultButton="true" layoutX="483.0" layoutY="490.0" mnemonicParsing="false" onAction="#addEventToGame" prefHeight="31.0" prefWidth="156.0" text="add event to game">
                                                    <styleClass>
                                                        <String fx:value="btn-large" />
@@ -515,6 +515,48 @@
                                                 </Pane>
                                              </children>
                                           </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="edit_game_tab" text="r">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Pane fx:id="pane243" layoutY="1.0" prefHeight="718.0" prefWidth="716.0">
+                                             <children>
+                                                <Label fx:id="error_edit_game" layoutX="33.0" layoutY="135.0" prefHeight="27.0" prefWidth="458.0" text="error" visible="false" />
+                                                <Label fx:id="title191" layoutX="28.0" layoutY="25.0" prefHeight="39.0" prefWidth="356.0" text="Choose game to edit:" >
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                 <TableView fx:id="table_edit" layoutX="66.0" layoutY="200.0" prefHeight="287.0" prefWidth="588.0" visible="false" />
+                                                <ChoiceBox fx:id="game_edit_chooser" layoutX="32.0" layoutY="81.0" onAction="#chosenGameToEdit" prefWidth="150.0" />
+                                                <Button fx:id="delete_row" defaultButton="true" layoutX="279.0" layoutY="538.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="31.0" prefWidth="156.0" text="delete row" visible="false">
+                                                   <styleClass>
+                                                      <String fx:value="btn-large" />
+                                                      <String fx:value="login" />
+                                                   </styleClass>
+                                                </Button>
+                                                <Label fx:id="title1911" layoutX="69.0" layoutY="149.0" prefHeight="39.0" prefWidth="481.0" text="Choose the event you want to edit:" visible="false">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+
+                                                <Label fx:id="err_edit_event" layoutX="66.0" layoutY="500.0" prefHeight="31.0" prefWidth="588.0">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="reminder" layoutX="33.0" layoutY="600.0" prefHeight="31.0" prefWidth="669.0" text="Reminder, event types are: Goal,Offside,Offense,RedTicket,YellowTicket,Injury,Substitute" visible="false">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </Pane>
                                        </children>
                                     </AnchorPane>
                                  </content>

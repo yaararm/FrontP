@@ -22,7 +22,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader1 = new FXMLLoader();
             Parent root = fxmlLoader1.load(getClass().getResource("/main2.fxml").openStream());
             primaryStage.setTitle("Football Association System");
-            Scene welcome = new Scene(root, 1300, 800);
+            Scene welcome = new Scene(root, 1350, 800);
             welcome.getStylesheets().addAll(
                   //  getClass().getResource("/fonts.css").toExternalForm()
                     getClass().getResource("/material-color.css").toExternalForm(),

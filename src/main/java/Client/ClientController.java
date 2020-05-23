@@ -17,6 +17,7 @@ public class ClientController extends Observable implements Observer {
     private int userType = 0;
     private String userEmail;
     private String fullName;
+    public String isEditGame;
     private HashMap<String, String> leagues;
     private HashMap<String, String> seasons;
     private HashMap<String, String> policies;
@@ -24,8 +25,10 @@ public class ClientController extends Observable implements Observer {
     private HashMap<String, String> onGoingGames;
     private HashMap<String, String> futureGames;
     private HashMap<String, String> editGames;
+    private HashMap<String, String> reportGames;
     private HashMap<String, String> unseenMessage;
     private HashMap<String, String> oldmessage;
+    private ArrayList<eventDetails> beforeEdit;
 
     public int getUserType() {
         return userType;
@@ -146,7 +149,15 @@ public class ClientController extends Observable implements Observer {
             fullName = "";
             leagues.clear();
             seasons.clear();
+            policies.clear();
             Teams.clear();
+            onGoingGames.clear();
+            futureGames.clear();
+            editGames.clear();
+            reportGames.clear();
+            unseenMessage.clear();
+            oldmessage.clear();
+            isEditGame="";
 
         }
         return response;
@@ -304,6 +315,7 @@ public class ClientController extends Observable implements Observer {
         HashMap<String, String> response = restTemplate.postForObject(localhost + "  setAlertToSeen", toServer, HashMap.class);
 
         unseenMessage.clear();
+        //checkForOldUpdates(); maybe
 
     }
     //-----------------------------------referee-------------------------
@@ -339,6 +351,33 @@ public class ClientController extends Observable implements Observer {
         toServer.put("username", userEmail);
 
         HashMap<String, String> response = restTemplate.postForObject(localhost + "createReport", toServer, HashMap.class);
+        return response;
+    }
+
+    //input: event id
+    //output:status
+    public   HashMap<String, String> deleteEvent(String event, String min, String desc, String num) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("sid", String.valueOf(sessionid));
+        toServer.put("event", beforeEdit.get(Integer.parseInt(num)).get_id());
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "deleteEvent", toServer, HashMap.class);
+        return response;
+    }
+    //input: event id, details
+    //output:status
+    public   HashMap<String, String> editEvent(int index, HashMap<String, String> edit) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        edit.put("sid", String.valueOf(sessionid));
+        edit.put("event",beforeEdit.get(index).get_id());
+       edit.put("game", getKeyByValue(editGames,isEditGame));
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "editEvent", edit, HashMap.class);
         return response;
     }
 
@@ -501,11 +540,52 @@ public class ClientController extends Observable implements Observer {
         if (response.get("status").compareTo("fine") == 0) {
 
             response.remove("status");
-            editGames = response;
+            reportGames = response;
         }
         return response;
 
     }
+
+    //input: referee user name
+    //output: all possible games of for edit- important- i need amount here
+    public HashMap<String, String> getGamesForEdit() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("sid", String.valueOf(sessionid));
+        toServer.put("username", userEmail);
+
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "getGamesForEdit", toServer, HashMap.class);
+        if (response.get("status").compareTo("fine") == 0) {
+
+            response.remove("status");
+            editGames = response;
+        }
+        return response;
+
+
+    }
+    //input: game id
+    //output: arraylist<event>
+    public ArrayList<eventDetails> getGameEventsToEdit(String gamename) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("sid", String.valueOf(sessionid));
+        toServer.put("username", userEmail);
+        toServer.put("game", getKeyByValue(editGames,gamename));
+        isEditGame = gamename;
+        ArrayList<eventDetails> response = restTemplate.postForObject(localhost + "getGameEventsToEdit", toServer, ArrayList.class);
+
+        return response;
+
+
+    }
+
 
     //----------------------------------------------HELPERS--------------------------
     public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
@@ -517,6 +597,68 @@ public class ClientController extends Observable implements Observer {
         return null;
     }
 
+
+
+
+    public static class eventDetails{
+        private String eventType;
+        private String eventMinute;
+        private String description;
+        private String referee;
+        private String _id;
+
+
+        public eventDetails(String eventType, String eventMinute, String description, String referee, String id) {
+            this.description=description;
+            this.eventMinute=eventMinute;
+            this.eventType=eventType;
+            this.referee=referee;
+            this._id = id;
+        }
+//        public String getGameID() {
+//            return gameID;
+//        }
+//
+//        public String getGameName() {
+//            return gameName;
+//        }
+
+        public String getEventType() {
+            return eventType;
+        }
+
+        public String getMinute() {
+            return eventMinute;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getRefereeID() {
+            return referee;
+        }
+
+        public String get_id() {
+            return _id;
+        }
+
+        public void setEventType(String eventType) {
+            this.eventType = eventType;
+        }
+
+        public void setMinute(String minute) {
+            this.eventMinute = minute;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setRefereeID(String refereeID) {
+            this.referee = refereeID;
+        }
+    }
 
 
 }
