@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 
@@ -17,17 +18,20 @@ public class ClientController extends Observable implements Observer {
     private String userEmail;
     private String fullName;
     public String isEditGame;
-    private HashMap<String, String> leagues;
-    private HashMap<String, String> seasons;
-    private HashMap<String, String> policies;
-    private HashMap<String, String> Teams;
-    private HashMap<String, String> onGoingGames;
-    private HashMap<String, String> futureGames;
-    private HashMap<String, String> editGames;
-    private HashMap<String, String> reportGames;
-    private HashMap<String, String> unseenMessage;
-    private HashMap<String, String> oldmessage;
-    private ArrayList<eventDetails> beforeEdit;
+    private HashMap<String, String> leagues = new HashMap<>();
+    private HashMap<String, String> seasons= new HashMap<>();
+    private HashMap<String, String> policies= new HashMap<>();
+    private HashMap<String, String> Teams= new HashMap<>();
+    private HashMap<String, String> onGoingGames= new HashMap<>();
+    private HashMap<String, String> futureGames= new HashMap<>();
+    private HashMap<String, String> editGames= new HashMap<>();
+    private HashMap<String, String> reportGames= new HashMap<>();
+    private HashMap<String, String> unseenMessage= new HashMap<>();
+    private HashMap<String, String> oldmessage= new HashMap<>();
+    private ArrayList<eventDetails> beforeEdit= new ArrayList<>();
+    private HashMap<String, String> gamesToFollow= new HashMap<>();
+    private HashMap<String, String> TeamsToFollow= new HashMap<>();
+
 
     public int getUserType() {
         return userType;
@@ -42,9 +46,7 @@ public class ClientController extends Observable implements Observer {
     }
 
     public ClientController() {
-
-        localhost = "http://localhost:8083/";
-
+        localhost = "http://localhost:8107/";
     }
 
     @Override
@@ -53,6 +55,7 @@ public class ClientController extends Observable implements Observer {
 
     }
 
+    //region guest
     //input: map: email,password
     //output: map: status, type of user, ssesion id
     // return the number of the users
@@ -153,6 +156,9 @@ public class ClientController extends Observable implements Observer {
             reportGames.clear();
             unseenMessage.clear();
             oldmessage.clear();
+            gamesToFollow.clear();
+            TeamsToFollow.clear();
+
             isEditGame="";
 
         }
@@ -161,7 +167,24 @@ public class ClientController extends Observable implements Observer {
 
     }
 
+    //input: search word
+    //output: result- fine if there are, error if not
+    public HashMap<String, ArrayList<String>> search(String search) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("sid", String.valueOf(sessionid));
+        toServer.put("search", search);
+
+        HashMap<String, ArrayList<String>> response = restTemplate.postForObject(localhost + "search", toServer, HashMap.class);
+        return response;
+
+    }
+    //endregion
     //-----------------------------------owner------------------------------------
+
     //input: String: team name
     //output: String: status
     public HashMap<String, String> creatNewTeam(String teamName) {
@@ -220,15 +243,16 @@ public class ClientController extends Observable implements Observer {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         Map<String, String> toServer = new HashMap<>();
-        Date startDate = new Date(date.toEpochDay());
-        int month = date.getMonthValue();
-        int day = date.getDayOfMonth();
+//        Date startDate = new Date(date.toEpochDay());
+//        int month = date.getMonthValue();
+//        int day = date.getDayOfMonth();
         int year = date.getYear();
+        ZoneId zoneId = ZoneId.systemDefault(); // or: ZoneId.of("Europe/Oslo");
+        long epoch = date.atStartOfDay(zoneId).toEpochSecond();
         toServer.put("sid", String.valueOf(sessionid));
         toServer.put("leagueID", getKeyByValue(leagues, leaguename));
         toServer.put("year", String.valueOf(year));
-        toServer.put("Day", String.valueOf(day));
-        toServer.put("month", String.valueOf(month));
+        toServer.put("startDate",String.valueOf(epoch));
         HashMap<String, String> response = restTemplate.postForObject(localhost + "creatNewSeason", toServer, HashMap.class);
         return response;
 
@@ -314,6 +338,33 @@ public class ClientController extends Observable implements Observer {
         //checkForOldUpdates(); maybe
 
     }
+
+
+    //input: sid, map<type,id to follow>
+    //output: fine
+    public HashMap<String, String> followGame(String type, String value) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("sid", String.valueOf(sessionid));
+        if (type.equals("team")){
+            toServer.put("type" ,type);
+            toServer.put("id" ,getKeyByValue(TeamsToFollow,value));
+        }
+        else if (type.equals("game")){
+            toServer.put("type" ,type);
+            toServer.put("id" ,getKeyByValue(gamesToFollow,value));
+        }
+
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "followGame", toServer, HashMap.class);
+        return response;
+
+
+    }
+
     //-----------------------------------referee-------------------------
     public HashMap<String, String> addEventToGame(String game, String event, String minute, String description) {
         RestTemplate restTemplate = new RestTemplate();
@@ -378,6 +429,8 @@ public class ClientController extends Observable implements Observer {
     }
 
     //--------------------------------------getters---------------------
+
+    //region getters
     //input:
     //output: all leagues name
     public HashMap<String, String> getAllLeagues() {
@@ -393,6 +446,7 @@ public class ClientController extends Observable implements Observer {
         if (response.get("status").compareTo("fine") == 0) {
             leagues = response;
             leagues.remove("status");
+            leagues.remove("amount");
         }
         return leagues;
     }
@@ -406,12 +460,13 @@ public class ClientController extends Observable implements Observer {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         Map<String, String> toServer = new HashMap<>();
         toServer.put("sid", String.valueOf(sessionid));
-        toServer.put("leaugueID", getKeyByValue(leagues, leagueName));
+        toServer.put("leagueID", getKeyByValue(leagues, leagueName));
 
         HashMap<String, String> response = restTemplate.postForObject(localhost + "getAllSeasons", toServer, HashMap.class);
         if (response.get("status").compareTo("fine") == 0) {
             seasons = response;
             seasons.remove("status");
+            seasons.remove("amount");
         }
         return response;
     }
@@ -429,7 +484,7 @@ public class ClientController extends Observable implements Observer {
 
         ArrayList<String> response = restTemplate.postForObject(localhost + "getAllScorePolicies", toServer, ArrayList.class);
         return response;
-    }
+    } // no amount
 
     public ArrayList<String> getAllGamePolicies() {
         RestTemplate restTemplate = new RestTemplate();
@@ -442,7 +497,7 @@ public class ClientController extends Observable implements Observer {
 
         ArrayList<String> response = restTemplate.postForObject(localhost + "getAllGamePolicies", toServer, ArrayList.class);
         return response;
-    }
+    } //no amount
 
     //input: leaguename, year, start date
     //output: Status;
@@ -460,8 +515,9 @@ public class ClientController extends Observable implements Observer {
 
             response.remove("status");
             Teams = response;
+            Teams.remove("amount");
         }
-        return response;
+        return Teams;
     }
 
 
@@ -476,9 +532,9 @@ public class ClientController extends Observable implements Observer {
         toServer.put("sid", String.valueOf(sessionid));
         toServer.put("username", userEmail);
 
-        HashMap<String, String> response = restTemplate.postForObject(localhost + "getMyUpcomingsGames", toServer, HashMap.class);
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "upcomingGames", toServer, HashMap.class);
         if (response.get("status").compareTo("fine") == 0) {
-
+            response.remove("amount");
             response.remove("status");
             futureGames = response;
         }
@@ -515,6 +571,7 @@ public class ClientController extends Observable implements Observer {
         if (response.get("status").compareTo("fine") == 0) {
 
             response.remove("status");
+            response.remove("amount");
             onGoingGames = response;
         }
         return response;
@@ -536,6 +593,7 @@ public class ClientController extends Observable implements Observer {
         if (response.get("status").compareTo("fine") == 0) {
 
             response.remove("status");
+            response.remove("amount");
             reportGames = response;
         }
         return response;
@@ -557,6 +615,7 @@ public class ClientController extends Observable implements Observer {
         if (response.get("status").compareTo("fine") == 0) {
 
             response.remove("status");
+            response.remove("amount");
             editGames = response;
         }
         return response;
@@ -581,6 +640,47 @@ public class ClientController extends Observable implements Observer {
 
 
     }
+      //input:
+    //output: all teams in the system
+    public HashMap<String, String> getAllTeamsFollow() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("sid", String.valueOf(sessionid));
+
+
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "getAllTeamsFollow", toServer, HashMap.class);
+        if (response.get("status").compareTo("fine") == 0) {
+            response.remove("amount");
+            response.remove("status");
+            TeamsToFollow = response;
+        }
+        return response;
+    }
+    //input:
+    //output: all games of team in the system
+    public HashMap<String, String> getGamesFollow(String teamName) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        Map<String, String> toServer = new HashMap<>();
+        toServer.put("sid", String.valueOf(sessionid));
+        toServer.put("teamID", getKeyByValue(TeamsToFollow,teamName));
+
+        HashMap<String, String> response = restTemplate.postForObject(localhost + "getGamesFollow", toServer, HashMap.class);
+        if (response.get("status").compareTo("fine") == 0) {
+            response.remove("amount");
+            response.remove("status");
+            gamesToFollow = response;
+        }
+        return response;
+
+    }
+    //endregion
 
 
     //----------------------------------------------HELPERS--------------------------
@@ -592,8 +692,6 @@ public class ClientController extends Observable implements Observer {
         }
         return null;
     }
-
-
 
 
     public static class eventDetails{

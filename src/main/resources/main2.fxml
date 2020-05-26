@@ -35,17 +35,17 @@
    <children>
       <HBox fx:id="main" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <VBox fx:id="drawer" alignment="TOP_CENTER" prefHeight="651.0" prefWidth="250.0">
-               <VBox fx:id="info" alignment="CENTER" minHeight="-Infinity" prefHeight="220.0" prefWidth="246.0">
+            <VBox fx:id="drawer" alignment="TOP_CENTER" minWidth="250.0" prefHeight="750.0" prefWidth="290.0">
+               <VBox fx:id="info" alignment="CENTER" minHeight="-Infinity" minWidth="250.0" prefHeight="220.0" prefWidth="280.0">
                   <children>
                      <ImageView fx:id="image" fitHeight="260.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" />
                   </children>
                </VBox>
                <Pane prefHeight="83.0" prefWidth="246.0" />
 
-               <HBox fx:id="searchBox" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0" styleClass="box-search">
+               <HBox fx:id="searchBox" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" minHeight="-Infinity" minWidth="250.0" prefHeight="38.0" prefWidth="246.0" styleClass="box-search">
                   <children>
-                     <TextField fx:id="search" minHeight="-Infinity" prefHeight="38.0" prefWidth="185.0" promptText="Search.." style="-fx-background-color: white; -fx-border-color: black;" />
+                     <TextField fx:id="search" minHeight="-Infinity" prefHeight="38.0" prefWidth="195.0" promptText="Search.." style="-fx-background-color: white; -fx-border-color: black;" />
                      <Button fx:id="clear" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" mnemonicParsing="false" onAction="#search" prefHeight="32.0" prefWidth="45.0" style="-fx-background-color: rgb(125, 163, 252); -fx-border-color: black;" styleClass="btn-transparent" text="Button" HBox.hgrow="ALWAYS">
                         <cursor>
                            <Cursor fx:constant="HAND" />
@@ -62,23 +62,9 @@
                      <Insets bottom="20.0" />
                   </padding>
                </HBox>
-               <VBox fx:id="views" spacing="10.0">
+               <VBox fx:id="views" prefHeight="183.0" prefWidth="259.0" spacing="10.0">
                   <children>
-                     <TitledPane fx:id="watch_result" alignment="BASELINE_RIGHT" animated="false" collapsible="false" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" layoutX="10.0" layoutY="10.0" minHeight="30.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" text="Watch Result" textFill="WHITE">
-                        <content>
-                           <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0">
-                              <children>
-                                 <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="547.0" text="Button" />
-                              </children>
-                           </VBox>
-                        </content>
-                        <graphic>
-                           <SVGPath styleClass="icon" />
-                        </graphic>
-                        <padding>
-                           <Insets bottom="10.0" />
-                        </padding>
-                     </TitledPane>
+
                      <TitledPane fx:id="controls" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="drawer-menu" text="Controls">
                       <content>
                           <VBox fx:id="functionsForUsers">
@@ -89,7 +75,7 @@
                           </VBox>
                       </content>
                       <padding>
-                          <Insets top="10.0" />
+                          <Insets top="8.0" />
                       </padding>
                   </TitledPane>
                       <TitledPane fx:id="oldAlertstab" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#oldAlerts" styleClass="drawer-menu" text="Watch my old alerts">
@@ -195,12 +181,12 @@
                      <children>
                         <TabPane fx:id="Alltabs" prefHeight="758.0" prefWidth="710.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
-                            <Tab fx:id="guest" text="g">
+                            <Tab fx:id="guest">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="226.0" prefWidth="675.0">
                                        <children>
-                                           <Pane fx:id="pane" prefHeight="519.0" prefWidth="418.0">
-                                               <Label fx:id="title70" prefHeight="89.0" prefWidth="459.0" style="-fx-background-color: white" styleClass="h4" text="Welcome to Football Association System...." textFill="#0000008c">
+                                           <Pane fx:id="pane" prefHeight="695.0" prefWidth="716.0">
+                                               <Label fx:id="title70" prefHeight="89.0" prefWidth="710.0" style="-fx-background-color: white" text="Welcome to Football Association System!" textFill="#0000008c">
                                                    <font>
                                                        <Font size="17.0" />
                                                    </font>
@@ -208,12 +194,13 @@
                                                        <Insets left="20.0" right="30.0" />
                                                    </padding>
                                                </Label>
+                                             <ImageView fx:id="footphoto" fitHeight="199.0" fitWidth="229.0" layoutX="472.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true" />
                                            </Pane>
                                        </children>
                                     </AnchorPane>
                               </content>
                             </Tab>
-                            <Tab fx:id="create_new_team" text="o">
+                            <Tab fx:id="create_new_team">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -255,7 +242,7 @@
                                     </AnchorPane>
                                  </content>
                             </Tab>
-                              <Tab fx:id="watch_upcoming" text="r">
+                              <Tab fx:id="watch_upcoming">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -281,7 +268,7 @@
                                        </children></AnchorPane>
                                 </content>
                               </Tab>
-                              <Tab fx:id="new_league_tab" text="a">
+                              <Tab fx:id="new_league_tab">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -326,23 +313,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="FanTab" text="f">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label fx:id="title704" prefHeight="89.0" prefWidth="459.0" style="-fx-background-color: white" styleClass="h4" text="Welcome to Football Association System...." textFill="#0000008c">
-                                             <font>
-                                                <Font size="17.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets left="20.0" right="30.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </AnchorPane>
-                                </content>
-                              </Tab>
-                              <Tab fx:id="add_finanace_action" text="o">
+                              <Tab fx:id="add_finanace_action">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -378,7 +349,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="add_event_game_tab" text="r">
+                              <Tab fx:id="add_event_game_tab">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -409,7 +380,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="create_report_tab" text="r">
+                              <Tab fx:id="create_report_tab">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -434,7 +405,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="new_season_tab" text="a">
+                              <Tab fx:id="new_season_tab">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -466,7 +437,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="assign_policy_tab" text="a">
+                              <Tab fx:id="assign_policy_tab">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -491,7 +462,7 @@
                                                        <Label layoutX="199.0" layoutY="88.0" prefHeight="21.0" prefWidth="100.0" text="Season" />
                                                        <Label layoutX="370.0" layoutY="88.0" prefHeight="21.0" prefWidth="100.0" text="Policy:" />
 
-                                                       <Label fx:id="err_policy" layoutX="33.0" layoutY="180.0" prefHeight="21.0" prefWidth="491.0" text="error" visible="false" />
+                                                       <Label fx:id="err_policy" layoutX="33.0" layoutY="180.0" prefHeight="21.0" prefWidth="650.0" text="error" visible="false" />
                                                        <Button fx:id="new_policy1" defaultButton="true" layoutX="541.0" layoutY="320.0" mnemonicParsing="false" onAction="#assignNewGamePolicy" prefHeight="31.0" prefWidth="156.0" text="assign new policy">
                                                            <styleClass>
                                                                <String fx:value="btn-large" />
@@ -509,7 +480,7 @@
                                                        <Label layoutX="25.0" layoutY="289.0" prefHeight="21.0" prefWidth="100.0" text="League:" />
                                                        <Label layoutX="199.0" layoutY="289.0" prefHeight="21.0" prefWidth="100.0" text="Season" />
                                                        <Label layoutX="370.0" layoutY="289.0" prefHeight="21.0" prefWidth="100.0" text="Policy:" />
-                                                       <Label fx:id="err_policy1" layoutX="27.0" layoutY="400.0" prefHeight="21.0" prefWidth="507.0" text="error" visible="false" />
+                                                       <Label fx:id="err_policy1" layoutX="27.0" layoutY="400.0" prefHeight="21.0" prefWidth="650.0" text="error" visible="false" />
                                                       <Label layoutX="29.0" layoutY="90.0" prefHeight="21.0" prefWidth="100.0" text="League:" />
                                                    </children>
                                                 </Pane>
@@ -519,14 +490,14 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="edit_game_tab" text="r">
+                              <Tab fx:id="edit_game_tab">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <Pane fx:id="pane243" layoutY="1.0" prefHeight="718.0" prefWidth="716.0">
                                              <children>
                                                 <Label fx:id="error_edit_game" layoutX="33.0" layoutY="135.0" prefHeight="27.0" prefWidth="458.0" text="error" visible="false" />
-                                                <Label fx:id="title191" layoutX="28.0" layoutY="25.0" prefHeight="39.0" prefWidth="356.0" text="Choose game to edit:" >
+                                                <Label fx:id="title191" layoutX="28.0" layoutY="25.0" prefHeight="39.0" prefWidth="356.0" text="Choose game to edit:">
                                                    <font>
                                                       <Font size="21.0" />
                                                    </font>
@@ -557,6 +528,51 @@
                                                 </Label>
                                              </children>
                                           </Pane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="fan_tb">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <HBox fx:id="hboxdesign2311" prefHeight="719.0" prefWidth="1050.0">
+                                             <children>
+                                                <Pane fx:id="pane2311" prefHeight="558.0" prefWidth="716.0">
+                                                   <children>
+                                                      <Label fx:id="title141" layoutX="28.0" layoutY="42.0" prefHeight="39.0" prefWidth="469.0" text="To follow after all the games of certain team:">
+                                                         <font>
+                                                            <Font size="21.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <ChoiceBox fx:id="allTeams_chooser" layoutX="42.0" layoutY="126.0" prefWidth="150.0" />
+                                                      <Button fx:id="follow_allTeamgames" defaultButton="true" layoutX="425.0" layoutY="128.0" mnemonicParsing="false" onAction="#FollowTeam" prefHeight="31.0" prefWidth="156.0" text="Follow all games">
+                                                         <styleClass>
+                                                            <String fx:value="btn-large" />
+                                                            <String fx:value="login" />
+                                                         </styleClass>
+                                                      </Button>
+                                                      <ChoiceBox fx:id="allGame_chooser" layoutX="232.0" layoutY="365.0" prefWidth="150.0" />
+                                                      <Label fx:id="error_follow" layoutX="42.0" layoutY="500.0" prefHeight="27.0" prefWidth="542.0" text="error" visible="false" />
+                                                      <Label layoutX="45.0" layoutY="95.0" text="choose Team:" />
+                                                      <Label layoutX="234.0" layoutY="334.0" prefHeight="21.0" prefWidth="152.0" text="Choose Game:" />
+                                                      <Button fx:id="follow_Game" defaultButton="true" layoutX="425.0" layoutY="365.0" mnemonicParsing="false" onAction="#FollowGame" prefHeight="31.0" prefWidth="156.0" text="Follow Game">
+                                                         <styleClass>
+                                                            <String fx:value="btn-large" />
+                                                            <String fx:value="login" />
+                                                         </styleClass>
+                                                      </Button>
+                                                      <ChoiceBox fx:id="allTeams_chooser1" layoutX="43.0" layoutY="365.0" onAction="#initGamesOfTeamToFollow" prefWidth="150.0" />
+                                                      <Label layoutX="45.0" layoutY="334.0" prefHeight="21.0" prefWidth="152.0" text="Choose Team:" />
+                                                      <Label fx:id="title1411" layoutX="38.0" layoutY="251.0" prefHeight="39.0" prefWidth="469.0" text="To follow after specific game choose:">
+                                                         <font>
+                                                            <Font size="21.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </AnchorPane>
                                  </content>

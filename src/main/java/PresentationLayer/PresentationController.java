@@ -4,6 +4,7 @@ import Client.ClientController;
 import com.jfoenix.controls.JFXBadge;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -26,8 +28,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import javafx.util.converter.DefaultStringConverter;
 
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class PresentationController implements Observer {
     public ClientController myClientController;
@@ -87,6 +93,7 @@ public class PresentationController implements Observer {
     public TextArea description;
     public Label error_finance;
     public ImageView image;
+    public ImageView footphoto;
     public Label error_upcomings_game;
     public ChoiceBox game_chooser;
     public ChoiceBox game_chooser1;
@@ -109,6 +116,12 @@ public class PresentationController implements Observer {
     public TableColumn<String, upGames> column1;
     public Button delete_row;
     public Label title1911;
+    public Tab fan_tb;
+    public ChoiceBox allTeams_chooser;
+    public ChoiceBox allGame_chooser;
+    public ChoiceBox allTeams_chooser1;
+    public Label error_follow;
+    public TextField search;
     //endregion
 
     //regionTabs
@@ -147,15 +160,21 @@ public class PresentationController implements Observer {
         arrTabs.add(create_new_team);
         arrTabs.add(add_finanace_action);
         arrTabs.add(watch_upcoming);
-        arrTabs.add(FanTab);
         arrTabs.add(add_event_game_tab);
         arrTabs.add(create_report_tab);
         arrTabs.add(new_league_tab);
         arrTabs.add(new_season_tab);
         arrTabs.add(assign_policy_tab);
         arrTabs.add(edit_game_tab);
+        arrTabs.add(fan_tb);
         switchTab(0);
         image.setImage(new Image(getClass().getResourceAsStream("/gBMMe.png")));
+        footphoto.setImage(new Image(getClass().getResourceAsStream("/1.jpg")));
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        Runnable task = () -> {
+           checkForNewMessage();
+        };
+        executor.scheduleWithFixedDelay(task, 0, 5, TimeUnit.MINUTES);
 
 
     }
@@ -218,7 +237,7 @@ public class PresentationController implements Observer {
                     showErrors(tofill, "invalid Password");
                     return;
                 } else {
-                    HashMap<String, String> response = myClientController.signUp(first.getText(), last.getText(), email.getText(), passwordEncryped);
+                    HashMap<String, String> response = myClientController.signUp(first.getText(), last.getText(), email.getText().trim(), passwordEncryped);
                     if (response.get("status").compareTo("fine") != 0) {// change to string
                         showErrors(tofill, response.get("error"));
 
@@ -287,7 +306,7 @@ public class PresentationController implements Observer {
                 // String password = password1.getText();
                 String mail = userName1.getText();
 
-                HashMap<String, String> response = myClientController.loginDetails(passwordEncryped, mail);
+                HashMap<String, String> response = myClientController.loginDetails(passwordEncryped, mail.trim());
                 if (response.get("status").compareTo("fine") != 0) {// change to string
                     showErrors(invalid, response.get("error"));
 
@@ -323,7 +342,7 @@ public class PresentationController implements Observer {
 
             HashMap<String, String> response = myClientController.logout();
             if (response.get("status").compareTo("fine") == 0) {
-                manage_tabs(guest);
+                switchTab(0);
                 title.setText("Hi, Guest!");
                 functionsForUsers.getChildren().clear();
             } else {
@@ -345,6 +364,74 @@ public class PresentationController implements Observer {
 
     public void search(ActionEvent actionEvent) {
 
+      if (search.getText() ==null || search.getText().trim().isEmpty()){
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Error");
+          alert.setHeaderText(null);
+          alert.setContentText("Invalid serach!");
+          alert.initStyle(StageStyle.UTILITY);
+          alert.showAndWait();
+      }
+      else{
+          HashMap<String,ArrayList<String>> result = myClientController.search(search.getText());
+        if (result.get("status").equals("fine")){
+                TableView table = new TableView();
+
+              TableColumn<String, upGames> column1 = new TableColumn<>("Type");
+              column1.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+
+
+              TableColumn<String, upGames> column2 = new TableColumn<>("Description");
+              column2.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+              table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+              table.getColumns().add(column1);
+              table.getColumns().add(column2);
+
+              for (Map.Entry<String, ArrayList<String>> entry : result.entrySet()) {
+                  ArrayList<String> values = entry.getValue();
+                  for (int i=0; i < values.size(); i++){
+                      table.getItems().add(new upGames(entry.getKey(), values.get(i)));
+                  }
+
+
+              }
+
+              Stage popupwindow = new Stage();
+              popupwindow.initModality(Modality.APPLICATION_MODAL);
+              popupwindow.setTitle("Search result");
+
+
+              VBox layout = new VBox(10);
+              layout.setStyle("-fx-font-size: 14pt;\n" +
+
+                      "    -fx-background-color: rgba(125,163,252,0.68);");
+              layout.getChildren().addAll(table);
+              layout.setAlignment(Pos.CENTER);
+              Scene scene1 = new Scene(layout, 500, 250);
+          scene1.getStylesheets().addAll(getClass().getResource("/material-color.css").toExternalForm(),
+                  getClass().getResource("/skeleton.css").toExternalForm(), // buttons
+                  getClass().getResource("/light.css").toExternalForm(),
+                  getClass().getResource("/helpers.css").toExternalForm(),
+                  getClass().getResource("/master.css").toExternalForm(),
+                  getClass().getResource("/yaara.css").toExternalForm());
+
+              popupwindow.setScene(scene1);
+              popupwindow.showAndWait();
+
+
+          }
+          else{
+              Alert alert = new Alert(Alert.AlertType.ERROR);
+              alert.setTitle("Error");
+              alert.setHeaderText(null);
+              alert.setContentText("No search result!");
+              alert.initStyle(StageStyle.UTILITY);
+              alert.showAndWait();
+          }
+      }
+
+
     }
 
     //------------------------------------------OWNER-------------------------------------
@@ -364,7 +451,7 @@ public class PresentationController implements Observer {
         } else {
             showErrors(error_team_name, response.get("error"));
         }
-
+        team_name.clear();
     }
 
     public void reportNewFinance(ActionEvent actionEvent) {
@@ -387,12 +474,14 @@ public class PresentationController implements Observer {
 
         HashMap<String, String> response = myClientController.reportNewFinanceAction((String) team_chooser.getValue(), (String) action.getValue(), amount.getText(), description.getText());
         if (response.get("status").compareTo("fine") == 0) {
-            String s = "Finance action to Team:" + team_chooser.getValue() + " was successfully reprted!";
+            String s = "Finance action to Team:" + team_chooser.getValue() + " was successfully reported!";
             showSuccess(error_finance, s);
         } else {
             showErrors(error_finance, response.get("error"));
         }
 
+        amount.clear();
+        description.clear();
 
     }
 
@@ -431,7 +520,7 @@ public class PresentationController implements Observer {
         }
         HashMap<String, String> response = myClientController.creatNewSeason(start_dat.getValue(), (String) league_choose.getValue());
         if (response.get("status").compareTo("fine") == 0) {
-            String suc = "Season of :" + start_dat.getValue().getYear() + " successfully crated!"; // maybe the status
+            String suc = "Season of :" + start_dat.getValue().getYear() + " successfully created!"; // maybe the status
             showSuccess(err_season, suc);
 
         } else {
@@ -461,6 +550,9 @@ public class PresentationController implements Observer {
         } else {
             showErrors(err_policy1, response.get("error"));
         }
+        initLeagues();
+        initScorePolicies();
+        initGamePolicies();
     }
 
     public void assignNewScorePolicy(ActionEvent actionEvent) {
@@ -480,10 +572,15 @@ public class PresentationController implements Observer {
         if (response.get("status").compareTo("fine") == 0) {
             String s = "Policy: " + policy.getValue() + " For League " + league2.getValue() + " Season " + season.getValue() + " Successfuly assign!";
             showSuccess(err_policy, s);
-
+            initLeagues();
+            initScorePolicies();
+            initGamePolicies();
         } else {
             showErrors(err_policy, response.get("error"));
         }
+        initLeagues();
+        initScorePolicies();
+        initGamePolicies();
     }
 
     //------------------------------------------Referee-------------------------------------
@@ -522,9 +619,7 @@ public class PresentationController implements Observer {
             }
 
             table.setVisible(true);
-
         }
-
 
     }
 
@@ -603,7 +698,11 @@ public class PresentationController implements Observer {
     public void chosenGameToEdit(ActionEvent actionEvent) {
 
         ArrayList<ClientController.eventDetails> myGames =myClientController.getGameEventsToEdit((String) game_edit_chooser.getValue());
-
+//                new ArrayList<>();
+//        myGames.add(new ClientController.eventDetails("goal","45","ramos","4564","fghfghfg"));
+//        myGames.add(new ClientController.eventDetails("goal","45","ramos","4564","fghfghfg"));
+//        myGames.add(new ClientController.eventDetails("goal","45","ramos","4564","fghfghfg"));
+//        myGames.add(new ClientController.eventDetails("goal","45","ramos","4564","fghfghfg"));
         if (myGames == null || myGames.isEmpty()) {
             showErrors(error_edit_game, "There are no events to edit!");
             return;
@@ -628,8 +727,9 @@ public class PresentationController implements Observer {
 
             TableColumn<editGames, String> column4 = new TableColumn<>("Description");
             column4.setCellValueFactory(new PropertyValueFactory<editGames, String>("desc"));
-
-
+            ObservableList<String> masterData3 = FXCollections.observableArrayList();
+            masterData3.add("Goal");masterData3.add("Offside");masterData3.add("Offense");masterData3.add("RedTicket");masterData3.add("YellowTicket");
+            masterData3.add("Injury");masterData3.add("Substitute");
 
             table_edit.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -639,11 +739,15 @@ public class PresentationController implements Observer {
 
             Callback<TableColumn<editGames, String>, TableCell<editGames, String>> defaultTextFieldCellFactory  = TextFieldTableCell.<editGames>forTableColumn();
 
-//            column2.setCellFactory(TextFieldTableCell.forTableColumn());
-//            column2.setOnEditCommit((TableColumn.CellEditEvent<editGames, String> event) -> {
-//
-//                ((editGames) event.getTableView().getItems(). get(event.getTablePosition().getRow())).setEvent(event.getNewValue());
-//            });
+            column2.setCellFactory(ChoiceBoxTableCell.forTableColumn(new DefaultStringConverter(),masterData3));
+            column2.setOnEditCommit((TableColumn.CellEditEvent<editGames, String> event) -> {
+
+                ((editGames) event.getTableView().getItems(). get(event.getTablePosition().getRow())).setEvent(event.getNewValue());
+                HashMap<String,String> edit = new HashMap<>();
+                edit.put("eventtype",event.getNewValue());
+                int index = table_edit.getSelectionModel().getSelectedIndex();
+                myClientController.editEvent(index,edit);
+            });
 
             column3.setCellFactory(TextFieldTableCell.forTableColumn());
             column3.setOnEditCommit((TableColumn.CellEditEvent<editGames, String> event) -> {
@@ -715,31 +819,36 @@ public class PresentationController implements Observer {
 
     //------------------------------------------Fan-------------------------------------
     public void CheckForOldMessages() {
-        HashMap<String, String> mess =myClientController.checkForOldUpdates();
+        HashMap<String, String> mess = myClientController.checkForOldUpdates();
 
-        if (mess.get("amount").compareTo("0") == 0) {
-            oldAlertstab.setVisible(false);
-            return;
-        }
-         mess.remove("status");
-          mess.remove("amount");
+        if (mess.get("status").compareTo("fine") == 0) {
 
-        oldAlertstab.setVisible(true);
-        StringBuilder s = new StringBuilder();
-        for (String message : mess.keySet()) {
-            s.append(mess.get(message) + "\n");
+            if (mess.get("amount").compareTo("0") == 0) {
+                oldAlertstab.setVisible(false);
+                return;
+            }
+            mess.remove("status");
+            mess.remove("amount");
+
+            oldAlertstab.setVisible(true);
+            StringBuilder s = new StringBuilder();
+            for (String message : mess.keySet()) {
+                s.append(mess.get(message) + "\n");
+            }
+
+            TextArea oldText = new TextArea();
+            oldText.setText(s.toString());
+            if (oldmessagevbox.getChildren() != null || oldmessagevbox.getChildren().size() > 0) {
+                oldmessagevbox.getChildren().clear();
+            }
+            oldmessagevbox.getChildren().add(oldText);
         }
 
-        TextArea oldText = new TextArea();
-        oldText.setText(s.toString());
-        if (oldmessagevbox.getChildren() != null || oldmessagevbox.getChildren().size() > 0) {
-            oldmessagevbox.getChildren().clear();
-        }
-        oldmessagevbox.getChildren().add(oldText);
     }
 
     public void checkForNewMessage() {
         HashMap<String, String> mess = myClientController.checkForNewUpdates();
+        if (mess.get("status").compareTo("fine") == 0) {
 
         if (mess.get("amount").compareTo("0") == 0) {
             newAlerttab.setVisible(false);
@@ -768,7 +877,7 @@ public class PresentationController implements Observer {
             myClientController.setAlertsToSeen();
         }));
 
-    }
+    } }
 
     public void oldAlerts(MouseEvent mouseEvent) {
         CheckForOldMessages();
@@ -777,6 +886,44 @@ public class PresentationController implements Observer {
     public void newAlertsShow(MouseEvent mouseEvent) {
         checkForNewMessage();
     }
+
+    public void FollowTeam(ActionEvent actionEvent) {
+        if (allTeams_chooser.getValue() == null || allTeams_chooser.getValue().toString().trim().isEmpty()) {
+            showErrors(error_follow, "You must choose a Team!");
+            return;
+        }
+        HashMap<String, String> response = myClientController.followGame("team",(String) allTeams_chooser.getValue());
+        if (response.get("status").equals("fine")) {
+            String s = "You are now follow: " + allTeams_chooser.getValue();
+            showSuccess(error_follow, s);
+        } else {
+            showErrors(error_follow, response.get("error"));
+        }
+
+    }
+
+    public void FollowGame(ActionEvent actionEvent) {
+        if (allTeams_chooser1.getValue() == null || allTeams_chooser1.getValue().toString().trim().isEmpty()) {
+            showErrors(error_follow, "You must choose a Team!");
+            return;
+        }
+        if (allGame_chooser.getValue() == null || allGame_chooser.getValue().toString().trim().isEmpty()) {
+            showErrors(error_follow, "You must choose a Game!");
+            return;
+        }
+        HashMap<String, String> response = myClientController.followGame("game",(String) allGame_chooser.getValue());
+        if (response.get("status").equals("fine")) {
+            String s = "You are now follow: " + allGame_chooser.getValue();
+            showSuccess(error_follow, s);
+        } else {
+            showErrors(error_follow, response.get("error"));
+        }
+
+    }
+
+
+
+
 
     public void showNewAlerts(MouseEvent mouseEvent) {
         StringBuilder sb = new StringBuilder();
@@ -835,6 +982,12 @@ public class PresentationController implements Observer {
             //ToDo manage alert check here!
             CheckForOldMessages();
             checkForNewMessage();
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+            Runnable task = () -> {
+                checkForNewMessage();
+
+            };
+            executor.scheduleWithFixedDelay(task, 0, 2, TimeUnit.MINUTES);
         }
         if (type == 1) {//owner
 
@@ -912,56 +1065,75 @@ public class PresentationController implements Observer {
             }));
         }
         if (type == 4) {
+            Button Follow = new Button("Follow Games");
+            Follow.setMinWidth(250);
+            functionsForUsers.getChildren().add(Follow);
+
+            Follow.setOnAction((event -> {
+                initAllTeamsFollow();
+
+                manage_tabs(fan_tb);
+
+            }));
 
         }
 
     }
 
+
+
     //region init
 
     private void initLeagues() {
+        league_choose.getItems().clear();
+        league2.getItems().clear();
+        league21.getItems().clear();
         HashMap<String, String> leagues = myClientController.getAllLeagues();
         if (leagues.containsKey("status")) {
             return;
         }
+
         for (String id : leagues.keySet()) {
-            if (id.compareTo("status") != 0) {
+
                 league_choose.getItems().add(leagues.get(id));
                 league2.getItems().add(leagues.get(id));
                 league21.getItems().add(leagues.get(id));
-            }
 
         }
     }
 
     private void initSeasonScore(String LeagueName) {
+        season.getItems().clear();
         HashMap<String, String> seasons = myClientController.getAllSeasons(LeagueName);
         if (seasons.containsKey("status")) {
             return;
         }
+
         for (String id : seasons.keySet()) {
-            if (id.compareTo("status") != 0 && id.compareTo("leaugueID") != 0) {
+
                 season.getItems().add(seasons.get(id));
 
-            }
+
         }
     }
 
     private void initSeasonGame(String LeagueName) {
+        season1.getItems().clear();
         HashMap<String, String> seasons = myClientController.getAllSeasons(LeagueName);
         if (seasons.containsKey("status")) {
             return;
         }
+
         for (String id : seasons.keySet()) {
-            if (id.compareTo("status") != 0 && id.compareTo("leaugueID") != 0) {
 
                 season1.getItems().add(seasons.get(id));
-            }
+
         }
     }
 
     private void initScorePolicies() {
         ArrayList<String> policies = myClientController.getAllScorePolicies();
+        policy.getItems().clear();
         for (String name : policies) {
             policy.getItems().add(name);
 
@@ -970,70 +1142,116 @@ public class PresentationController implements Observer {
 
     private void initGamePolicies() {
         ArrayList<String> policies = myClientController.getAllGamePolicies();
+        policy1.getItems().clear();
         for (String name : policies) {
             policy1.getItems().add(name);
         }
     }
 
     private void initTeams() {
+        team_chooser.getItems().clear();
         HashMap<String, String> Teams = myClientController.getAllTeams();
         if (Teams.containsKey("status")) {
             return;
         }
+
         for (String name : Teams.keySet()) {
-            if (name.compareTo("status") != 0) {
+
                 team_chooser.getItems().add(Teams.get(name));
-            }
+
 
         }
     }
 
     private void initEvents() {
-
+        type_event.getItems().clear();
         type_event.getItems().addAll(alleventsTypes);
     }
 
     private void initOnGoingGames() {
+        game_chooser.getItems().clear();
         HashMap<String, String> games = myClientController.getAllOnGoingGames();
         if (games.containsKey("status")) {
             return;
         }
+
         for (String name : games.keySet()) {
-            if (name.compareTo("games") != 0) {
+
                 game_chooser.getItems().add(games.get(name));
-            }
+
 
         }
     }
 
     private void initReportGames() {
-        HashMap<String, String> games = myClientController.getAllOnGoingGames();
+        game_chooser1.getItems().clear();
+        HashMap<String, String> games = myClientController.getAllPossibleReportGames();
         if (games.containsKey("status")) {
             return;
         }
+
         for (String name : games.keySet()) {
-            if (name.compareTo("games") != 0) {
+
                 game_chooser1.getItems().add(games.get(name));
-            }
+
 
         }
     }
 
     private void initGamesForEdit() {
-
+//        game_edit_chooser.getItems().add("test");
         HashMap<String, String> games = myClientController.getGamesForEdit();
+        game_edit_chooser.getItems().clear();
         if (games.containsKey("status")) {
             return;
         }
-        if ((games.get("amount").compareTo("0")) == 0) {
-            game_edit_chooser.setDisable(true);
-            showErrors(error_edit_game, "you dont have any game to edit");
-        }
+
+       //     showErrors(error_edit_game, "you dont have any game to edit");
+
         for (String id : games.keySet()) {
-            if (id.compareTo("status") != 0 && id.compareTo("amount") != 0) {
+
                 game_edit_chooser.getItems().add(games.get(id));
 
-            }
+        }
+
+    }
+
+    public void initGamesOfTeamToFollow(ActionEvent actionEvent) {
+        String teamName = (String)allTeams_chooser1.getValue();
+        HashMap<String, String> games = myClientController.getGamesFollow(teamName);
+        allGame_chooser.getItems().clear();
+        if (games.containsKey("status")) {
+            return;
+        }
+//        if ((games.get("amount").compareTo("0")) == 0) {
+//            allGame_chooser.setDisable(true);
+//            showErrors(error_follow, "you dont have any game to edit");
+//        }
+        for (String id : games.keySet()) {
+
+                allGame_chooser.getItems().add(games.get(id));
+
+
+        }
+
+
+    }
+
+    private void initAllTeamsFollow() {
+        HashMap<String, String> games = myClientController.getAllTeamsFollow();
+        allTeams_chooser.getItems().clear();
+        allTeams_chooser1.getItems().clear();
+        if (games.containsKey("status")) {
+            return;
+        }
+//        if ((games.get("amount").compareTo("0")) == 0) {
+//            allGame_chooser.setDisable(true);
+//            showErrors(error_follow, "you dont have any game to edit");
+//        }
+        for (String id : games.keySet()) {
+
+                allTeams_chooser.getItems().add(games.get(id));
+                allTeams_chooser1.getItems().add(games.get(id));
 
         }
 
