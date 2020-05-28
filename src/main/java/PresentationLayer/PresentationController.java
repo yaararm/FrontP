@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.util.converter.DefaultStringConverter;
@@ -107,17 +108,16 @@ public class PresentationController implements Observer {
     public StackPane root;
     public TitledPane oldAlertstab;
     public TitledPane newAlerttab;
-    public TitledPane watch_result;
+
     public VBox newalertsvbox;
     public VBox oldmessagevbox;
     public ChoiceBox game_edit_chooser;
     public Label error_edit_game;
-    public Button save_edit;
-    public TableColumn<String, upGames> column1;
+
     public Button delete_row;
     public Label title1911;
     public Tab fan_tb;
-    public ChoiceBox allTeams_chooser;
+
     public ChoiceBox allGame_chooser;
     public ChoiceBox allTeams_chooser1;
     public Label error_follow;
@@ -378,6 +378,8 @@ public class PresentationController implements Observer {
       else{
           HashMap<String,ArrayList<String>> result = myClientController.search(search.getText());
         if (!result.containsKey("error")){
+
+
                 TableView table = new TableView();
 
               TableColumn<String, upGames> column1 = new TableColumn<>("Type");
@@ -391,38 +393,47 @@ public class PresentationController implements Observer {
               table.getColumns().add(column1);
               table.getColumns().add(column2);
 
+              int count =0;
               for (Map.Entry<String, ArrayList<String>> entry : result.entrySet()) {
                   ArrayList<String> values = entry.getValue();
+                  count += values.size();
                   for (int i=0; i < values.size(); i++){
                       table.getItems().add(new upGames(entry.getKey(), values.get(i)));
                   }
 
 
               }
-
-              Stage popupwindow = new Stage();
-              popupwindow.initModality(Modality.APPLICATION_MODAL);
-              popupwindow.setTitle("Search result");
-
-
-              VBox layout = new VBox(10);
-              layout.setStyle("-fx-font-size: 14pt;\n" +
-
-                      "    -fx-background-color: rgba(125,163,252,0.68);");
-              layout.getChildren().addAll(table);
-              layout.setAlignment(Pos.CENTER);
-              Scene scene1 = new Scene(layout, 700, 250);
-          scene1.getStylesheets().addAll(getClass().getResource("/material-color.css").toExternalForm(),
-                  getClass().getResource("/skeleton.css").toExternalForm(), // buttons
-                  getClass().getResource("/light.css").toExternalForm(),
-                  getClass().getResource("/helpers.css").toExternalForm(),
-                  getClass().getResource("/master.css").toExternalForm(),
-                  getClass().getResource("/yaara.css").toExternalForm());
-
-              popupwindow.setScene(scene1);
-              popupwindow.showAndWait();
+                if (count!=0) {
+                    Stage popupwindow = new Stage();
+                    popupwindow.initModality(Modality.APPLICATION_MODAL);
+                    popupwindow.setTitle("Search result");
 
 
+                    VBox layout = new VBox(10);
+                    layout.setStyle("-fx-font-size: 14pt;\n" +
+
+                            "    -fx-background-color: rgba(125,163,252,0.68);");
+                    layout.getChildren().addAll(table);
+                    layout.setAlignment(Pos.CENTER);
+                    Scene scene1 = new Scene(layout, 700, 250);
+                    scene1.getStylesheets().addAll(getClass().getResource("/material-color.css").toExternalForm(),
+                            getClass().getResource("/skeleton.css").toExternalForm(), // buttons
+                            getClass().getResource("/light.css").toExternalForm(),
+                            getClass().getResource("/helpers.css").toExternalForm(),
+                            getClass().getResource("/master.css").toExternalForm(),
+                            getClass().getResource("/yaara.css").toExternalForm());
+
+                    popupwindow.setScene(scene1);
+                    popupwindow.showAndWait();
+                }
+            else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("No search result!");
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.showAndWait();
+                }
           }
           else{
               Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -886,24 +897,6 @@ public class PresentationController implements Observer {
         CheckForOldMessages();
     }
 
-    public void newAlertsShow(MouseEvent mouseEvent) {
-        checkForNewMessage();
-    }
-
-    public void FollowTeam(ActionEvent actionEvent) {
-        if (allTeams_chooser.getValue() == null || allTeams_chooser.getValue().toString().trim().isEmpty()) {
-            showErrors(error_follow, "You must choose a Team!");
-            return;
-        }
-        HashMap<String, String> response = myClientController.followGame("team",(String) allTeams_chooser.getValue());
-        if (response.get("status").equals("fine")) {
-            String s = "You are now follow: " + allTeams_chooser.getValue();
-            showSuccess(error_follow, s);
-        } else {
-            showErrors(error_follow, response.get("error"));
-        }
-
-    }
 
     public void FollowGame(ActionEvent actionEvent) {
         if (allTeams_chooser1.getValue() == null || allTeams_chooser1.getValue().toString().trim().isEmpty()) {
@@ -928,27 +921,33 @@ public class PresentationController implements Observer {
 
 
 
-    public void showNewAlerts(MouseEvent mouseEvent) {
-        StringBuilder sb = new StringBuilder();
-        //ToDo add alerts
+    public static void showNewAlerts(Map<String,String> map) {
+
+
         Stage popupwindow = new Stage();
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle("new Alerts");
-        Label label1 = new Label("Mark what you have read:");
-        CheckBox checkBox1 = new CheckBox("Green");
-        CheckBox checkBox2 = new CheckBox("     test Green");
-        CheckBox checkBox3 = new CheckBox("   another messasge Green");
-        Button button1 = new Button("Close  window");
-        button1.setOnAction(e -> popupwindow.close());
-        VBox layout = new VBox(10);
-        layout.setStyle("-fx-font-size: 14pt;\n" +
-                "    -fx-background-color: rgba(125,163,252,0.68);");
+        Label label1 = new Label( "\n" + map.get("alertTitle") +"\n" +"\n");
+        label1.setStyle("    -fx-font-size: 18pt;\n" +
+                "    -fx-text-fill: #003c88;\n" +
+                "    -fx-font-family : Roboto Regular;  -fx-font-weight: bold;");
 
-        layout.getChildren().addAll(label1, checkBox1, checkBox2, checkBox3, button1);
-        layout.setAlignment(Pos.CENTER_LEFT);
+        Label label2 = new Label(map.get("alertBody") + "\n");
+        label1.setStyle("    -fx-font-size: 16pt;\n" +
+                "    -fx-text-fill: #003c88;\n" +
+                "    -fx-font-family : Roboto Regular;");
+
+               VBox layout = new VBox(10);
+        layout.setStyle(" -fx-background-color: rgba(179,199,252,0.68);");
+
+
+
+        layout.getChildren().addAll(label1,label2);
+        layout.setAlignment(Pos.TOP_CENTER);
         Scene scene1 = new Scene(layout, 400, 250);
-        popupwindow.setX(1200);
-        popupwindow.setY(148);
+
+//        popupwindow.setX(1200);
+//        popupwindow.setY(148);
         popupwindow.setScene(scene1);
         popupwindow.showAndWait();
 
@@ -984,13 +983,13 @@ public class PresentationController implements Observer {
 
             //ToDo manage alert check here!
             CheckForOldMessages();
-            checkForNewMessage();
-            ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-            Runnable task = () -> {
-                checkForNewMessage();
-
-            };
-            executor.scheduleWithFixedDelay(task, 0, 2, TimeUnit.MINUTES);
+//            checkForNewMessage();
+//            ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+//            Runnable task = () -> {
+//                checkForNewMessage();
+//
+//            };
+//            executor.scheduleWithFixedDelay(task, 0, 2, TimeUnit.MINUTES);
         }
         if (type == 1) {//owner
 
@@ -1226,12 +1225,15 @@ public class PresentationController implements Observer {
         HashMap<String, String> games = myClientController.getGamesFollow(teamName);
         allGame_chooser.getItems().clear();
         if (games.containsKey("status")) {
+            showErrors(error_follow,"There are no games for " + teamName);
+            return;
+
+        }
+//
+        if(games.size()==0){
+            showErrors(error_follow,"There are no games for team: " + teamName);
             return;
         }
-//        if ((games.get("amount").compareTo("0")) == 0) {
-//            allGame_chooser.setDisable(true);
-//            showErrors(error_follow, "you dont have any game to edit");
-//        }
         for (String id : games.keySet()) {
 
                 allGame_chooser.getItems().add(games.get(id));
@@ -1242,25 +1244,7 @@ public class PresentationController implements Observer {
 
     }
 
-    private void initAllTeamsFollow() {
-        HashMap<String, String> games = myClientController.getAllTeamsFollow();
-        allTeams_chooser.getItems().clear();
-        allTeams_chooser1.getItems().clear();
-        if (games.containsKey("status")) {
-            return;
-        }
-//        if ((games.get("amount").compareTo("0")) == 0) {
-//            allGame_chooser.setDisable(true);
-//            showErrors(error_follow, "you dont have any game to edit");
-//        }
-        for (String id : games.keySet()) {
 
-                allTeams_chooser.getItems().add(games.get(id));
-                allTeams_chooser1.getItems().add(games.get(id));
-
-        }
-
-    }
     //endregion
 
     //region updates
@@ -1275,6 +1259,24 @@ public class PresentationController implements Observer {
 
     public void chosenLeagueForGamePolicies(ActionEvent actionEvent) {
         initSeasonGame((String) league21.getValue());
+    }
+
+    private void initAllTeamsFollow() {
+        HashMap<String, String> games = myClientController.getAllTeamsFollow();
+
+        allTeams_chooser1.getItems().clear();
+        if (games.containsKey("status")) {
+
+            return;
+        }
+
+        for (String id : games.keySet()) {
+
+
+            allTeams_chooser1.getItems().add(games.get(id));
+
+        }
+
     }
     //endregion
 

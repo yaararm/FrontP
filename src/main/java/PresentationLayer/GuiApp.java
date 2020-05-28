@@ -1,8 +1,9 @@
 package PresentationLayer;
 
+import Client.AlertsUp;
 import Client.ClientController;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,20 +12,24 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.Collections;
 import java.util.Optional;
 
-public class Main extends Application {
-
-
-    public static ObservableList<String> stylesheets;
+public class GuiApp extends Application {
+    private ConfigurableApplicationContext appContext;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage Stage) {
+
         try {
             FXMLLoader fxmlLoader1 = new FXMLLoader();
             Parent root = fxmlLoader1.load(getClass().getResource("/main2.fxml").openStream());
-            primaryStage.setTitle("Football Association System");
+            Stage.setTitle("Football Association System");
             Scene welcome = new Scene(root, 1350, 800);
             welcome.getStylesheets().addAll(
                     //  getClass().getResource("/fonts.css").toExternalForm()
@@ -45,16 +50,42 @@ public class Main extends Application {
             PresentationController myPresentationController = fxmlLoader1.getController();
             myPresentationController.set_ViewModel(clientController, welcome);
             clientController.addObserver(myPresentationController);
-            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-            SetStageCloseEvent(primaryStage);
-            primaryStage.setScene(welcome);
-            primaryStage.show();
+            Stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+            SetStageCloseEvent(Stage);
+            Stage.setScene(welcome);
+            Stage.show();
             myPresentationController.init();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        appContext.publishEvent(new StageReadyEvent(Stage));
     }
 
+    @Override
+    public void init()  {
+
+        appContext = new SpringApplicationBuilder(AlertsUp.class)
+                .properties("server.port=8126")
+                .run();
+
+    }
+
+    @Override
+    public void stop()  {
+        appContext.close();
+        Platform.exit();
+    }
+
+    static class StageReadyEvent extends ApplicationEvent {
+        public StageReadyEvent(Stage stage) {
+            super(stage);
+        }
+
+        public Stage getStage() {
+            return ((Stage) getSource());
+
+        }
+    }
 
     private void SetStageCloseEvent(Stage primaryStage) {
         primaryStage.setOnCloseRequest(e -> {
@@ -72,12 +103,5 @@ public class Main extends Application {
                 // Close program
             } else e.consume();
         });
-    }
-
-    public static void main(String[] args) {
-        Thread t1 ;
-        Thread t2;
-
-        launch(args);
     }
 }
