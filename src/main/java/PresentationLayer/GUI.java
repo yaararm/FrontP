@@ -2,7 +2,6 @@ package PresentationLayer;
 
 import Client.ClientController;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,13 +13,13 @@ import javafx.stage.StageStyle;
 
 import java.util.Optional;
 
-public class Main extends Application {
+public class GUI extends Application {
 
-
-    public static ObservableList<String> stylesheets;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+
         try {
             FXMLLoader fxmlLoader1 = new FXMLLoader();
             Parent root = fxmlLoader1.load(getClass().getResource("/main2.fxml").openStream());
@@ -53,8 +52,8 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
+    }
 
     private void SetStageCloseEvent(Stage primaryStage) {
         primaryStage.setOnCloseRequest(e -> {
@@ -72,12 +71,5 @@ public class Main extends Application {
                 // Close program
             } else e.consume();
         });
-    }
-
-    public static void main(String[] args) {
-        Thread t1 ;
-        Thread t2;
-
-        launch(args);
     }
 }

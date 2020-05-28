@@ -46,7 +46,8 @@ public class ClientController extends Observable implements Observer {
     }
 
     public ClientController() {
-        localhost = "http://localhost:8107/";
+        localhost = "http://icc.ise.bgu.ac.il/njsw07/ProjectPrepreation/";
+      //  localhost = "http://localhost:8107/" ;
     }
 
     @Override
@@ -340,7 +341,8 @@ public class ClientController extends Observable implements Observer {
     }
 
 
-    //input: sid, map<type,id to follow>
+    //input: sid, map<type,id to
+    //
     //output: fine
     public HashMap<String, String> followGame(String type, String value) {
 

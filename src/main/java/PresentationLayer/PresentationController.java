@@ -170,14 +170,17 @@ public class PresentationController implements Observer {
         switchTab(0);
         image.setImage(new Image(getClass().getResourceAsStream("/gBMMe.png")));
         footphoto.setImage(new Image(getClass().getResourceAsStream("/1.jpg")));
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        Runnable task = () -> {
-           checkForNewMessage();
-        };
-        executor.scheduleWithFixedDelay(task, 0, 5, TimeUnit.MINUTES);
+//        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+//        Runnable task = () -> {
+//           checkForNewMessage();
+//        };
+//        executor.scheduleWithFixedDelay(task, 0, 5, TimeUnit.MINUTES);
 
 
     }
+
+
+
 
     public void manage_tabs(Tab selected) {
         for (Tab t : arrTabs) {
@@ -374,7 +377,7 @@ public class PresentationController implements Observer {
       }
       else{
           HashMap<String,ArrayList<String>> result = myClientController.search(search.getText());
-        if (result.get("status").equals("fine")){
+        if (!result.containsKey("error")){
                 TableView table = new TableView();
 
               TableColumn<String, upGames> column1 = new TableColumn<>("Type");
@@ -408,7 +411,7 @@ public class PresentationController implements Observer {
                       "    -fx-background-color: rgba(125,163,252,0.68);");
               layout.getChildren().addAll(table);
               layout.setAlignment(Pos.CENTER);
-              Scene scene1 = new Scene(layout, 500, 250);
+              Scene scene1 = new Scene(layout, 700, 250);
           scene1.getStylesheets().addAll(getClass().getResource("/material-color.css").toExternalForm(),
                   getClass().getResource("/skeleton.css").toExternalForm(), // buttons
                   getClass().getResource("/light.css").toExternalForm(),
@@ -1009,8 +1012,10 @@ public class PresentationController implements Observer {
         if (type == 2) {//referee
             Button watchUp = new Button("Watch my upcoming games");
             watchUp.setMinWidth(250);
+            watchUp.setId("controls_watchUp");
             watchUp.setStyle(" -fx-font-size: 12pt;");
             Button addEvent = new Button("Add event to game");
+            addEvent.setId("controls_addEvent");
             addEvent.setMinWidth(250);
             Button editevent = new Button("edit event in game");
             editevent.setMinWidth(250);
