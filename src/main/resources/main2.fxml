@@ -91,7 +91,7 @@
                               <Insets top="10.0" />
                           </padding>
                       </TitledPane>
-                      <TitledPane fx:id="newAlerttab" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#newAlertsShow" styleClass="drawer-menu" text="Watch my new alerts!">
+                      <TitledPane fx:id="newAlerttab" alignment="BASELINE_LEFT" contentDisplay="LEFT" expanded="false" graphicTextGap="20.0" nodeOrientation="LEFT_TO_RIGHT" styleClass="drawer-menu" text="Watch my new alerts!">
                           <content>
                               <VBox fx:id="newalertsvbox">
                                   <children>
@@ -540,31 +540,18 @@
                                              <children>
                                                 <Pane fx:id="pane2311" prefHeight="558.0" prefWidth="716.0">
                                                    <children>
-                                                      <Label fx:id="title141" layoutX="28.0" layoutY="42.0" prefHeight="39.0" prefWidth="469.0" text="To follow after all the games of certain team:">
-                                                         <font>
-                                                            <Font size="21.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <ChoiceBox fx:id="allTeams_chooser" layoutX="42.0" layoutY="126.0" prefWidth="150.0" />
-                                                      <Button fx:id="follow_allTeamgames" defaultButton="true" layoutX="425.0" layoutY="128.0" mnemonicParsing="false" onAction="#FollowTeam" prefHeight="31.0" prefWidth="156.0" text="Follow all games">
+                                                      <ChoiceBox fx:id="allGame_chooser" layoutX="232.0" layoutY="155.0" prefWidth="150.0" />
+                                                      <Label fx:id="error_follow" layoutX="42.0" layoutY="210.0" prefHeight="27.0" prefWidth="542.0" text="error" visible="false" />
+                                                      <Label layoutX="234.0" layoutY="124.0" prefHeight="21.0" prefWidth="152.0" text="Choose Game:" />
+                                                      <Button fx:id="follow_Game" defaultButton="true" layoutX="425.0" layoutY="155.0" mnemonicParsing="false" onAction="#FollowGame" prefHeight="31.0" prefWidth="156.0" text="Follow Game">
                                                          <styleClass>
                                                             <String fx:value="btn-large" />
                                                             <String fx:value="login" />
                                                          </styleClass>
                                                       </Button>
-                                                      <ChoiceBox fx:id="allGame_chooser" layoutX="232.0" layoutY="365.0" prefWidth="150.0" />
-                                                      <Label fx:id="error_follow" layoutX="42.0" layoutY="500.0" prefHeight="27.0" prefWidth="542.0" text="error" visible="false" />
-                                                      <Label layoutX="45.0" layoutY="95.0" text="choose Team:" />
-                                                      <Label layoutX="234.0" layoutY="334.0" prefHeight="21.0" prefWidth="152.0" text="Choose Game:" />
-                                                      <Button fx:id="follow_Game" defaultButton="true" layoutX="425.0" layoutY="365.0" mnemonicParsing="false" onAction="#FollowGame" prefHeight="31.0" prefWidth="156.0" text="Follow Game">
-                                                         <styleClass>
-                                                            <String fx:value="btn-large" />
-                                                            <String fx:value="login" />
-                                                         </styleClass>
-                                                      </Button>
-                                                      <ChoiceBox fx:id="allTeams_chooser1" layoutX="43.0" layoutY="365.0" onAction="#initGamesOfTeamToFollow" prefWidth="150.0" />
-                                                      <Label layoutX="45.0" layoutY="334.0" prefHeight="21.0" prefWidth="152.0" text="Choose Team:" />
-                                                      <Label fx:id="title1411" layoutX="38.0" layoutY="251.0" prefHeight="39.0" prefWidth="469.0" text="To follow after specific game choose:">
+                                                      <ChoiceBox fx:id="allTeams_chooser1" layoutX="43.0" layoutY="155.0" onAction="#initGamesOfTeamToFollow" prefWidth="150.0" />
+                                                      <Label layoutX="45.0" layoutY="124.0" prefHeight="21.0" prefWidth="152.0" text="Choose Team:" />
+                                                      <Label fx:id="title141" layoutX="38.0" layoutY="41.0" prefHeight="39.0" prefWidth="544.0" text="To follow after specific game choose:">
                                                          <font>
                                                             <Font size="21.0" />
                                                          </font>
