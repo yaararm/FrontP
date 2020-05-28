@@ -1,0 +1,92 @@
+#lable{
+
+    -fx-fill:  #7a0000;
+    -fx-background-color: #ffc49a;
+    -fx-padding: 3px;
+    -fx-text-alignment: center;
+
+    -fx-content-display: inline-block;
+}
+
+#menu_bar{
+    -fx-background-color: rgb(125, 163, 252);
+}
+
+
+#title{
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: White;
+    -fx-background-color: rgb(125, 163, 252);
+}
+#alertsup{
+    -fx-background-color: rgb(125, 163, 252);
+}
+
+#calender{
+    -fx-font-size: 10pt;
+}
+
+#Logout,#Register,#Login{
+    -fx-background-color: rgb(125, 163, 252);
+
+    -fx-font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#new_team,#new_season,#report_action,#new_team3,#new_league{
+    -fx-background-color : -base;
+    -fx-font-size: 12pt;
+}
+#Logout:hover{-fx-background-color : derive( rgb(125, 163, 252), -40%);}
+#Register:hover{-fx-background-color : derive(  rgb(125, 163, 252), -40%);}
+#new_team:hover{-fx-background-color : derive(-base, -40%);}
+#new_season:hover{-fx-background-color : derive(-base, -40%);}
+#report_action:hover{-fx-background-color : derive(-base, -40%);}
+#new_team3:hover{-fx-background-color : derive(-base, -40%);}
+#new_league:hover{-fx-background-color : derive(-base, -40%);}
+#Login:hover{-fx-background-color : derive(rgb(125, 163, 252), -40%);}
+#watch_result:hover{-fx-background-color : derive(-base, -40%);}
+#alerts:hover{-fx-background-color : derive(-base, -40%);}
+
+
+#title13,#title14,#title15,#title16,#title17,#title18,#title19,#title20,#title171,#title191,#title1911,#title141 {
+
+    -fx-font-size: 18pt;
+    -fx-text-fill: #003c88;
+    -fx-font-family : Roboto Regular;
+}
+#search{
+    -fx-border-color: gray;
+}
+
+.titled-pane > .title
+{
+    -fx-background-color: rgb(125, 163, 252);
+    -fx-border-color: rgba(0, 60, 136, 0.8);
+    -fx-font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+
+.titled-pane > .title > .text
+{
+    -fx-fill: WHITE;
+}
+#user_photo{
+    -fx-fill: url('file: resources/user.png');
+
+}
+#upcoming_games{
+    -fx-text-fill: black;
+    -fx-alignment: CENTER;
+
+}
+
+#title70{
+    -fx-font-size: 26pt;
+    -fx-text-fill: #003c88;
+    -fx-font-family : Roboto Regular;
+}

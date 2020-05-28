@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="spring-context-5.2.5.RELEASE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../testdashboard/Resources/spring-context-5.2.5.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
