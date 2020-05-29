@@ -359,7 +359,7 @@
                                                        <Font size="21.0" />
                                                    </font>
                                                </Label>
-                                               <ChoiceBox fx:id="game_chooser" layoutX="42.0" layoutY="120.0" prefWidth="150.0" />
+                                               <ChoiceBox fx:id="game_chooser" layoutX="42.0" layoutY="120.0" prefHeight="31.0" prefWidth="358.0" />
                                                <TextField fx:id="minute" layoutX="37.0" layoutY="348.0" prefHeight="31.0" prefWidth="152.0" promptText="minute" />
                                                <Button fx:id="add_event" defaultButton="true" layoutX="483.0" layoutY="490.0" mnemonicParsing="false" onAction="#addEventToGame" prefHeight="31.0" prefWidth="156.0" text="add event to game">
                                                    <styleClass>
@@ -369,7 +369,7 @@
                                                </Button>
                                                <TextArea fx:id="description_event" layoutX="39.0" layoutY="488.0" prefHeight="73.0" prefWidth="250.0" promptText="description" />
                                                <ChoiceBox fx:id="type_event" layoutX="40.0" layoutY="231.0" prefWidth="150.0" />
-                                               <Label fx:id="error_add_event" layoutX="38.0" layoutY="570.0" prefHeight="27.0" prefWidth="457.0" text="error" visible="false" />
+                                               <Label fx:id="error_add_event" layoutX="38.0" layoutY="570.0" prefHeight="27.0" prefWidth="660.0" text="error" visible="false" />
                                                <Label layoutX="45.0" layoutY="89.0" text="choose Game:" />
                                                <Label layoutX="41.0" layoutY="199.0" prefHeight="21.0" prefWidth="152.0" text="choose type of event:" />
                                                <Label layoutX="38.0" layoutY="322.0" prefHeight="21.0" prefWidth="152.0" text="add minute (0-90)" />
@@ -390,9 +390,9 @@
                                                       <Font size="21.0" />
                                                   </font>
                                               </Label>
-                                              <ChoiceBox fx:id="game_chooser1" layoutX="42.0" layoutY="156.0" prefWidth="150.0" />
+                                              <ChoiceBox fx:id="game_chooser1" layoutX="42.0" layoutY="156.0" prefHeight="31.0" prefWidth="371.0" />
                                               <Label layoutX="45.0" layoutY="125.0" text="choose Game:" />
-                                              <Label fx:id="error_report" layoutX="40.0" layoutY="200.0" prefHeight="27.0" prefWidth="465.0" text="error" visible="false" />
+                                              <Label fx:id="error_report" layoutX="40.0" layoutY="200.0" prefHeight="27.0" prefWidth="625.0" text="error" visible="false" />
                                               <Button fx:id="create_report" defaultButton="true" layoutX="490.0" layoutY="154.0" mnemonicParsing="false" onAction="#createReport" prefHeight="31.0" prefWidth="156.0" text="create report">
                                                   <styleClass>
                                                       <String fx:value="btn-large" />
@@ -496,14 +496,14 @@
                                        <children>
                                           <Pane fx:id="pane243" layoutY="1.0" prefHeight="718.0" prefWidth="716.0">
                                              <children>
-                                                <Label fx:id="error_edit_game" layoutX="33.0" layoutY="135.0" prefHeight="27.0" prefWidth="458.0" text="error" visible="false" />
+                                                <Label fx:id="error_edit_game" layoutX="33.0" layoutY="127.0" prefHeight="27.0" prefWidth="654.0" text="error" visible="false" />
                                                 <Label fx:id="title191" layoutX="28.0" layoutY="25.0" prefHeight="39.0" prefWidth="356.0" text="Choose game to edit:">
                                                    <font>
                                                       <Font size="21.0" />
                                                    </font>
                                                 </Label>
                                                  <TableView fx:id="table_edit" layoutX="66.0" layoutY="200.0" prefHeight="287.0" prefWidth="588.0" visible="false" />
-                                                <ChoiceBox fx:id="game_edit_chooser" layoutX="32.0" layoutY="81.0" onAction="#chosenGameToEdit" prefWidth="150.0" />
+                                                <ChoiceBox fx:id="game_edit_chooser" layoutX="32.0" layoutY="81.0" onAction="#chosenGameToEdit" prefHeight="31.0" prefWidth="459.0" />
                                                 <Button fx:id="delete_row" defaultButton="true" layoutX="279.0" layoutY="538.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="31.0" prefWidth="156.0" text="delete row" visible="false">
                                                    <styleClass>
                                                       <String fx:value="btn-large" />
