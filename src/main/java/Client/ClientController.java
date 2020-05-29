@@ -28,7 +28,7 @@ public class ClientController extends Observable implements Observer {
     private HashMap<String, String> reportGames= new HashMap<>();
     private HashMap<String, String> unseenMessage= new HashMap<>();
     private HashMap<String, String> oldmessage= new HashMap<>();
-    private ArrayList<eventDetails> beforeEdit= new ArrayList<>();
+    private LinkedHashMap<String,String> beforeEdit= new LinkedHashMap<>();
     private HashMap<String, String> gamesToFollow= new HashMap<>();
     private HashMap<String, String> TeamsToFollow= new HashMap<>();
 
@@ -412,8 +412,18 @@ public class ClientController extends Observable implements Observer {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         Map<String, String> toServer = new HashMap<>();
         toServer.put("sid", String.valueOf(sessionid));
-        toServer.put("event", beforeEdit.get(Integer.parseInt(num)).get_id());
-        HashMap<String, String> response = restTemplate.postForObject(localhost + "deleteEvent", toServer, HashMap.class);
+
+        Set<String> keys = beforeEdit.keySet();
+        int count=0;
+        for(String k:keys){
+            if (count ==Integer.valueOf(num)){
+                toServer.put("event", k);
+                break;
+            }
+            count++;
+        }
+
+       HashMap<String, String> response = restTemplate.postForObject(localhost + "deleteEvent", toServer, HashMap.class);
         return response;
     }
     //input: event id, details
@@ -424,7 +434,15 @@ public class ClientController extends Observable implements Observer {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         edit.put("sid", String.valueOf(sessionid));
-        edit.put("event",beforeEdit.get(index).get_id());
+        Set<String> keys = beforeEdit.keySet();
+        int count=0;
+        for(String k:keys){
+            if (count ==index){
+                edit.put("event", k);
+                break;
+            }
+            count++;
+        }
        edit.put("game", getKeyByValue(editGames,isEditGame));
         HashMap<String, String> response = restTemplate.postForObject(localhost + "editEvent", edit, HashMap.class);
         return response;
@@ -612,7 +630,7 @@ public class ClientController extends Observable implements Observer {
     }
     //input: game id
     //output: arraylist<event>
-    public ArrayList<eventDetails> getGameEventsToEdit(String gamename) {
+    public LinkedHashMap<String,String> getGameEventsToEdit(String gamename) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -622,12 +640,10 @@ public class ClientController extends Observable implements Observer {
         toServer.put("username", userEmail);
         toServer.put("game", getKeyByValue(editGames,gamename));
         isEditGame = gamename;
-        ArrayList<eventDetails> response = restTemplate.postForObject(localhost + "getGameEventsToEdit", toServer, ArrayList.class);
-        ArrayList<eventDetails> ans = new ArrayList<>();
-        for (eventDetails e : response){
-            ans.add((eventDetails)e);
-        }
-        return ans;
+        LinkedHashMap<String,String>response = restTemplate.postForObject(localhost + "getGameEventsToEdit", toServer, LinkedHashMap.class);
+
+        beforeEdit = response;
+        return response;
 
 
     }

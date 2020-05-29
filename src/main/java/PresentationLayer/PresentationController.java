@@ -668,7 +668,7 @@ public class PresentationController implements Observer {
 
         HashMap<String, String> response = myClientController.addEventToGame((String) game_chooser.getValue(), (String) type_event.getValue(), minute.getText(), description_event.getText());
         if (response.get("status").compareTo("fine") == 0) {
-            String s = "Event" + type_event.getValue() + " to Game:" + game_chooser.getValue() + " was successfuly added!";
+            String s = "Event " + type_event.getValue()+" was successfuly added!";
             showSuccess(error_add_event, s);
         } else {
             showErrors(error_add_event, response.get("error"));
@@ -696,7 +696,7 @@ public class PresentationController implements Observer {
                     sb.append(response.get(event) + "\n");
                 }
             }
-            String s = "Event" + type_event.getValue() + " to Game:" + game_chooser.getValue() + " was successfuly added!";
+            String s = "report was successfuly created!";
             showSuccess(error_report, s);
             Stage popupwindow = new Stage();
             popupwindow.initModality(Modality.APPLICATION_MODAL);
@@ -722,15 +722,22 @@ public class PresentationController implements Observer {
     }
 
     public void chosenGameToEdit(ActionEvent actionEvent) {
+        if (game_edit_chooser.getValue() ==null){
+            initGamesForEdit();
+        }
+        table_edit.setVisible(false);
+        delete_row.setVisible(false);
+        title1911.setVisible(false);
 
-        ArrayList<ClientController.eventDetails> myGames =myClientController.getGameEventsToEdit((String) game_edit_chooser.getValue());
+
+        LinkedHashMap<String,String> myGames =myClientController.getGameEventsToEdit((String) game_edit_chooser.getValue());
 //                new ArrayList<>();
 //        myGames.add(new ClientController.eventDetails("goal","45","ramos","4564","fghfghfg"));
 //        myGames.add(new ClientController.eventDetails("goal","45","ramos","4564","fghfghfg"));
 //        myGames.add(new ClientController.eventDetails("goal","45","ramos","4564","fghfghfg"));
 //        myGames.add(new ClientController.eventDetails("goal","45","ramos","4564","fghfghfg"));
         if (myGames == null || myGames.isEmpty()) {
-            showErrors(error_edit_game, "There are no events to edit!");
+           // showErrors(error_edit_game, "There are no events to edit!");
             return;
 
         } else {
@@ -804,13 +811,11 @@ public class PresentationController implements Observer {
             table_edit.getColumns().add(column2);
             table_edit.getColumns().add(column3);
             table_edit.getColumns().add(column4);
-
-            for (int i=0; i<myGames.size(); i++) {
-                String h = myGames.get(i).getEventType();
-                String j = myGames.get(i).getMinute();
-                String k = myGames.get(i).getDescription();
-                table_edit.getItems().add(new editGames(Integer.toString(i),h,j,k));
-
+            int count =0;
+            for(String key : myGames.keySet()) {
+                String [] ans = myGames.get(key).split(",");
+                table_edit.getItems().add(new editGames(String.valueOf(count),ans[0],ans[1],ans[2]));
+                count++;
             }
             table_edit.setVisible(true);
             delete_row.setVisible(true);
@@ -835,7 +840,7 @@ public class PresentationController implements Observer {
             rows.forEach(row -> table_edit.getItems().remove(row));
             HashMap<String,String> response = myClientController.deleteEvent(event,min,desc,num);
             if(response.get("status").compareTo("fine")==0){
-                showSuccess(error_edit_game,"the row successfully deleted");
+                showSuccess(err_edit_event,"the row successfully deleted");
             }
 
 
@@ -1222,8 +1227,9 @@ public class PresentationController implements Observer {
 
     private void initGamesForEdit() {
 //        game_edit_chooser.getItems().add("test");
-        HashMap<String, String> games = myClientController.getGamesForEdit();
         game_edit_chooser.getItems().clear();
+        HashMap<String, String> games = myClientController.getGamesForEdit();
+
 
         if (games.containsKey("status")) {
             return;

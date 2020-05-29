@@ -1,6 +1,6 @@
 package PresentationLayer;
 
-import Client.AlertsUp;
+import Client.AlertsApp;
 import Client.ClientController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,12 +12,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.Collections;
 import java.util.Optional;
 
 public class GuiApp extends Application {
@@ -64,7 +62,7 @@ public class GuiApp extends Application {
     @Override
     public void init()  {
 
-        appContext = new SpringApplicationBuilder(AlertsUp.class)
+        appContext = new SpringApplicationBuilder(AlertsApp.class)
                 .properties("server.port=8126")
                 .run();
 
