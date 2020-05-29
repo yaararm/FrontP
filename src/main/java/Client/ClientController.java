@@ -46,8 +46,9 @@ public class ClientController extends Observable implements Observer {
     }
 
     public ClientController() {
-      //  localhost = "http://icc.ise.bgu.ac.il/njsw07/ProjectPrepreation/";
-        localhost = "http://localhost:8107/" ;
+       localhost = "http://icc.ise.bgu.ac.il/njsw07/ProjectPrepreation/";
+      //  localhost = "http://localhost:8107/" ;
+       // localhost = "132.72.201.56:8107/";
     }
 
     @Override
