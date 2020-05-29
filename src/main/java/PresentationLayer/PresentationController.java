@@ -623,12 +623,18 @@ public class PresentationController implements Observer {
             TableColumn<String, upGames> column2 = new TableColumn<>("Role");
             column2.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
+
+
             table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             table.getColumns().add(column1);
             table.getColumns().add(column2);
 
+
             for (Map.Entry<String, String> entry : myGames.entrySet()) {
-                table.getItems().add(new upGames(entry.getKey(), entry.getValue()));
+                String [] ans = entry.getValue().split(",");
+
+
+                table.getItems().add(new upGames(ans[0],ans[1] ));
 
             }
 
@@ -678,10 +684,16 @@ public class PresentationController implements Observer {
         }
         HashMap<String, String> response = myClientController.createReport((String) game_chooser1.getValue());
         if (response.get("status").compareTo("fine") == 0) {
+            if (response.get("amount").equals("0")) {
+                showErrors(error_report, "This game has no events in the system!");
+            } else {
+                response.remove("status");
+                response.remove("amount");
             StringBuilder sb = new StringBuilder();
+                sb.append("\n");
             for (String event : response.keySet()) {
                 if (event.compareTo("status") != 0) {
-                    sb.append(response.get(event) + "\n\n");
+                    sb.append(response.get(event) + "\n");
                 }
             }
             String s = "Event" + type_event.getValue() + " to Game:" + game_chooser.getValue() + " was successfuly added!";
@@ -690,17 +702,17 @@ public class PresentationController implements Observer {
             popupwindow.initModality(Modality.APPLICATION_MODAL);
             popupwindow.setTitle("new report");
             Label label1 = new Label(sb.toString());
-            Button button1 = new Button("Close  window");
-            button1.setOnAction(e -> popupwindow.close());
+
             VBox layout = new VBox(10);
             layout.setStyle("-fx-font-size: 14pt;\n" +
 
-                    "    -fx-background-color: rgba(125,163,252,0.68);");
-            layout.getChildren().addAll(label1, button1);
-            layout.setAlignment(Pos.CENTER);
+                    "    -fx-background-color: rgba(177,208,252,0.68);");
+            layout.getChildren().addAll(label1);
+            layout.setAlignment(Pos.CENTER_LEFT);
             Scene scene1 = new Scene(layout, 500, 250);
             popupwindow.setScene(scene1);
             popupwindow.showAndWait();
+        }
         } else {
 
             showErrors(error_report, response.get("error"));
@@ -1178,7 +1190,10 @@ public class PresentationController implements Observer {
         if (games.containsKey("status")) {
             return;
         }
-
+        if (games.size()==0) {
+           showErrors(error_add_event,"There are no ongoing games!");
+            return;
+        }
         for (String name : games.keySet()) {
 
                 game_chooser.getItems().add(games.get(name));
@@ -1193,7 +1208,10 @@ public class PresentationController implements Observer {
         if (games.containsKey("status")) {
             return;
         }
-
+        if (games.size()==0) {
+            showErrors(error_report,"There are no game to report!");
+            return;
+        }
         for (String name : games.keySet()) {
 
                 game_chooser1.getItems().add(games.get(name));
@@ -1206,10 +1224,14 @@ public class PresentationController implements Observer {
 //        game_edit_chooser.getItems().add("test");
         HashMap<String, String> games = myClientController.getGamesForEdit();
         game_edit_chooser.getItems().clear();
+
         if (games.containsKey("status")) {
             return;
         }
-
+        if (games.size()==0) {
+            showErrors(error_edit_game,"There are no game to edit!");
+            return;
+        }
        //     showErrors(error_edit_game, "you dont have any game to edit");
 
         for (String id : games.keySet()) {
@@ -1347,6 +1369,7 @@ public class PresentationController implements Observer {
             this.lastName = lastName;
         }
     }
+
 
 
     public static class editGames {

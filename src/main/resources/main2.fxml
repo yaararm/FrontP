@@ -262,7 +262,7 @@
                                                 </Label>
 
 
-                                                <TableView fx:id="table" layoutX="199.0" layoutY="296.0" prefHeight="260.0" prefWidth="319.0" visible="false" />
+                                                <TableView fx:id="table" layoutX="10.0" layoutY="200.0" prefHeight="260.0" prefWidth="697.0" visible="false" />
                                              </children>
                                           </Pane>
                                        </children></AnchorPane>

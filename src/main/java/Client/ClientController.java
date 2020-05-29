@@ -46,8 +46,8 @@ public class ClientController extends Observable implements Observer {
     }
 
     public ClientController() {
-        localhost = "http://icc.ise.bgu.ac.il/njsw07/ProjectPrepreation/";
-      //  localhost = "http://localhost:8107/" ;
+      //  localhost = "http://icc.ise.bgu.ac.il/njsw07/ProjectPrepreation/";
+        localhost = "http://localhost:8107/" ;
     }
 
     @Override
@@ -396,7 +396,7 @@ public class ClientController extends Observable implements Observer {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         Map<String, String> toServer = new HashMap<>();
         toServer.put("sid", String.valueOf(sessionid));
-        toServer.put("gameID", getKeyByValue(editGames, game));
+        toServer.put("gameID", getKeyByValue(reportGames, game));
         toServer.put("username", userEmail);
 
         HashMap<String, String> response = restTemplate.postForObject(localhost + "createReport", toServer, HashMap.class);
@@ -543,20 +543,6 @@ public class ClientController extends Observable implements Observer {
         return response;
     }
 
-    //input:
-    //output: all possible events in game
-    public ArrayList<String> getAllPossibleEvents() {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        Map<String, String> toServer = new HashMap<>();
-        toServer.put("sid", String.valueOf(sessionid));
-        //toServer.put("leaugueID",getKeyByValue(leagues,leagueName));
-
-        ArrayList<String> response = restTemplate.postForObject(localhost + "getAllPossibleEvents", toServer, ArrayList.class);
-        return response;
-    }
 
     //input: referee user name
     //output: all ongoing games of that referre
@@ -637,8 +623,11 @@ public class ClientController extends Observable implements Observer {
         toServer.put("game", getKeyByValue(editGames,gamename));
         isEditGame = gamename;
         ArrayList<eventDetails> response = restTemplate.postForObject(localhost + "getGameEventsToEdit", toServer, ArrayList.class);
-
-        return response;
+        ArrayList<eventDetails> ans = new ArrayList<>();
+        for (eventDetails e : response){
+            ans.add((eventDetails)e);
+        }
+        return ans;
 
 
     }
