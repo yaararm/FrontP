@@ -1011,8 +1011,12 @@ public class PresentationController implements Observer {
         if (type == 1) {//owner
 
             Button createnewTeam = new Button("Create new team");
+            createnewTeam.setId("owner_create_new_team");
+
             createnewTeam.setMinWidth(250);
             Button addFinanceAction = new Button("Add Finance action");
+            addFinanceAction.setId("owner_finance_action");
+
             addFinanceAction.setMinWidth(250);
             functionsForUsers.getChildren().addAll(createnewTeam, addFinanceAction);
             createnewTeam.setOnAction((event -> {
@@ -1027,15 +1031,17 @@ public class PresentationController implements Observer {
         }
         if (type == 2) {//referee
             Button watchUp = new Button("Watch my upcoming games");
+            watchUp.setId("ref_upcoming_games");
             watchUp.setMinWidth(250);
-            watchUp.setId("controls_watchUp");
             watchUp.setStyle(" -fx-font-size: 12pt;");
             Button addEvent = new Button("Add event to game");
-            addEvent.setId("controls_addEvent");
+            addEvent.setId("ref_addEvent");
             addEvent.setMinWidth(250);
             Button editevent = new Button("edit event in game");
+            editevent.setId("ref_editEvent");
             editevent.setMinWidth(250);
             Button createreport = new Button("Create report");
+            createreport.setId("ref_createreport");
             createreport.setMinWidth(250);
             functionsForUsers.getChildren().addAll(watchUp, addEvent, editevent, createreport);
             watchUp.setOnAction((event -> {
@@ -1064,10 +1070,13 @@ public class PresentationController implements Observer {
         if (type == 3) {//arp
 
             Button new_leagueb = new Button("Create new league");
+            new_leagueb.setId("newLeagueButton");
             new_leagueb.setMinWidth(250);
             Button new_seasonb = new Button("Create New Season");
+            new_seasonb.setId("newSeasonButton");
             new_seasonb.setMinWidth(250);
             Button assign_policyb = new Button("Assign policy");
+            assign_policyb.setId("assingPolicyButton");
             assign_policyb.setMinWidth(250);
             functionsForUsers.getChildren().addAll(new_leagueb, new_seasonb, assign_policyb);
             new_leagueb.setOnAction((event -> {

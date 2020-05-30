@@ -10,16 +10,12 @@ import java.util.Collections;
 
 
 @SpringBootApplication
-public class AlertsApp extends SpringBootServletInitializer {
+public class AlertsApp extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
 
-
         Application.launch(GuiApp.class,args);
 
-
-
     }
-
 
 }
