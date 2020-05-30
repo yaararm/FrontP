@@ -1,6 +1,6 @@
 package PresentationLayer;
 
-import Client.ClientController;
+import ApplicationLogicLayer.ClientController;
 import com.jfoenix.controls.JFXBadge;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleStringProperty;
@@ -26,7 +26,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.util.converter.DefaultStringConverter;
@@ -37,18 +36,13 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class PresentationController implements Observer {
-    public ClientController myClientController;
+
+    //region Data Members
+    private ClientController myClientController;
     private Scene MainScene;
-    protected Scene scene_login;
-    protected Stage stage1;
-    protected int sessionid;
-    protected String user_email;
+    private Scene scene_login;
+    private Stage stage1;
     private ArrayList<String> alleventsTypes;
-
-    @Override
-    public void update(Observable o, Object arg) {
-
-    }
 
     //region Fxml
     @FXML
@@ -138,15 +132,24 @@ public class PresentationController implements Observer {
     public Tab assign_policy_tab;
     public Tab edit_game_tab;
     //endregion
+    //endregion
 
-
+    //region Settings
     public void set_ViewModel(ClientController vm, Scene welcome) {
         this.MainScene = welcome;
         this.myClientController = vm;
     }
 
     public void init() {
+        initDataStructures();
 
+        switchTab(0);
+        image.setImage(new Image(getClass().getResourceAsStream("/gBMMe.png")));
+        footphoto.setImage(new Image(getClass().getResourceAsStream("/1.jpg")));
+
+    }
+
+    private void initDataStructures() {
         ref_train.getItems().add("Expert");
         ref_train.getItems().add("Medium");
         ref_train.getItems().add("Begginer");
@@ -167,22 +170,9 @@ public class PresentationController implements Observer {
         arrTabs.add(assign_policy_tab);
         arrTabs.add(edit_game_tab);
         arrTabs.add(fan_tb);
-        switchTab(0);
-        image.setImage(new Image(getClass().getResourceAsStream("/gBMMe.png")));
-        footphoto.setImage(new Image(getClass().getResourceAsStream("/1.jpg")));
-//        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-//        Runnable task = () -> {
-//           checkForNewMessage();
-//        };
-//        executor.scheduleWithFixedDelay(task, 0, 5, TimeUnit.MINUTES);
-
-
     }
 
-
-
-
-    public void manage_tabs(Tab selected) {
+    private void manage_tabs(Tab selected) {
         for (Tab t : arrTabs) {
             if (t.equals(selected)) {
                 Alltabs.getSelectionModel().select(t);
@@ -193,10 +183,141 @@ public class PresentationController implements Observer {
         }
     }
 
-//-------------------------------------------GUEST, REGISTRATION--------------------------------------------------
+    private void switchTab(int type) {
+        if (type == 0) { //Guest
+            Logout.setVisible(false);
+            messages.setVisible(false);
+            // notifications.setVisible(false);
+            controls.setVisible(false);
+            oldAlertstab.setVisible(false);
+            newAlerttab.setVisible(false);
+            Login.setVisible(true);
+            Register.setVisible(true);
+            manage_tabs(guest);
 
+        }
+        if (type != 0) {
+            Login.setVisible(false);
+            Register.setVisible(false);
+            Logout.setVisible(true);
+            controls.setVisible(true);
+
+            //ToDo manage alert check here!
+            CheckForOldMessages();
+//            checkForNewMessage();
+//            ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+//            Runnable task = () -> {
+//                checkForNewMessage();
+//
+//            };
+//            executor.scheduleWithFixedDelay(task, 0, 2, TimeUnit.MINUTES);
+        }
+        if (type == 1) {//owner
+
+            Button createnewTeam = new Button("Create new team");
+            createnewTeam.setMinWidth(250);
+            Button addFinanceAction = new Button("Add Finance action");
+            addFinanceAction.setMinWidth(250);
+            functionsForUsers.getChildren().addAll(createnewTeam, addFinanceAction);
+            createnewTeam.setOnAction((event -> {
+                manage_tabs(create_new_team);
+            }));
+            addFinanceAction.setOnAction((event -> {
+                initTeams();
+                manage_tabs(add_finanace_action);
+
+
+            }));
+        }
+        if (type == 2) {//referee
+            Button watchUp = new Button("Watch my upcoming games");
+            watchUp.setMinWidth(250);
+            watchUp.setId("controls_watchUp");
+            watchUp.setStyle(" -fx-font-size: 12pt;");
+            Button addEvent = new Button("Add event to game");
+            addEvent.setId("controls_addEvent");
+            addEvent.setMinWidth(250);
+            Button editevent = new Button("edit event in game");
+            editevent.setMinWidth(250);
+            Button createreport = new Button("Create report");
+            createreport.setMinWidth(250);
+            functionsForUsers.getChildren().addAll(watchUp, addEvent, editevent, createreport);
+            watchUp.setOnAction((event -> {
+                manage_tabs(watch_upcoming);
+            }));
+            addEvent.setOnAction((event -> {
+                initEvents();
+                initOnGoingGames();
+                manage_tabs(add_event_game_tab);
+
+
+            }));
+            editevent.setOnAction((event -> {
+
+                manage_tabs(edit_game_tab);
+                initGamesForEdit();
+            }));
+            createreport.setOnAction((event -> {
+
+                initReportGames();
+                manage_tabs(create_report_tab);
+
+
+            }));
+        }
+        if (type == 3) {//arp
+
+            Button new_leagueb = new Button("Create new league");
+            new_leagueb.setMinWidth(250);
+            Button new_seasonb = new Button("Create New Season");
+            new_seasonb.setMinWidth(250);
+            Button assign_policyb = new Button("Assign policy");
+            assign_policyb.setMinWidth(250);
+            functionsForUsers.getChildren().addAll(new_leagueb, new_seasonb, assign_policyb);
+            new_leagueb.setOnAction((event -> {
+                manage_tabs(new_league_tab);
+            }));
+            new_seasonb.setOnAction((event -> {
+                initLeagues();
+                manage_tabs(new_season_tab);
+            }));
+            assign_policyb.setOnAction((event -> {
+
+                initLeagues();
+                initScorePolicies();
+                initGamePolicies();
+                manage_tabs(assign_policy_tab);
+            }));
+        }
+        if (type == 4) {
+            Button Follow = new Button("Follow Games");
+            Follow.setMinWidth(250);
+            functionsForUsers.getChildren().add(Follow);
+
+            Follow.setOnAction((event -> {
+                initAllTeamsFollow();
+
+                manage_tabs(fan_tb);
+
+            }));
+//        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+//        Runnable task = () -> {
+//            CheckForOldMessages();
+//            System.out.println("test old alerts");
+//        };
+//        executor.scheduleWithFixedDelay(task, 0, 2, TimeUnit.MINUTES);
+
+
+
+        }
+
+    }
+    //endregion
+
+    //region Guest
     public void show_Registerform(ActionEvent actionEvent) {
         try {
+            //region scene
             Stage stage = new Stage();
             stage.setResizable(false);
             stage.setTitle("Register");
@@ -220,6 +341,7 @@ public class PresentationController implements Observer {
             Label emailerror = (Label) scene.lookup("#lbl_error");
             Label name = (Label) scene.lookup("#lbl_fullname");
             Label tofill = (Label) scene.lookup("#lbl_email");
+            //endregion
 
             reg.setOnAction((event -> {
 
@@ -269,6 +391,7 @@ public class PresentationController implements Observer {
     public void show_Loginform(ActionEvent actionEvent) {
 
         try {
+            //region scene
             stage1 = new Stage();
             stage1.setResizable(false);
             stage1.setTitle("Login");
@@ -288,6 +411,7 @@ public class PresentationController implements Observer {
             PasswordField password1 = (PasswordField) scene_login.lookup("#password1");
             TextField userName1 = (TextField) scene_login.lookup("#username1");
             Label invalid = (Label) scene_login.lookup("#lbl_error");
+            //endregion
 
 
             log.setOnAction((event -> {
@@ -306,11 +430,10 @@ public class PresentationController implements Observer {
                     showErrors(invalid, "invalid Password");
                     return;
                 }
-                // String password = password1.getText();
                 String mail = userName1.getText();
 
                 HashMap<String, String> response = myClientController.loginDetails(passwordEncryped, mail.trim());
-                if (response.get("status").compareTo("fine") != 0) {// change to string
+                if (response.get("status").compareTo("fine") != 0) {
                     showErrors(invalid, response.get("error"));
 
                 } else {
@@ -447,9 +570,9 @@ public class PresentationController implements Observer {
 
 
     }
+    //endregion
 
-    //------------------------------------------OWNER-------------------------------------
-
+    //region Owner
     public void create_newTeam(ActionEvent actionEvent) throws Exception {
         if (team_name.getText() == null || team_name.getText().trim().isEmpty()) {
             showErrors(error_team_name, "invalid Team name!");
@@ -461,7 +584,7 @@ public class PresentationController implements Observer {
         if (response.get("status").compareTo("fine") == 0) {
             String s1 = "Team: " + team_name.getText() + " created successfully";
             showSuccess(error_team_name, s1);
-            //initTeams
+
         } else {
             showErrors(error_team_name, response.get("error"));
         }
@@ -498,9 +621,9 @@ public class PresentationController implements Observer {
         description.clear();
 
     }
+    //endregion
 
-    //------------------------------------------ARP-------------------------------------
-
+    //region ARP
     public void createNewLeague(ActionEvent actionEvent) {
         if (league_name.getText() == null || league_name.getText().trim().isEmpty()) {
             showErrors(err_league, "invalid League name!");
@@ -556,6 +679,7 @@ public class PresentationController implements Observer {
             showErrors(err_policy1, "You must choose a Policy!");
             return;
         }
+
         HashMap<String, String> response = myClientController.assignNewGamePolicy((String) league21.getValue(), (String) season1.getValue(), (String) policy1.getValue());
         if (response.get("status").compareTo("fine") == 0) {
             String s = "Policy: " + policy1.getValue() + " For League " + league21.getValue() + " Season " + season1.getValue() + " Successfuly assign!";
@@ -596,10 +720,9 @@ public class PresentationController implements Observer {
         initScorePolicies();
         initGamePolicies();
     }
+    //endregion
 
-    //------------------------------------------Referee-------------------------------------
-
-    // Goal,Offside,Offense,RedTicket,YellowTicket,Injury,Substitute
+    //region Referee
     public void watchUpcomingsGames(ActionEvent actionEvent) {
         HashMap<String, String> myGames = myClientController.getMyUpcomingsGames();
 
@@ -658,7 +781,7 @@ public class PresentationController implements Observer {
             return;
         }
         if (Integer.parseInt(minute.getText()) < 0 || Integer.parseInt(minute.getText()) > 90) {
-            showErrors(error_add_event, "You must enter a  valid minute!");
+            showErrors(error_add_event, "You must enter a valid minute!");
             return;
         }
         if (description_event.getText() == null || description_event.getText().trim().isEmpty()) {
@@ -847,11 +970,16 @@ public class PresentationController implements Observer {
         }
 
     }
+    //endregion
 
-    //------------------------------------------Fan-------------------------------------
+    //region Fan
     public void CheckForOldMessages() {
         HashMap<String, String> mess = myClientController.checkForOldUpdates();
-
+//        HashMap<String, String> mess =new HashMap<>();
+//        mess.put("status","fine");
+//        mess.put("amount","fine");
+//        mess.put("sid","test");
+//        mess.put("sid2","test");
         if (mess.get("status").compareTo("fine") == 0) {
 
             if (mess.get("amount").compareTo("0") == 0) {
@@ -877,38 +1005,6 @@ public class PresentationController implements Observer {
 
     }
 
-    public void checkForNewMessage() {
-        HashMap<String, String> mess = myClientController.checkForNewUpdates();
-        if (mess.get("status").compareTo("fine") == 0) {
-
-        if (mess.get("amount").compareTo("0") == 0) {
-            newAlerttab.setVisible(false);
-            return;
-        }
-         mess.remove("status");
-         mess.remove("amount");
-        newAlerttab.setVisible(true);
-        StringBuilder s = new StringBuilder();
-        for (String message : mess.keySet()) {
-            s.append(mess.get(message) + "\n");
-        }
-        Button archives = new Button("Move to archives");
-        archives.setMinWidth(250);
-
-        TextArea newText = new TextArea();
-        newText.setText(s.toString());
-        if (newalertsvbox.getChildren() != null || newalertsvbox.getChildren().size() > 0) {
-            newalertsvbox.getChildren().clear();
-        }
-        newalertsvbox.getChildren().addAll(newText, archives);
-        archives.setOnAction((event -> {
-
-            mess.clear();
-            newText.setText("");
-            myClientController.setAlertsToSeen();
-        }));
-
-    } }
 
     public void oldAlerts(MouseEvent mouseEvent) {
         CheckForOldMessages();
@@ -933,175 +1029,7 @@ public class PresentationController implements Observer {
         }
 
     }
-
-
-
-
-
-    public static void showNewAlerts(Map<String,String> map) {
-
-
-        Stage popupwindow = new Stage();
-        popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle("new Alerts");
-        Label label1 = new Label( "\n" + map.get("alertTitle") +"\n" +"\n");
-        label1.setStyle("    -fx-font-size: 18pt;\n" +
-                "    -fx-text-fill: #003c88;\n" +
-                "    -fx-font-family : Roboto Regular;  -fx-font-weight: bold;");
-
-        Label label2 = new Label(map.get("alertBody") + "\n");
-        label1.setStyle("    -fx-font-size: 16pt;\n" +
-                "    -fx-text-fill: #003c88;\n" +
-                "    -fx-font-family : Roboto Regular;");
-
-               VBox layout = new VBox(10);
-        layout.setStyle(" -fx-background-color: rgba(179,199,252,0.68);");
-
-
-
-        layout.getChildren().addAll(label1,label2);
-        layout.setAlignment(Pos.TOP_CENTER);
-        Scene scene1 = new Scene(layout, 400, 250);
-
-//        popupwindow.setX(1200);
-//        popupwindow.setY(148);
-        popupwindow.setScene(scene1);
-        popupwindow.showAndWait();
-
-
-    }
-
-    //-----------------------------------PRIVATE AND MANAGING GUI--------------------------
-    /*0- guest
-    //1-owner
-    //2-referee
-    //3-Arp
-    //4-fan
-    //5-*/
-
-    private void switchTab(int type) {
-        if (type == 0) { //Guest
-            Logout.setVisible(false);
-            messages.setVisible(false);
-            // notifications.setVisible(false);
-            controls.setVisible(false);
-            oldAlertstab.setVisible(false);
-            newAlerttab.setVisible(false);
-            Login.setVisible(true);
-            Register.setVisible(true);
-            manage_tabs(guest);
-
-        }
-        if (type != 0) {
-            Login.setVisible(false);
-            Register.setVisible(false);
-            Logout.setVisible(true);
-            controls.setVisible(true);
-
-            //ToDo manage alert check here!
-            CheckForOldMessages();
-//            checkForNewMessage();
-//            ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-//            Runnable task = () -> {
-//                checkForNewMessage();
-//
-//            };
-//            executor.scheduleWithFixedDelay(task, 0, 2, TimeUnit.MINUTES);
-        }
-        if (type == 1) {//owner
-
-            Button createnewTeam = new Button("Create new team");
-            createnewTeam.setMinWidth(250);
-            Button addFinanceAction = new Button("Add Finance action");
-            addFinanceAction.setMinWidth(250);
-            functionsForUsers.getChildren().addAll(createnewTeam, addFinanceAction);
-            createnewTeam.setOnAction((event -> {
-                manage_tabs(create_new_team);
-            }));
-            addFinanceAction.setOnAction((event -> {
-                initTeams();
-                manage_tabs(add_finanace_action);
-
-
-            }));
-        }
-        if (type == 2) {//referee
-            Button watchUp = new Button("Watch my upcoming games");
-            watchUp.setMinWidth(250);
-            watchUp.setId("controls_watchUp");
-            watchUp.setStyle(" -fx-font-size: 12pt;");
-            Button addEvent = new Button("Add event to game");
-            addEvent.setId("controls_addEvent");
-            addEvent.setMinWidth(250);
-            Button editevent = new Button("edit event in game");
-            editevent.setMinWidth(250);
-            Button createreport = new Button("Create report");
-            createreport.setMinWidth(250);
-            functionsForUsers.getChildren().addAll(watchUp, addEvent, editevent, createreport);
-            watchUp.setOnAction((event -> {
-                manage_tabs(watch_upcoming);
-            }));
-            addEvent.setOnAction((event -> {
-                initEvents();
-                 initOnGoingGames();
-                manage_tabs(add_event_game_tab);
-
-
-            }));
-            editevent.setOnAction((event -> {
-
-                manage_tabs(edit_game_tab);
-                initGamesForEdit();
-            }));
-            createreport.setOnAction((event -> {
-
-                initReportGames();
-                manage_tabs(create_report_tab);
-
-
-            }));
-        }
-        if (type == 3) {//arp
-
-            Button new_leagueb = new Button("Create new league");
-            new_leagueb.setMinWidth(250);
-            Button new_seasonb = new Button("Create New Season");
-            new_seasonb.setMinWidth(250);
-            Button assign_policyb = new Button("Assign policy");
-            assign_policyb.setMinWidth(250);
-            functionsForUsers.getChildren().addAll(new_leagueb, new_seasonb, assign_policyb);
-            new_leagueb.setOnAction((event -> {
-                manage_tabs(new_league_tab);
-            }));
-            new_seasonb.setOnAction((event -> {
-                initLeagues();
-                manage_tabs(new_season_tab);
-            }));
-            assign_policyb.setOnAction((event -> {
-
-                 initLeagues();
-                 initScorePolicies();
-                 initGamePolicies();
-                manage_tabs(assign_policy_tab);
-            }));
-        }
-        if (type == 4) {
-            Button Follow = new Button("Follow Games");
-            Follow.setMinWidth(250);
-            functionsForUsers.getChildren().add(Follow);
-
-            Follow.setOnAction((event -> {
-                initAllTeamsFollow();
-
-                manage_tabs(fan_tb);
-
-            }));
-
-        }
-
-    }
-
-
+    //endregion
 
     //region init
 
@@ -1343,7 +1271,19 @@ public class PresentationController implements Observer {
         return;
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if ((int)arg==1){
+            CheckForOldMessages();
+        }
+    }
 
+//    @Override
+//    public void update(Observable o, Object arg) {
+//        if ((int)arg ==1){
+//            CheckForOldMessages();
+//        }
+//    }
 
 
     public class upGames {

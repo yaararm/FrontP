@@ -1,7 +1,7 @@
 package PresentationLayer;
 
-import Client.AlertsApp;
-import Client.ClientController;
+import ApplicationLogicLayer.UserApplication;
+import ApplicationLogicLayer.ClientController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -30,27 +30,25 @@ public class GuiApp extends Application {
             Stage.setTitle("Football Association System");
             Scene welcome = new Scene(root, 1350, 800);
             welcome.getStylesheets().addAll(
-                    //  getClass().getResource("/fonts.css").toExternalForm()
                     getClass().getResource("/material-color.css").toExternalForm(),
                     getClass().getResource("/skeleton.css").toExternalForm(), // buttons
                     getClass().getResource("/light.css").toExternalForm(),
-                    //                  getClass().getResource("/bootstrap.css").toExternalForm()
-                    //                   getClass().getResource("/shape.css").toExternalForm(),
-                    //                  getClass().getResource("/typographic.css").toExternalForm()
-                    getClass().getResource("/helpers.css").toExternalForm(),
+                     getClass().getResource("/helpers.css").toExternalForm(),
                     getClass().getResource("/master.css").toExternalForm(),
                     getClass().getResource("/yaara.css").toExternalForm()
 
             );
 
 
-            ClientController clientController = new ClientController();
+
             PresentationController myPresentationController = fxmlLoader1.getController();
+            ClientController clientController = new ClientController();
             myPresentationController.set_ViewModel(clientController, welcome);
             clientController.addObserver(myPresentationController);
             Stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
             SetStageCloseEvent(Stage);
             Stage.setScene(welcome);
+            Stage.setResizable(false);
             Stage.show();
             myPresentationController.init();
         } catch (Exception e) {
@@ -62,7 +60,7 @@ public class GuiApp extends Application {
     @Override
     public void init()  {
 
-        appContext = new SpringApplicationBuilder(AlertsApp.class)
+        appContext = new SpringApplicationBuilder(UserApplication.class)
                 .properties("server.port=8126")
                 .run();
 
@@ -72,17 +70,6 @@ public class GuiApp extends Application {
     public void stop()  {
         appContext.close();
         Platform.exit();
-    }
-
-    static class StageReadyEvent extends ApplicationEvent {
-        public StageReadyEvent(Stage stage) {
-            super(stage);
-        }
-
-        public Stage getStage() {
-            return ((Stage) getSource());
-
-        }
     }
 
     private void SetStageCloseEvent(Stage primaryStage) {
@@ -101,5 +88,16 @@ public class GuiApp extends Application {
                 // Close program
             } else e.consume();
         });
+    }
+
+    static class StageReadyEvent extends ApplicationEvent {
+        public StageReadyEvent(Stage stage) {
+            super(stage);
+        }
+
+        public Stage getStage() {
+            return ((Stage) getSource());
+
+        }
     }
 }
