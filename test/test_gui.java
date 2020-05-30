@@ -4,6 +4,7 @@ import Client.AlertsApp;
 import PresentationLayer.GuiApp;
 import javafx.application.Application;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
@@ -38,10 +39,12 @@ public abstract class test_gui extends ApplicationTest {
         FxToolkit.hideStage();
         release(new KeyCode[]{});
         release(new MouseButton[]{});
-
     }
 
-
+    @AfterClass
+    public static void after(){
+        guiApp.stop();
+    }
 
     // help function - retrieve java fx gui components.
     public Node find(String query){

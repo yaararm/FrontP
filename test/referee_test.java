@@ -1,4 +1,5 @@
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -12,31 +13,40 @@ public class referee_test extends test_gui {
     private String referee_username = "ref1@qa.com";
     private String referee_pass = "123456";
 
-    @Test
-    public void Login_referee(){
+
+    private void login(){
         clickOn("#Login");
         clickOn("#username1").write(referee_username);
         clickOn("#password1").write(referee_pass);
         clickOn("#login");
-        clickOn("#controls");
-        sleep(500);
-        upcoming_game_test();
-        add_event_toGame_test();
-        creat_game_report_test();
-
-
 
     }
 
-    private void creat_game_report_test() {
+    private void logout(){
+        clickOn("#Logout");
+        sleep(100);
+        clickOn(ButtonType.OK.getText());
+
+    }
+
+    @Test
+    public void creat_game_report_test() {
+        login();
+        clickOn("#controls");
+        sleep(200);
         clickOn("#ref_createreport");
         clickOn("#game_chooser1");
         type(KeyCode.DOWN);
         type(KeyCode.ENTER);
         clickOn("#create_report");
+        logout();
     }
 
-    private void add_event_toGame_test() {
+    @Test
+    public void add_event_toGame_test() {
+        login();
+        clickOn("#controls");
+        sleep(200);
         clickOn("#ref_addEvent");
         clickOn("#game_chooser");
         type(KeyCode.DOWN);
@@ -45,19 +55,25 @@ public class referee_test extends test_gui {
         clickOn("#minute").write("65");
         clickOn("#description_event").write("goal by team 1");
         clickOn("#add_event");
+        logout();
     }
 
     @Test
     public void upcoming_game_test(){
+        login();
+        clickOn("#controls");
+        sleep(200);
         clickOn("#ref_upcoming_games");
         ensure_referee_screen();
         clickOn("#upcomingsgames");
         sleep(500);
+        logout();
     }
 
     //--------- referee screen-----//
 
     private void ensure_referee_screen(){
+
         clickOn("#watch_upcoming");
         verifyThat("#title19", (Label label) -> {
             String text = label.getText();

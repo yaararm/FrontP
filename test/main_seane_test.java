@@ -26,16 +26,6 @@ public class main_seane_test extends test_gui{
     }
 
 
-    @Test // check the information that insert to search box
-    public void ensure_search(){
-//        verifyThat(SearchBox_ID, Node::isVisible);
-//        clickOn("#clear");
-//        verifyThat(SearchBox_ID, (TextArea textArea) -> {
-//            String text = textArea.getText();
-//            return text.contains(SearchBox_ID);
-//        });
-    }
-
     //--------- guest screen------//
     @Test
     public void ensure_guest_screen(){

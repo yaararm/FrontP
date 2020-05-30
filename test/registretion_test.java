@@ -20,7 +20,7 @@ public class registretion_test extends test_gui {
             String text = textField.getPromptText();
             return text.contains("Confirm Email");
         });
-        verifyThat("#password21", (TextField textField) -> {
+        verifyThat("#password2", (TextField textField) -> {
             String text = textField.getPromptText();
             return text.contains("Password");
         });
@@ -32,7 +32,7 @@ public class registretion_test extends test_gui {
         clickOn("#fullname").write("inbar");
         clickOn("#username2").write("tzur");
         clickOn("#email").write("inbarinbar");
-        clickOn("#password21").write("12345678");
+        clickOn("#password2").write("12345678");
         clickOn("#register");
     }
 }

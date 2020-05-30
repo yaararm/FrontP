@@ -1,6 +1,7 @@
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -13,53 +14,63 @@ public class association_rep_test extends test_gui {
 
     private String association_rep_username= "AssRep@qa.com";
     private String association_rep_pass = "123456";
-    private String league_to_assing_policy = "QALeague";
     private String teat_to_assing = "2021";
-    private String new_league_name = "Team 18 Champion League";
+    private String new_league_name = "Team18 League";
 
-    @Test
-    public void association_rep_action_test(){
-        // login
+
+    private void login(){
         clickOn("#Login");
         clickOn("#username1").write(association_rep_username);
         clickOn("#password1").write(association_rep_pass);
         clickOn("#login");
-        //actions
-        clickOn("#controls");
-        sleep(500);
-        //Create_new_League();
-        //Create_new_Season();
-        Assing_policy();
+
     }
 
-    private void Create_new_League() {
+    private void logout(){
+        clickOn("#Logout");
+        sleep(100);
+        clickOn(ButtonType.OK.getText());
+
+    }
+
+
+    @Test
+    public void Create_new_League() {
+        login();
+        clickOn("#controls");
+        sleep(200);
         clickOn("#newLeagueButton");
         clickOn("#league_name").write(new_league_name);
         clickOn("#ref_train");
         type(KeyCode.DOWN);
         type(KeyCode.ENTER);
         //clickOn("#new_league");
+        logout();
     }
 
-    private void Create_new_Season(){
+    @Test
+    public void Create_new_Season(){
+        login();
+        clickOn("#controls");
+        sleep(200);
         clickOn("#newSeasonButton");
-        clickOn("#league_choose").clickOn(league_to_assing_policy);
+        clickOn("#league_choose").clickOn("Team 18 League");
         sleep(500);
         ensure_assosiation_member_screen();
         clickOn("#start_dat").write("21/10/2021");
         sleep(500);
-        //clickOn("#new_season");
+        clickOn("#new_season");
+        logout();
     }
 
-    private void Assing_policy(){
+
+    @Test
+    public void Assign_Score_policy(){
+        login();
+        clickOn("#controls");
+        sleep(200);
         clickOn("#assingPolicyButton");
-        Assign_Score_policy();
-        Assign_Game_policy();
-
-    }
-
-    private void Assign_Score_policy(){
-        clickOn("#league2").clickOn(league_to_assing_policy);
+        clickOn("#league2").clickOn("Team 18 League");
         sleep(200);
         clickOn("#season").clickOn(teat_to_assing);
         sleep(200);
@@ -69,11 +80,18 @@ public class association_rep_test extends test_gui {
         sleep(200);
         clickOn("#new_policy");
         sleep(1000);
+        logout();
 
     }
 
-    private void Assign_Game_policy(){
-        clickOn("#league21").clickOn(league_to_assing_policy);
+    @Test
+    public void Assign_Game_policy(){
+        login();
+        clickOn("#controls");
+        sleep(200);
+        clickOn("#assingPolicyButton");
+
+        clickOn("#league21").clickOn("Team 18 League");
         sleep(200);
         clickOn("#season1").clickOn(teat_to_assing);
         sleep(200);
@@ -83,6 +101,7 @@ public class association_rep_test extends test_gui {
         sleep(500);
         clickOn("#new_policy1");
         sleep(1000);
+        logout();
     }
 
     //--------- assosiation member screen-----//
