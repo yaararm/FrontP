@@ -41,10 +41,8 @@ public abstract class test_gui extends ApplicationTest {
         release(new MouseButton[]{});
     }
 
-    @AfterClass
-    public static void after(){
-        guiApp.stop();
-    }
+
+
 
     // help function - retrieve java fx gui components.
     public Node find(String query){
