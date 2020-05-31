@@ -20,7 +20,7 @@ public class teamOwner_test extends test_gui {
 
     private static String teamOwner_userName = "owner1@qa.com";
     private static String teamOwner_pass = "123456";
-    private String team_name_name = "Team18";
+    private String team_name_name = "Team18 Tel Aviv";
 
 
     private void login(){
@@ -40,6 +40,18 @@ public class teamOwner_test extends test_gui {
 
 
     @Test
+    public void add_new_team_error(){
+        login();
+        clickOn("#controls");
+        sleep(500);
+        clickOn("#owner_create_new_team");//button
+        clickOn("#team_name").doubleClickOn();
+        clickOn("#team_name").write("team1");//text field
+        clickOn("#new_team3");
+        logout();
+    }
+
+    @Test
     public void add_new_team(){
         login();
         clickOn("#controls");
@@ -50,19 +62,6 @@ public class teamOwner_test extends test_gui {
         clickOn("#new_team3");
         logout();
     }
-
-
-    @Test
-    public void add_new_team_error(){
-        login();
-        clickOn("#controls");
-        sleep(500);
-        clickOn("#owner_create_new_team");//button
-        clickOn("#team_name").write("team1");//text field
-        clickOn("#new_team3");
-        logout();
-    }
-
 
     @Test
     public void add_finance_action(){
@@ -76,7 +75,7 @@ public class teamOwner_test extends test_gui {
         clickOn("#action");
         type(KeyCode.DOWN);
         type(KeyCode.ENTER);
-        clickOn("#amount").write("1,000");
+        clickOn("#amount").write("1000");
         clickOn("#description").write("coach salary");
         sleep(100);
         clickOn("#report_action");
