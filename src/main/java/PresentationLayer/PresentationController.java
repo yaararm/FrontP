@@ -1031,6 +1031,184 @@ public class PresentationController implements Observer {
     }
     //endregion
 
+
+
+
+
+
+    public static void showNewAlerts(Map<String,String> map) {
+
+
+        Stage popupwindow = new Stage();
+        popupwindow.initModality(Modality.APPLICATION_MODAL);
+        popupwindow.setTitle("new Alerts");
+        Label label1 = new Label( "\n" + map.get("alertTitle") +"\n" +"\n");
+        label1.setStyle("    -fx-font-size: 18pt;\n" +
+                "    -fx-text-fill: #003c88;\n" +
+                "    -fx-font-family : Roboto Regular;  -fx-font-weight: bold;");
+
+        Label label2 = new Label(map.get("alertBody") + "\n");
+        label1.setStyle("    -fx-font-size: 16pt;\n" +
+                "    -fx-text-fill: #003c88;\n" +
+                "    -fx-font-family : Roboto Regular;");
+
+               VBox layout = new VBox(10);
+        layout.setStyle(" -fx-background-color: rgba(179,199,252,0.68);");
+
+
+
+        layout.getChildren().addAll(label1,label2);
+        layout.setAlignment(Pos.TOP_CENTER);
+        Scene scene1 = new Scene(layout, 400, 250);
+
+//        popupwindow.setX(1200);
+//        popupwindow.setY(148);
+        popupwindow.setScene(scene1);
+        popupwindow.showAndWait();
+
+
+    }
+
+    //-----------------------------------PRIVATE AND MANAGING GUI--------------------------
+    /*0- guest
+    //1-owner
+    //2-referee
+    //3-Arp
+    //4-fan
+    //5-*/
+
+    private void switchTab(int type) {
+        if (type == 0) { //Guest
+            Logout.setVisible(false);
+            messages.setVisible(false);
+            // notifications.setVisible(false);
+            controls.setVisible(false);
+            oldAlertstab.setVisible(false);
+            newAlerttab.setVisible(false);
+            Login.setVisible(true);
+            Register.setVisible(true);
+            manage_tabs(guest);
+
+        }
+        if (type != 0) {
+            Login.setVisible(false);
+            Register.setVisible(false);
+            Logout.setVisible(true);
+            controls.setVisible(true);
+
+            //ToDo manage alert check here!
+            CheckForOldMessages();
+//            checkForNewMessage();
+//            ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+//            Runnable task = () -> {
+//                checkForNewMessage();
+//
+//            };
+//            executor.scheduleWithFixedDelay(task, 0, 2, TimeUnit.MINUTES);
+        }
+        if (type == 1) {//owner
+
+            Button createnewTeam = new Button("Create new team");
+            createnewTeam.setId("owner_create_new_team");
+
+            createnewTeam.setMinWidth(250);
+            Button addFinanceAction = new Button("Add Finance action");
+            addFinanceAction.setId("owner_finance_action");
+
+            addFinanceAction.setMinWidth(250);
+            functionsForUsers.getChildren().addAll(createnewTeam, addFinanceAction);
+            createnewTeam.setOnAction((event -> {
+                manage_tabs(create_new_team);
+            }));
+            addFinanceAction.setOnAction((event -> {
+                initTeams();
+                manage_tabs(add_finanace_action);
+
+
+            }));
+        }
+        if (type == 2) {//referee
+            Button watchUp = new Button("Watch my upcoming games");
+            watchUp.setId("ref_upcoming_games");
+            watchUp.setMinWidth(250);
+            watchUp.setStyle(" -fx-font-size: 12pt;");
+            Button addEvent = new Button("Add event to game");
+            addEvent.setId("ref_addEvent");
+            addEvent.setMinWidth(250);
+            Button editevent = new Button("edit event in game");
+            editevent.setId("ref_editEvent");
+            editevent.setMinWidth(250);
+            Button createreport = new Button("Create report");
+            createreport.setId("ref_createreport");
+            createreport.setMinWidth(250);
+            functionsForUsers.getChildren().addAll(watchUp, addEvent, editevent, createreport);
+            watchUp.setOnAction((event -> {
+                manage_tabs(watch_upcoming);
+            }));
+            addEvent.setOnAction((event -> {
+                initEvents();
+                 initOnGoingGames();
+                manage_tabs(add_event_game_tab);
+
+
+            }));
+            editevent.setOnAction((event -> {
+
+                manage_tabs(edit_game_tab);
+                initGamesForEdit();
+            }));
+            createreport.setOnAction((event -> {
+
+                initReportGames();
+                manage_tabs(create_report_tab);
+
+
+            }));
+        }
+        if (type == 3) {//arp
+
+            Button new_leagueb = new Button("Create new league");
+            new_leagueb.setId("newLeagueButton");
+            new_leagueb.setMinWidth(250);
+            Button new_seasonb = new Button("Create New Season");
+            new_seasonb.setId("newSeasonButton");
+            new_seasonb.setMinWidth(250);
+            Button assign_policyb = new Button("Assign policy");
+            assign_policyb.setId("assingPolicyButton");
+            assign_policyb.setMinWidth(250);
+            functionsForUsers.getChildren().addAll(new_leagueb, new_seasonb, assign_policyb);
+            new_leagueb.setOnAction((event -> {
+                manage_tabs(new_league_tab);
+            }));
+            new_seasonb.setOnAction((event -> {
+                initLeagues();
+                manage_tabs(new_season_tab);
+            }));
+            assign_policyb.setOnAction((event -> {
+
+                 initLeagues();
+                 initScorePolicies();
+                 initGamePolicies();
+                manage_tabs(assign_policy_tab);
+            }));
+        }
+        if (type == 4) {
+            Button Follow = new Button("Follow Games");
+            Follow.setMinWidth(250);
+            functionsForUsers.getChildren().add(Follow);
+
+            Follow.setOnAction((event -> {
+                initAllTeamsFollow();
+
+                manage_tabs(fan_tb);
+
+            }));
+
+        }
+
+    }
+
+
     //region init
 
     private void initLeagues() {

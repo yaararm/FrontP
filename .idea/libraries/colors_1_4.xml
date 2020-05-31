@@ -10,8 +10,11 @@
       <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/jfoenix-8.0.7.jar!/" />
       <root url="jar://$PROJECT_DIR$/../DashboardFx/lib/scenicView.jar!/" />
       <root url="jar://$PROJECT_DIR$/../testdashboard/Resources/spring-context-5.2.5.RELEASE.jar!/" />
+      <root url="file://$PROJECT_DIR$" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src/main/java" />
+    </SOURCES>
   </library>
 </component>
