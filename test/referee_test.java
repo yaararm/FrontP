@@ -22,12 +22,7 @@ public class referee_test extends test_gui {
 
     }
 
-    private void logout(){
-        clickOn("#Logout");
-        sleep(100);
-        clickOn(ButtonType.OK.getText());
 
-    }
 
     @Test
     public void creat_game_report_test() {

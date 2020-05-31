@@ -298,6 +298,7 @@ public class PresentationController implements Observer {
         }
         if (type == 4) {
             Button Follow = new Button("Follow Games");
+            Follow.setId("fan_follow");
             Follow.setMinWidth(250);
             functionsForUsers.getChildren().add(Follow);
 

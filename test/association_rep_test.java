@@ -26,13 +26,6 @@ public class association_rep_test extends test_gui {
 
     }
 
-    private void logout(){
-        clickOn("#Logout");
-        sleep(100);
-        clickOn(ButtonType.OK.getText());
-
-    }
-
 
     @Test
     public void Create_new_League() {
@@ -44,10 +37,9 @@ public class association_rep_test extends test_gui {
         clickOn("#ref_train");
         type(KeyCode.DOWN);
         type(KeyCode.ENTER);
-        //clickOn("#new_league");
+        clickOn("#new_league");
         logout();
     }
-
     @Test
     public void Create_new_Season(){
         login();
@@ -63,7 +55,6 @@ public class association_rep_test extends test_gui {
         logout();
     }
 
-
     @Test
     public void Assign_Score_policy(){
         login();
@@ -71,15 +62,11 @@ public class association_rep_test extends test_gui {
         sleep(200);
         clickOn("#assingPolicyButton");
         clickOn("#league2").clickOn("Team 18 League");
-        sleep(200);
         clickOn("#season").clickOn(teat_to_assing);
-        sleep(200);
         clickOn("#policy");
         type(KeyCode.DOWN);
         type(KeyCode.ENTER);
-        sleep(200);
         clickOn("#new_policy");
-        sleep(1000);
         logout();
 
     }
@@ -90,17 +77,12 @@ public class association_rep_test extends test_gui {
         clickOn("#controls");
         sleep(200);
         clickOn("#assingPolicyButton");
-
         clickOn("#league21").clickOn("Team 18 League");
-        sleep(200);
         clickOn("#season1").clickOn(teat_to_assing);
-        sleep(200);
         clickOn("#policy1");
         type(KeyCode.DOWN);
         type(KeyCode.ENTER);
-        sleep(500);
         clickOn("#new_policy1");
-        sleep(1000);
         logout();
     }
 

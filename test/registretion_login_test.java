@@ -25,11 +25,7 @@ public class registretion_login_test extends test_gui{
         sleep(1000);
     }
 
-    private void logout(){
-        clickOn("#Logout");
-        sleep(100);
-        clickOn(ButtonType.OK.getText());
-    }
+
 
     @Test
     public void registre_failure(){

@@ -42,6 +42,12 @@ public abstract class test_gui extends ApplicationTest {
     }
 
 
+    public void logout(){
+        clickOn("#Logout");
+        sleep(100);
+        clickOn(ButtonType.OK.getText());
+    }
+
 
 
     // help function - retrieve java fx gui components.
