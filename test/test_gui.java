@@ -1,6 +1,6 @@
 
 
-import Client.AlertsApp;
+import ApplicationLogicLayer.UserApplication;
 import PresentationLayer.GuiApp;
 import javafx.application.Application;
 import javafx.scene.Node;

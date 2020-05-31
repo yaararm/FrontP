@@ -38,8 +38,8 @@ public class ClientController extends Observable{
 
 
     public ClientController() {
-     //localhost = "http://icc.ise.bgu.ac.il/njsw07/ProjectPrepreation/";
-             localhost = "http://132.72.200.21:8107/" ;
+     localhost = "http://icc.ise.bgu.ac.il/njsw07/ProjectPrepreation/";
+       //      localhost = "http://132.72.200.21:8107/" ;
        // localhost = "132.72.201.56:8107/";
 
     }
