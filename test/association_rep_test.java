@@ -26,12 +26,6 @@ public class association_rep_test extends test_gui {
 
     }
 
-    private void logout(){
-        clickOn("#Logout");
-        sleep(100);
-        clickOn(ButtonType.OK.getText());
-
-    }
 
     @Test
     public void Create_new_League() {

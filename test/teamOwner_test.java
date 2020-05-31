@@ -31,12 +31,7 @@ public class teamOwner_test extends test_gui {
 
     }
 
-    private void logout(){
-        clickOn("#Logout");
-        sleep(100);
-        clickOn(ButtonType.OK.getText());
 
-    }
 
 
     @Test
