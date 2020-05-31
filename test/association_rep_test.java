@@ -33,7 +33,6 @@ public class association_rep_test extends test_gui {
 
     }
 
-
     @Test
     public void Create_new_League() {
         login();
@@ -47,7 +46,6 @@ public class association_rep_test extends test_gui {
         //clickOn("#new_league");
         logout();
     }
-
     @Test
     public void Create_new_Season(){
         login();
@@ -62,7 +60,6 @@ public class association_rep_test extends test_gui {
         clickOn("#new_season");
         logout();
     }
-
 
     @Test
     public void Assign_Score_policy(){
