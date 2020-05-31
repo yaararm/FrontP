@@ -1,5 +1,6 @@
-package Client;
+package ApplicationLogicLayer;
 
+import PresentationLayer.PresentationController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
@@ -9,8 +10,9 @@ import java.time.ZoneId;
 import java.util.*;
 
 
-public class ClientController extends Observable implements Observer {
+public class ClientController extends Observable{
 
+    //region Data Members
     private RestTemplate restTemplate;
     private String localhost;
     private int sessionid;
@@ -32,48 +34,22 @@ public class ClientController extends Observable implements Observer {
     private HashMap<String, String> gamesToFollow= new HashMap<>();
     private HashMap<String, String> TeamsToFollow= new HashMap<>();
 
+    //endregion
 
-    public int getUserType() {
-        return userType;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
 
     public ClientController() {
-       localhost = "http://icc.ise.bgu.ac.il/njsw07/ProjectPrepreation/";
-      //  localhost = "http://localhost:8107/" ;
+     localhost = "http://icc.ise.bgu.ac.il/njsw07/ProjectPrepreation/";
+       //      localhost = "http://132.72.200.21:8107/" ;
        // localhost = "132.72.201.56:8107/";
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-
 
     }
 
     //region guest
-    //input: map: email,password
-    //output: map: status, type of user, ssesion id
-    // return the number of the users
-    //1-owner
-    //2-referee
-    //3-ARP
-    //4-fan
-    //5-
+
     public HashMap<String, String> loginDetails(String password, String email) {
-        // create an instance of RestTemplate
         RestTemplate restTemplate = new RestTemplate();
-        // create headers
         HttpHeaders headers = new HttpHeaders();
-        // set `content-type` header
         headers.setContentType(MediaType.APPLICATION_JSON);
-        // set `accept` header
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
         // request body parameters
@@ -95,8 +71,6 @@ public class ClientController extends Observable implements Observer {
 
     }
 
-    //input: map: email,password
-    //output: map: status, ssesion id
     public HashMap<String, String> signUp(String first, String last, String email, String passwordEncryped) {
         // create an instance of RestTemplate
         RestTemplate restTemplate = new RestTemplate();
@@ -125,8 +99,6 @@ public class ClientController extends Observable implements Observer {
         return ans;
     }
 
-    //input:
-    //output:
     public HashMap<String, String> logout() {
         // create an instance of RestTemplate
         RestTemplate restTemplate = new RestTemplate();
@@ -169,8 +141,6 @@ public class ClientController extends Observable implements Observer {
 
     }
 
-    //input: search word
-    //output: result- fine if there are, error if not
     public HashMap<String, ArrayList<String>> search(String search) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -185,10 +155,8 @@ public class ClientController extends Observable implements Observer {
 
     }
     //endregion
-    //-----------------------------------owner------------------------------------
 
-    //input: String: team name
-    //output: String: status
+    //region Owner
     public HashMap<String, String> creatNewTeam(String teamName) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -203,8 +171,6 @@ public class ClientController extends Observable implements Observer {
 
     }
 
-    //input:
-    //output:
     public HashMap<String, String> reportNewFinanceAction(String Team, String action, String amount, String description) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -220,10 +186,9 @@ public class ClientController extends Observable implements Observer {
         HashMap<String, String> response = restTemplate.postForObject(localhost + "reportNewFinanceAction", toServer, HashMap.class);
         return response;
     }
+    //endregion
 
-    //-----------------------------------ARP------------------------------------
-    //input: map: leaguname' rtraining
-    //output: String: status
+    //region ARP
     public HashMap<String, String> creatNewLeague(String leagueName, String rTraining) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -260,8 +225,7 @@ public class ClientController extends Observable implements Observer {
 
     }
 
-    //input: league name, Season year, policy
-    //output: status
+
     public HashMap<String, String> assignNewScorePolicy(String leagueName, String season, String policy) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -276,8 +240,7 @@ public class ClientController extends Observable implements Observer {
         return response;
     }
 
-    //input: league name, Season year, policy
-    //output: status
+
     public HashMap<String, String> assignNewGamePolicy(String leagueName, String season, String policy) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -291,12 +254,9 @@ public class ClientController extends Observable implements Observer {
         HashMap<String, String> response = restTemplate.postForObject(localhost + "assignNewGamePolicy", toServer, HashMap.class);
         return response;
     }
+    //endregion
 
-
-    //-----------------------------------Fan------------------------------------
-
-    //input:
-    //output: map: status, message
+    //region Fan
     public HashMap<String, String> checkForOldUpdates() {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -310,41 +270,22 @@ public class ClientController extends Observable implements Observer {
         return response;
 
     }
-    //input:
-    //output: map: status, message
-    public HashMap<String, String> checkForNewUpdates() {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        Map<String, String> toServer = new HashMap<>();
-        toServer.put("sid", String.valueOf(sessionid));
-        HashMap<String, String> response = restTemplate.postForObject(localhost + "  getUnseenAlerts", toServer, HashMap.class);
 
-        unseenMessage = response;
-        return response;
-
-    }
-    //input: new seen message
-    //output: map: status, message
-    public void setAlertsToSeen() {
+    public void setAlertsToSeen(String id) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         Map<String, String> toServer = unseenMessage;
         toServer.put("sid", String.valueOf(sessionid));
+        toServer.put ("alertID",id);
         HashMap<String, String> response = restTemplate.postForObject(localhost + "  setAlertToSeen", toServer, HashMap.class);
+        notifyObservers(1);
 
         unseenMessage.clear();
-        //checkForOldUpdates(); maybe
 
     }
 
-
-    //input: sid, map<type,id to
-    //
-    //output: fine
     public HashMap<String, String> followGame(String type, String value) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -367,8 +308,10 @@ public class ClientController extends Observable implements Observer {
 
 
     }
+    //endregion
 
-    //-----------------------------------referee-------------------------
+
+    //region Referee
     public HashMap<String, String> addEventToGame(String game, String event, String minute, String description) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -388,8 +331,7 @@ public class ClientController extends Observable implements Observer {
 
     }
 
-    //input: email
-    //output: map: status, message
+
     public HashMap<String, String> createReport(String game) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -404,8 +346,7 @@ public class ClientController extends Observable implements Observer {
         return response;
     }
 
-    //input: event id
-    //output:status
+
     public   HashMap<String, String> deleteEvent(String event, String min, String desc, String num) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -427,8 +368,7 @@ public class ClientController extends Observable implements Observer {
        HashMap<String, String> response = restTemplate.postForObject(localhost + "deleteEvent", toServer, HashMap.class);
         return response;
     }
-    //input: event id, details
-    //output:status
+
     public   HashMap<String, String> editEvent(int index, HashMap<String, String> edit) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -448,8 +388,7 @@ public class ClientController extends Observable implements Observer {
         HashMap<String, String> response = restTemplate.postForObject(localhost + "editEvent", edit, HashMap.class);
         return response;
     }
-
-    //--------------------------------------getters---------------------
+    //endregion
 
     //region getters
     //input:
@@ -690,8 +629,7 @@ public class ClientController extends Observable implements Observer {
     }
     //endregion
 
-
-    //----------------------------------------------HELPERS--------------------------
+    //region Helpers
     public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
         for (Map.Entry<T, E> entry : map.entrySet()) {
             if (Objects.equals(value, entry.getValue())) {
@@ -701,6 +639,19 @@ public class ClientController extends Observable implements Observer {
         return null;
     }
 
+
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
 
     public static class eventDetails{
         private String eventType;
@@ -761,6 +712,7 @@ public class ClientController extends Observable implements Observer {
             this.referee = refereeID;
         }
     }
+    //endregion
 
 
 }
